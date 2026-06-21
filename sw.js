@@ -1,8 +1,8 @@
 // Minimal service worker: installable PWA + offline app-shell.
 // Network-first for shell/data (stays fresh), cache fallback (offline). MP3s skip the SW so
 // the browser keeps native range-request streaming/seeking.
-const CACHE = 'oral-v1';
-const SHELL = ['./', './index.html', './style.css', './app.js', './data.js',
+const CACHE = 'oral-v2';
+const SHELL = ['./', './index.html', './style.css?v=2', './app.js?v=2', './data.js',
                './manifest.webmanifest', './icons/icon-192.png', './icons/icon-512.png'];
 
 self.addEventListener('install', e => {
