@@ -1,0 +1,63 @@
+*{box-sizing:border-box}
+html,body{margin:0;height:100%}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  color:#1f2328;background:#f3f2ef;display:flex;flex-direction:column;height:100vh}
+[hidden]{display:none !important}          /* <-- the bug fix: let the empty/entry toggle actually hide */
+
+#app{flex:1;display:flex;overflow:hidden;min-height:0}
+
+/* sidebar */
+#sidebar{width:300px;flex:0 0 300px;background:#1f232a;color:#e8e8e8;display:flex;flex-direction:column}
+.side-head{padding:18px 16px 12px;border-bottom:1px solid rgba(255,255,255,.08)}
+.side-head h1{font-size:14px;letter-spacing:.05em;text-transform:uppercase;margin:0 0 12px;color:#fff;opacity:.92}
+#search{width:100%;padding:9px 11px;border-radius:8px;border:1px solid rgba(255,255,255,.12);background:#12151a;color:#fff;font-size:13px;outline:none}
+#search::placeholder{color:#8a93a0}
+.count{font-size:11px;color:#8a93a0;margin-top:8px}
+#list{overflow-y:auto;flex:1;padding:6px}
+.group-label{font-size:10px;text-transform:uppercase;letter-spacing:.08em;color:#717b89;padding:12px 12px 4px}
+.item{padding:10px 12px;border-radius:8px;cursor:pointer;margin-bottom:2px;display:flex;align-items:center;gap:8px}
+.item:hover{background:rgba(255,255,255,.06)}
+.item.active{background:#3b82f6;color:#fff}
+.item.playing .t::before{content:"♪ ";color:#7dd3fc}
+.item.active.playing .t::before{color:#fff}
+.item .meta{min-width:0;flex:1}
+.item .t{font-size:13px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.item .d{font-size:11px;opacity:.6;margin-top:2px}
+
+/* reader */
+#reader{flex:1;overflow-y:auto;background:#f3f2ef}
+.empty{height:100%;display:flex;align-items:center;justify-content:center;color:#9aa0a6;font-size:15px}
+.entry-head{padding:22px 28px 10px;border-bottom:1px solid #e3e1dc;background:#f3f2ef}
+.entry-titlebar{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}
+.entry-head h2{margin:0;font-size:22px}
+.date{font-size:12px;color:#888}
+
+/* aligned segment rows */
+.seg-head{display:grid;grid-template-columns:1fr 1fr;gap:24px;padding:8px 28px;position:sticky;top:0;
+  background:#eceae5;font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:#8a8a8a;
+  border-bottom:1px solid #ddd;z-index:2}
+#segs{padding:0 28px 32px}
+.seg{display:grid;grid-template-columns:1fr 1fr;gap:24px;padding:16px 0;border-bottom:1px solid #e7e5e0}
+.seg:hover{background:#faf9f6}
+.seg-fr,.seg-en{font-size:16px;line-height:1.75}
+.seg-fr{font-weight:450;color:#1f2328}
+.seg-en{color:#6a6f76}
+
+/* bottom player bar */
+#bar{flex:0 0 auto;display:flex;align-items:center;gap:16px;padding:10px 18px;background:#1f232a;
+  color:#e8e8e8;border-top:1px solid #000}
+#bar .np{min-width:150px;max-width:240px;font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;opacity:.92}
+#bar audio{flex:1;height:38px;min-width:120px}
+.cont{display:flex;align-items:center;gap:6px;font-size:13px;white-space:nowrap;cursor:pointer;user-select:none;color:#cbd5e1}
+.cont input{accent-color:#3b82f6;width:16px;height:16px}
+
+@media(max-width:860px){
+  .seg-head,.seg{grid-template-columns:1fr;gap:6px}
+  .seg-en{padding-top:6px;border-top:1px dashed #e7e5e0}
+  #sidebar{width:42%;min-width:150px;flex-basis:42%}
+  .entry-head,.seg-head,#segs{padding-left:16px;padding-right:16px}
+  #bar{flex-wrap:wrap}
+  #bar .np{order:1;flex:1;max-width:none}
+  .cont{order:2}
+  #bar audio{order:3;flex-basis:100%;width:100%}
+}
