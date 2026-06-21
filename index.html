@@ -7,7 +7,7 @@
 <script>/* apply saved theme before paint to avoid flash */
   (function(){var t=localStorage.getItem('theme'); if(t) document.documentElement.setAttribute('data-theme', t);})();
 </script>
-<link rel="stylesheet" href="style.css?v=3">
+<link rel="stylesheet" href="style.css?v=4">
 <link rel="manifest" href="manifest.webmanifest">
 <meta name="theme-color" content="#1f232a">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
@@ -34,6 +34,7 @@
     <div id="empty" class="empty">Select a recording on the left.</div>
     <article id="entry" hidden>
       <div class="entry-head">
+        <button id="back" class="back-btn" type="button">‹ Recordings</button>
         <div class="entry-titlebar">
           <h2 id="entry-title"></h2>
           <span id="entry-date" class="date"></span>
@@ -52,7 +53,7 @@
   </label>
 </footer>
 <script src="data.js"></script>
-<script src="app.js?v=2"></script>
+<script src="app.js?v=4"></script>
 <script>
   if ('serviceWorker' in navigator) {
     window.addEventListener('load', function () {

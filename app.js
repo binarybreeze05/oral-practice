@@ -38,6 +38,10 @@
     localStorage.setItem('continuous', contEl.checked ? '1' : '0');
   });
 
+  var backBtn = document.getElementById('back');
+  backBtn.addEventListener('click', function () { document.body.classList.remove('detail'); });
+  function isMobile() { return window.matchMedia('(max-width:680px)').matches; }
+
   function asArr(x) { return Array.isArray(x) ? x : (x ? [x] : []); }
   function blob(x) { return asArr(x).join(' '); }
 
@@ -57,7 +61,10 @@
       el.innerHTML = '<div class="meta"><div class="t"></div><div class="d"></div></div>';
       el.querySelector('.t').textContent = r.title;
       el.querySelector('.d').textContent = (r.date || '') + (r.audio ? '' : ' · no audio');
-      el.onclick = function () { loadAndShow(data.indexOf(r), contEl.checked); };
+      el.onclick = function () {
+        loadAndShow(data.indexOf(r), contEl.checked);
+        if (isMobile()) document.body.classList.add('detail');
+      };
       listEl.appendChild(el);
     });
     countEl.textContent = items.length + ' recording' + (items.length === 1 ? '' : 's');

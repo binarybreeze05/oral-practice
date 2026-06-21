@@ -62,6 +62,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Ar
 .entry-titlebar{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}
 .entry-head h2{margin:0;font-size:22px;color:var(--ink)}
 .date{font-size:12px;color:var(--muted)}
+.back-btn{display:none;background:transparent;border:0;color:var(--accent);font-size:14px;font-weight:600;padding:0 0 10px;cursor:pointer}
 
 /* aligned segment rows */
 .seg-head{display:grid;grid-template-columns:1fr 1fr;gap:24px;padding:8px 28px;position:sticky;top:0;
@@ -91,4 +92,17 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Ar
   #bar .np{order:1;flex:1;max-width:none}
   .cont{order:2}
   #bar audio{order:3;flex-basis:100%;width:100%}
+}
+
+/* phones: single-column master/detail (list ↔ reader) */
+@media(max-width:680px){
+  #app{display:block}
+  #sidebar{width:100%;flex:none;height:100%;border-right:0}
+  #reader{display:none}
+  body.detail #sidebar{display:none}
+  body.detail #reader{display:block;height:100%}
+  .back-btn{display:inline-block}
+  .entry-head{position:sticky;top:0;z-index:3}
+  .seg-head{display:none}
+  #segs{padding-top:8px}
 }
