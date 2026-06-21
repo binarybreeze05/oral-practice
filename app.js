@@ -12,9 +12,27 @@
   var player = document.getElementById('player');
   var npTitle = document.getElementById('np-title');
   var contEl = document.getElementById('continuous');
+  var themeBtn = document.getElementById('theme-toggle');
 
   var curIndex = -1;
 
+  /* ---- theme toggle (system default, manual override, persisted) ---- */
+  var root = document.documentElement;
+  var mq = window.matchMedia('(prefers-color-scheme: dark)');
+  function effectiveTheme() {
+    return root.getAttribute('data-theme') || (mq.matches ? 'dark' : 'light');
+  }
+  function paintThemeIcon() { themeBtn.textContent = effectiveTheme() === 'dark' ? '☀︎' : '☾'; }
+  themeBtn.addEventListener('click', function () {
+    var next = effectiveTheme() === 'dark' ? 'light' : 'dark';
+    root.setAttribute('data-theme', next);
+    localStorage.setItem('theme', next);
+    paintThemeIcon();
+  });
+  mq.addEventListener('change', function () { if (!localStorage.getItem('theme')) paintThemeIcon(); });
+  paintThemeIcon();
+
+  /* ---- continuous mode ---- */
   contEl.checked = localStorage.getItem('continuous') === '1';
   contEl.addEventListener('change', function () {
     localStorage.setItem('continuous', contEl.checked ? '1' : '0');
@@ -110,11 +128,9 @@
     });
   }
 
-  // auto-advance (commute mode)
   player.addEventListener('ended', function () { if (contEl.checked) step(1); });
   player.addEventListener('play', function () { renderList(currentItems()); });
   player.addEventListener('pause', function () { renderList(currentItems()); });
-
   searchEl.addEventListener('input', function () { renderList(currentItems()); });
 
   renderList(data);
