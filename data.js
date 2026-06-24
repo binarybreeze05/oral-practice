@@ -1,6 +1,43 @@
 // Regenerated. Newest first.
 window.RECORDINGS = [
   {
+    "id": "recording-4",
+    "title": "Restaurant Picnic Basket Offer Inquiry",
+    "date": "2026-06-24",
+    "source": "s2t",
+    "french": [
+      "Bonjour. Euh, donc je viens de voir votre annonce en ligne sur votre offre spéciale de lancement. Euh, vous savez, que vous proposez, euh, des paniers à emporter ou à faire livrer. Euh, je voulais juste demander, euh, je voulais juste vous appeler pour poser quelques questions de plus sur ce que vous proposez exactement. Cool. Euh, ouais. Donc moi, euh, la première chose que je voulais demander, c'est, euh, qu'est-ce qui est inclus exactement dans le panier ?",
+      "D'accord. Euh, et j'ai aussi vu dans l'annonce que vous mentionniez que, euh, il y a plusieurs variétés de paniers au choix. Est-ce que vous pourriez me donner quelques exemples ? Genre, quelles sont les options les plus, euh, populaires ?",
+      "Okay. Euh, et niveau prix, je suis sur quoi là ? Genre, euh, combien coûte un panier en général ? Et c'est quoi la taille des portions d'un panier ? Genre, pour combien de personnes un panier peut servir ?",
+      "Okay. Donc ça fait, euh, vingt-cinq dollars pour un panier pour une seule portion qui en gros sert... Genre, c'est en gros juste pour un repas. Ah ok, je vois.",
+      "Okay. Euh, est-ce que vous offrez des réductions pour, je suppose, genre les clients ré- réguliers ou pour, vous savez, les personnes âgées ou pour les étudiants ou pour les enfants ? Une sorte de variation dans les prix selon ces facteurs ?",
+      "Okay. Euh, et vous avez mentionné que vous êtes aussi capables de livrer ces paniers. Je me demande s'il y a genre des frais de li- livraison pour ça, ou est-ce qu'il y a, euh, ou est-ce qu'il y a, genre, euh, genre une limite jusqu'où vous pouvez livrer un panier ?",
+      "Ok, ça marche. Okay. Et où est situé exactement ce restaurant ?",
+      "Okay. Euh, ça marche. Okay. Et vous avez mentionné un truc à propos d'une offre spéciale de lancement. Euh, je suis désolé si vous l'avez déjà dit, mais est-ce que vous pourriez, euh, me reparler de l'offre spéciale de lancement ?",
+      "Okay, cool. Euh, et est-ce qu'on a genre des bonus au cas où genre on recommande des gens à votre service ?",
+      "Okay, cool. Euh, j'essaie juste de penser à quelles autres questions j'ai envie de poser. Euh, est-ce que vous— ou genre vous, vous avez dit qu'on— qu'il y a une possibilité de composer notre propre menu pour les paniers. Euh, dans quelle, dans quelle mesure c'est le cas ? Genre est-ce qu'on— est-ce qu'on peut choisir littéralement n'importe quoi, genre n'importe quel type de nourriture qu'on veut dans un panier ? Ou genre, vous voyez, on a une l— liste d'ingrédients à choisir ou un truc comme ça ?",
+      "Okay. Euh, je vois. Et je crois que, euh, je veux aussi en savoir plus sur genre ce qui vous différencie de genre... Enfin, comment, comment c'est différent de genre juste commander un repas dans un restaurant ou à emporter ? Genre qu'est-ce qui, qu'est-ce qui vous distingue de ça ?",
+      "Oh, okay. Okay, je vois. Euh, et combien de temps ça vous prend d'habitude pour préparer un panier ? Je me demande juste, euh, genre combien, euh, combien d— combien de temps à l'avance on doit commander un panier avant genre la sortie pique-nique ou un truc comme ça.",
+      "Ça marche. Okay. Euh, ouais, je crois que c'est toutes les questions que j'avais pour vous. Euh, merci beaucoup pour votre temps et d'avoir répondu à mes questions."
+    ],
+    "english": [
+      "Hi. Um, so I just saw your ad online about your special launch offer. Um, you know, that you're offering, uh, baskets to take away or to be delivered. Um, I just wanted to ask, uh, I just wanted to call you guys to ask a bit more questions about what exactly it is that you're offering. Cool. Um, yeah. So I, uh, first thing I wanted to ask is, um, what exactly is included in the basket?",
+      "Right. Um, and I also saw that in the ad that you mentioned that, um, there are numerous varieties of baskets to choose from. Could you give me some examples? Like, what are the most, um, popular options?",
+      "Okay. Um, and in terms of cost, what am I looking at here? Like, um, how much does a basket typically cost? And how much is the portion size of a basket? Like, how many portions can a basket serve?",
+      "Okay. So that's, um, twenty-five dollars for one basket for a single serving that basically serves... Like, it's basically just for one meal. Gotcha.",
+      "Okay. Um, do you offer any discounts for, I guess, like re-repeat customers or for, you know, elderly citizens or for students or for children? Any sort of variations in prices based on those factors?",
+      "Okay. Um, and you mentioned that you are also able to deliver these baskets. I'm wondering if there's like a de-delivery fee for that, or is there l- or is this there, like, um, like a limit to how far you can deliver a basket?",
+      "Got it. Okay. And where exactly is this restaurant situated?",
+      "Okay. Um, got it. Okay. And you mentioned something about a special launch offer. Um, I'm sorry if you've already mentioned this, but could you please, um, tell me about the special launch offer again?",
+      "Okay, cool. Um, and do we get any like bonuses in case like we refer people to your service?",
+      "Okay, cool. Um, just thinking of what more questions I have that I want to ask. Um, do you-- Or like you, you mentioned that we-- there's a possibility to put together our own menu for the baskets. Um, to what, to what extent is this the case? Like do we-- can we choose literally anything, like any type of food that we want in a basket? Or like, you know, we have a l-list of ingredients to choose from or something like that?",
+      "Okay. Um, I see. And I guess, uh, I also want to know more about like what differentiates you from like... Well, how, how is this different from like just ordering a meal from a restaurant or takeout? Like what, what separates you guys from that?",
+      "Oh, okay. Okay, I see. Um, and how long does it usually take for you to prepare one basket? I'm just, uh, wondering like how, um, how f- how long in advance we have to order a basket before like the picnic outing or something like that.",
+      "Got it. Okay. Um, yeah, I think that's all the questions I had for you. Um, thank you very much for your time and for answering my questions."
+    ],
+    "audio": "audio/recording-4.mp3"
+  },
+  {
     "id": "recording-3",
     "title": "Calling About TV-Tester Gig",
     "date": "2026-06-24",
