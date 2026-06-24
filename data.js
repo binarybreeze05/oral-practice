@@ -1,6 +1,76 @@
 // Regenerated. Newest first.
 window.RECORDINGS = [
   {
+    "id": "recording-3",
+    "title": "Calling About TV-Tester Gig",
+    "date": "2026-06-24",
+    "source": "s2t",
+    "french": [
+      "Bonjour. Euh, alors, j'ai vu votre annonce en ligne sur, vous savez, en gros, le fait de devenir, euh, testeurs d'émissions de télé pour vous. Et je voulais juste appeler pour avoir plus d'informations sur, euh, ce poste ou ce... ce job, je suppose, euh, si ça vous va. Parfait.",
+      "Euh, alors ma première question, j'imagine, c'est, euh, qu'est-ce que vous entendez exactement par tester ? Genre, je sais qu'on va regarder des émissions, et qu'en gros on va donner nos avis, mais je me demande juste à quoi ressemble un test. Genre, c'est quoi, c'est quoi le livrable concret ? D'accord. Euh, et qu'est-ce que, qu'est-ce que ça...",
+      "Euh, alors, com— combien de temps il dure, le, euh, le questionnaire ou le sondage qu'on doit remplir ? Genre, ça prendrait combien de minutes pour cette partie ? Euh, d'accord.",
+      "Euh, et je suppose que je voulais aussi en savoir plus sur, genre, ce que vous— ce qui vient après ça. Genre, qu'est-ce que, qu'est-ce que vous faites concrètement avec nos évaluations ? Genre, est-ce que vous les publiez en ligne ? Et si c'est le cas, genre, est-ce que, est-ce que notre nom est associé à ça ? Ça aussi, c'est un point que je voulais clarifier. D'accord, cool.",
+      "Euh, et je voulais juste— je voulais aussi, euh, juste m'assurer s'il y a genre, est-ce que vous nous demandez nos vrais avis, nos avis sincères, ou est-ce que c'est, genre, quelque chose comme si vous vous attendiez à ce qu'on donne de faux témoignages, pour ainsi dire ? D'accord, c'est noté. Noté. D'accord. C'est bon à savoir.",
+      "Euh, et je voulais aussi en savoir plus sur la paie. Donc, euh, vous avez mentionné dans l'annonce que vous proposez des chèques-cadeaux comme paiement. Euh, vous pourriez développer là-dessus ? Genre, combien vaut un chèque-cadeau ? D'accord, je vois.",
+      "Et, euh, combien de tests, euh, vous attendez-vous à ce qu'on fasse, disons, genre par mois ? Genre, euh, je sais que, vous savez, en tant que débutants, on n'aurait probablement pas beaucoup de tests, mais je me demande juste si à l'avenir, à un certain niveau de com– si, si une fois qu'on atteint un certain niveau d'expérience, je me demande si on peut s'attendre à commencer à recevoir des tests de façon plus régulière, plus constante, pour que le revenu de cette source soit plus prévisible. D'accord.",
+      "Euh, donc pour un testeur plus expérimenté, euh, genre combien de tests, euh… je, j'imagine, euh, comb–, combien de paie au total est-ce qu'il pourrait s'attendre à recevoir sur l'ensemble des tests qu'il fait ? Et j'imagine, genre, ma question de suivi là-dessus, c'est, genre, est-ce qu'il y a des primes en plus du salaire de base que vous avez déjà mentionné ? D'accord.",
+      "Euh, et je suis désolé si je l'ai dé– si je l'ai déjà demandé, mais combien de temps ça prendrait en général, en moyenne, pour qu'on termine un test, même, genre, particulièrement un où on est à ce niveau, euh, j'imagine, euh, plus expérimenté, ou à ce poste ? D'accord. D'accord, cool.",
+      "Euh, qu'est-ce qu'on a d'autre ? Oh, pardon. Qu'est-ce que, euh… Je réfléchis juste aux autres questions que je pourrais encore avoir. Euh, est-ce qu'il y a une pénalité qu'on reçoit si on n'arrive pas à terminer un test à temps, comme vous vous y attendez ? Je vois. D'accord.",
+      "Euh, et est-ce qu'il y a un genre d'expérience que vous vous attendez à ce qu'on ait au préalable, avant que vous, genre, en quelque sorte, euh, considériez notre candidature ? Super.",
+      "Euh, ouais, j'imagine, euh, c'est à peu près toutes les questions que j'ai pour vous. Merci beaucoup pour votre temps."
+    ],
+    "english": [
+      "Hi. Um, so I saw your ad online about, you know, essentially becoming, uh, TV show testers for you guys. And I just wanted to call to get more information about, uh, this position or this gig, I guess, um, if that's okay with you. Perfect.",
+      "Um, so I guess my first question is, um, what exactly do you mean by test? Like, I know that we'll be watching TV shows, and we'll essentially be giving our opinions, but I'm just wondering what a test looks like. Like, what, what's the actual deliverable? Okay. Um, and what, what does...",
+      "Um, so how, how long is the actual, um, questionnaire or survey that we have to fill out? Like, how many minutes would it take for this part? Uh, okay.",
+      "Um, and I guess I also wanted to know more about, like, what you-- what comes after this. Like, what, what do you actually do with our evaluations? Like, do you post them online? And if that's the case, like, is, is our name associated with that? That's also the part that I wanted to clarify. Okay, cool.",
+      "Um, and I just wanted to-- I also wanted to, um, just make sure if there's like, are you asking us for our actual genuine opinions or is it, like, something like you expect us to give fake testimonials, so to say? Okay, got it. Got it. Okay. That's good to know.",
+      "Um, and I also wanted to know more about the pay. So, um, you mentioned in the ad that you're offering gift vouchers as pay. Um, could you elaborate on that? Like, how much is one gift voucher? Okay, I see.",
+      "And, um, how many tests, uh, do you expect us to get, let's say, like per month? Like, um, I know that, you know, as beginners, we probably wouldn't get a lot of tests, but I'm just wondering if in the future, at a certain level of s-- if, if once we get to a certain level of experience, I'm wondering if we can expect to start getting tests on a more regular, consistent basis, so the income from the source is more predictable. Okay.",
+      "Um, so for a more experienced tester, um, like how many tests, uh... I, I guess, um, how, how much total pay would they expect to get across all the tests that they do? And I guess, like, my follow-up question to that is, like, are there any bonuses on top of the base pay that you already mentioned? Okay.",
+      "Um, and I'm sorry if I've alr- I've already asked this, but how long would it usually take on average for us to complete one test, even, like, particularly one where in that more experienced, um, I guess, uh, level or position? Okay. Okay, cool.",
+      "Um, what else do we have? Oh, sorry. What else, uh... I'm just thinking of what other questions I may still have. Um, is there any penalty that we get if we are not able to complete a test on time that you expect us to complete? Got it. Okay.",
+      "Um, and is there any sort of experience that you expect us to have beforehand before you, like, sort of, um, consider our application? Cool.",
+      "Um, yeah, I guess, uh, that's pretty much all the questions that I have for you. Thank you very much for your time."
+    ],
+    "audio": "audio/recording-3.mp3"
+  },
+  {
+    "id": "recording-2",
+    "title": "Food Product Tester Job Inquiry",
+    "date": "2026-06-24",
+    "source": "s2t",
+    "french": [
+      "Bonjour. Euh, ouais, je voulais juste vous appeler parce que j'ai vu votre annonce sur, vous savez, en gros le fait d'être testeurs de produits alimentaires pour vous. Euh, je, je voulais juste, euh, juste poser quelques questions quand j'ai vu l'annonce, donc, euh, je voulais juste vous appeler si ça vous va. Cool.",
+      "Euh, donc j'imagine que ma première question c'est, euh, qu'est-ce qu'on teste exactement et qu'est-ce que vous entendez exactement par tester ? Genre, je sais que, vous savez, c'est des produits alimentaires, mais quel genre de produits alimentaires et qu'est-ce que vous-- qu'est-ce que vous entendez exactement par tester ? Ok, je vois.",
+      "Euh, et juste pour éviter toute mauvaise surprise, genre est-ce que vous nous demandez notre avis sincère ou est-ce qu'on doit un peu donner genre, euh, je sais pas, un avis inventé pour que ça colle à ce-- à ce que vous, euh, voulez, le-- le récit que vous voulez monter ou pour, pour... Et on est rémunérés pour ça ? Est-ce que, est-ce que c'est genre, est-ce que c'est ce genre de truc ou est-ce que vous voulez vraiment connaître notre vraie opinion ? Ok, je vois.",
+      "Et j'imagine, euh, je voulais aussi en savoir plus sur genre le, euh, le but derrière tout ça. Genre qu'est-ce que-- je, je sais qu'on devra donner notre retour, mais c'est pour quoi exactement ? Genre, est-ce que vous allez le poster en ligne ? Et si c'est le cas, genre, est-ce que notre nom est associé à ça ? Genre, c'est aussi le truc sur lequel je voulais être au clair. Ok, je vois.",
+      "Euh, et on peut-- juste, juste, juste pour confirmer encore une fois, genre on peut choisir de garder notre nom genre complètement anonyme, c'est ça ? Parfait. Euh, cool.",
+      "Et je voulais aussi en savoir plus sur genre la paie. Euh, du coup je vois pas que ce soit mentionné sur l'annonce, donc genre est-ce que vous pourriez m'en dire plus sur genre comment on va être payés pour ce boulot ? Euh, d'accord.",
+      "Donc, hum, je dirais que ma première question de suivi là-dessus, c'est genre, combien, hum, de sessions on peut espérer avoir par mois ? Euh, genre je sais... Di-... disons, mettons ça comme ça. Hum, genre je sais qu'en tant que débutant on aurait probablement pas genre beaucoup de sessions, vous voyez, mais je me, je me dema-... je me demande juste si à l'avenir on peut arriver à un-... une fois qu'on atteint un certain niveau d'expérience, genre est-ce qu'on peut espérer avoir plus de sessions ou de façon plus régulière, pour que ce soit plus prévisible. D'accord.",
+      "Hum, donc genre pour, pour un testeur de produits alimentaires expérimenté, combien, combien de sessions ils peuvent espérer avoir par mois et, hum, à quoi ressemblerait leur rémunération totale sur toutes les sessions qu'ils ont par mois ? Compris. D'accord.",
+      "Et est-ce qu'il y a des primes en plus de ça ? D'accord. D'accord, je vois.",
+      "Hum, et au niveau de, hum, genre est-ce que, est-ce que vous attendez de nous qu'on ait une sorte d'expérience au préalable avant, vous savez, que vous considériez notre annonce ou, pardon, que vous considériez notre candidature, quelque chose comme ça ? D'accord, super.",
+      "Hum, et est-ce qu'il y a genre un certain niveau de qualité de retour que vous attendez de nous, genre en termes de genre la longueur que ça doit faire, à quel point ça doit être détaillé, hum, et j'imagine le niveau de langue qu'on, qu'on doit avoir pour ce retour ? D'accord, super.",
+      "Hum, je crois que c'est toutes les questions que j'avais pour vous. Hum, je vais y réfléchir. Je vais réfléchir à postuler. Voilà. Merci beaucoup pour votre temps."
+    ],
+    "english": [
+      "Hi. Um, yeah, I just wanted to call you guys because I saw your posting about, you know, essentially being food product testers for you guys. Um, I, I just, uh, just had a few questions when I saw the posting, so, um, just wanted to call you if that's okay with you. Cool.",
+      "Um, so I guess my first question is, um, what exactly are we testing and what exactly do you mean by testing? Like, I know that, you know, they're food products, but what kind of food products and what do you-- what exactly do you mean by testing? Okay, I see.",
+      "Um, and just to prevent any sort of surprises, like are you asking us for our genuine opinion or do we have to sort of give like, uh, I don't know, a made-up opinion so it fits what-whatever you, um, want, what-whatever narrative you want to spin up or for, for... And we get compensated for that? Is, is it like, is it that kind of stuff or is it like you genuinely want to know our true opinion? Okay, I see.",
+      "And I guess, um, I also wanted to know more about like the, um, the purpose behind this. Like what-- I, I know that we'll have to give our feedback, but what exactly is that for? Like, are you going to post about it online? And if that's the case, like, is our name associated with that? Like, that's also the part that I wanted to clarify on. Okay, I see.",
+      "Um, and we can-- Just, just, just to confirm one more time, like we can choose to keep our name like completely anonymous, right? Perfect. Um, cool.",
+      "And I also wanted to know more about like the pay. Um, so I don't see it being mentioned on the ad, so like could you talk to me more about like how we're going to be compensated for this job? Uh, okay.",
+      "So, um, I guess my first follow-up question to that is like, how many, um, rounds can we expect to get per month? Uh, like I know... L-let's say, let's put it like this. Um, like I know as a beginner we probably wouldn't get like a lot of rounds, you know, but I'm, I'm won- I'm just wondering like if in the future we can get to a-- once we get to a certain level of experience, like whether we can expect to get more rounds or on a more consistent basis, so it's more predictable. Okay.",
+      "Um, so like for, for an experienced, uh, food product tester, how, how many rounds can they expect to get per month and, um, what would their total pay look like across all the rounds that they get per month? Got it. Okay.",
+      "And are there any bonuses on top of that? Okay. Okay, I see.",
+      "Um, and in terms of, um, like do, do you expect us to have any sort of experience beforehand before, you know, you like consider our posting or, sorry, consider our application or something like that? Okay, cool.",
+      "Um, and is there like a certain level of quality of feedback that you expect from us, like in terms of like how long it has to be, how detailed it has to be, um, and I guess the level of language we, we require to have for that feedback? Okay, cool.",
+      "Um, I guess that's all the questions that I had for you guys. Um, I'll consider this. I'll consider applying. Yeah. Thank you very much for your time."
+    ],
+    "audio": "audio/recording-2.mp3"
+  },
+  {
     "id": "recording-1",
     "title": "Mystery Shopper Job Inquiry",
     "date": "2026-06-21",
