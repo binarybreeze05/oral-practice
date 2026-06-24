@@ -33,7 +33,7 @@ window.RECORDINGS = [
       "Mm. Okay. I see. Um, cool. I'm just thinking of what more questions I may have. Um, I guess, uh, the last question I had is, um, is there anything that I need to, um, a-any sort of experience that I need to have beforehand before I can like apply for this or be-- for you to consider my application?",
       "Okay. Cool. And yeah, I guess, uh, I'll apply then. Yeah. Thank you very much for answering my questions."
     ],
-    "audio": "audio/recording-1.mp3"
+    "audio": "audio/recording-1.mp3?v=2"
   },
   {
     "id": "Translate-FR-Test",
