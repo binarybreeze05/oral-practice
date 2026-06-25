@@ -32,6 +32,68 @@ window.RECORDINGS = [
     "audio": "audio/recording-1-paris-test.mp3"
   },
   {
+    "id": "recording-1-cs-surgical",
+    "title": "Mystery Shopper — Parisian · audio NO filler-commas (TEST)",
+    "date": "2026-06-24",
+    "source": "s2t-test",
+    "french": [
+      "Bonjour. Euh, alors je viens de voir votre annonce en ligne sur, euh, genre, le fait de devenir client mystère pour vous. Euh, donc je voulais, enfin je voulais juste vous appeler parce que j'avais deux-trois questions quand j'ai vu l'annonce, si ça vous dérange pas. Super.",
+      "Euh, alors déjà, euh, je vois pas trop ce que c'est, les missions. Du coup c'est, c'est quoi exactement, une mission ? Genre, euh, je, je sais qu'on va, euh, qu'on va aller faire des courses, qu'on va aller au restaurant, tout ça. En gros on va acheter les services des autres, quoi. Euh, mais du coup après, qu'est-ce qui se passe ?",
+      "D'accord. Euh, et j'imagine que ma question c'est plutôt, genre, qu'est-ce que vous allez faire de cette évaluation ? Genre, euh, vous allez la poster en ligne ? Vous euh— est-ce que, est-ce que notre nom est associé à ça quand vous le postez en ligne ? Si c'est le cas, ben c'est ça la partie que je voudrais clarifier. D'accord. Euh, et est-ce que les— enfin, est-ce que les évaluations, euh, sont postées en ligne, ou alors c'est juste pour votre, j'imagine, euh, pour, pour votre base de connaissances interne, pour connaître vos concurrents ou je sais pas quoi ? D'accord. D'accord. Je vois.",
+      "Euh, et je voulais aussi en savoir plus sur la rémunération. Euh, donc vous avez dit que la paye dépend des missions. Euh, vous pourriez développer un peu ? Je vois. D'accord.",
+      "Euh, et on peut espérer avoir combien de missions, genre, par mois ? Parce que, euh, je, je me demande s'il y aura une forme de régularité à l'avenir une fois qu'on aura un peu d'expérience, parce que je sais que, genre, quand on débute, ben les missions arrivent peut-être pas de manière régulière, mais je me demande si ça pourrait finir par atteindre le point où, genre, on a des missions genre régulièr— de manière régulière, du coup c'est plus prévisible. D'accord. Je vois.",
+      "Et euh, j'imagine, euh, pour, pour un livreur expérimenté, euh, ça, ça représenterait quoi comme chiffre ? Combien de missions ils auraient par mois et ça ferait combien au total, la paie sur toutes les missions ? D'accord. D'accord. Je vois.",
+      "Euh, et est-ce que, est-ce qu'il y a un peu des, genre des primes, j'imagine, en plus de ça ? Je vois. D'accord.",
+      "Euh, et au niveau des disponibilités, euh, quand est-ce que vous attendez normalement de nous qu'on prenne des missions ? Euh, je me demande juste si je peux caser ça comme un truc à faire après mon travail, qui, qui finit en gros à dix-sept heures. Euh, du coup voilà, je, je me demande si ça collerait avec mon emploi du temps. D'accord. Je vois.",
+      "Et, euh, vous savez, au niv-, euh, au niveau de dans certains cas où il y aurait genre beaucoup plus de circulation que d'habitude, euh, est-ce qu'on est dédommagé pour ce temps en plus qu'on passe sur une mission ? Hmm. D'accord. Je vois.",
+      "Euh, super. Je réfléchis juste aux questions que je pourrais encore avoir. Euh, du coup, euh, la dernière question que j'avais, c'est, euh, est-ce qu'il y a quelque chose que je dois, euh, une-, une expérience que je dois avoir au préalable avant de pouvoir genre postuler, ou que-- pour que vous considériez ma candidature ? D'accord. Super. Et voilà, euh, du coup, euh, je vais postuler alors. Voilà. Merci beaucoup d'avoir répondu à mes questions."
+    ],
+    "english": [
+      "Hi. Um, so I just saw your posting online about, um, you know, becoming a mystery shopper for you guys. Um, so I just, I just wanted to call you guys because I had a couple questions when I saw the posting, if that's okay with you. Great.",
+      "Um, so first of all, um, I'm not really clear on what missions are. So what, what do you mean by missions? So, um, I, I know that, you know, we'll be, uh, we'll be going shopping, we'll be going through a restaurant, all that stuff. We'll be essentially buying other people's services. Um, but then what's next after that?",
+      "Okay. Um, and I guess my question is more about like, what are you going to do with that evaluation? Like, um, are you going to post about it online? Do you like-- Is, is our name involved with that when you post it online? If that's the case, like that's the part that I want to clarify on. Okay. Um, and are the-- So are the evaluations, um, posted online or is it just for your internal, I guess, um, for, for your internal knowledge base to know about your competitors or whatever the case may be? Okay. Okay. I see.",
+      "Um, and I also want to know more about the pay. Um, so you mentioned that the pay is based on missions. Um, could you elaborate on that? I see. Okay.",
+      "Um, and how many missions can we expect to get, you know, like per month? Because, um, I, I'm wondering if there will be some sort of consistency in the future once we get a certain amount of experience because I know, you know, as a beginner, like the missions might not come like consistently, but I'm wondering if it could eventually reach that point where, you know, we get missions like consistent-- on a consistent basis so it's more predictable. Okay. I see.",
+      "And I guess, um, for, for an experienced shopper, um, what, what would that number look like? How many missions would they get per month and what would their total pay across all the missions be? Okay. Okay. I see.",
+      "Um, and is, is-- are there any sort of like bonuses, I guess on top of this? Got it. Okay.",
+      "Um, and in terms of availability, um, when do you normally expect us to take on missions? Um, I'm just wondering if I can fit this in as a thing to do after my day job, which is-- which basically ends at five PM. Um, so yeah, I'm, I'm wondering if that would work with my schedule. Okay. I see.",
+      "And, um, you know, in term, uh, in terms of like in, in certain cases where there may be like a lot more traffic than normal, um, do we get compensated for that extra time that we spend doing a particular mission? Mm. Okay. I see.",
+      "Um, cool. I'm just thinking of what more questions I may have. Um, I guess, uh, the last question I had is, um, is there anything that I need to, um, a-any sort of experience that I need to have beforehand before I can like apply for this or be-- for you to consider my application? Okay. Cool. And yeah, I guess, uh, I'll apply then. Yeah. Thank you very much for answering my questions."
+    ],
+    "audio": "audio/recording-1cs-surgical.mp3"
+  },
+  {
+    "id": "recording-1-cs-aggressive",
+    "title": "Mystery Shopper — Parisian · audio NO commas at all (TEST)",
+    "date": "2026-06-24",
+    "source": "s2t-test",
+    "french": [
+      "Bonjour. Euh, alors je viens de voir votre annonce en ligne sur, euh, genre, le fait de devenir client mystère pour vous. Euh, donc je voulais, enfin je voulais juste vous appeler parce que j'avais deux-trois questions quand j'ai vu l'annonce, si ça vous dérange pas. Super.",
+      "Euh, alors déjà, euh, je vois pas trop ce que c'est, les missions. Du coup c'est, c'est quoi exactement, une mission ? Genre, euh, je, je sais qu'on va, euh, qu'on va aller faire des courses, qu'on va aller au restaurant, tout ça. En gros on va acheter les services des autres, quoi. Euh, mais du coup après, qu'est-ce qui se passe ?",
+      "D'accord. Euh, et j'imagine que ma question c'est plutôt, genre, qu'est-ce que vous allez faire de cette évaluation ? Genre, euh, vous allez la poster en ligne ? Vous euh— est-ce que, est-ce que notre nom est associé à ça quand vous le postez en ligne ? Si c'est le cas, ben c'est ça la partie que je voudrais clarifier. D'accord. Euh, et est-ce que les— enfin, est-ce que les évaluations, euh, sont postées en ligne, ou alors c'est juste pour votre, j'imagine, euh, pour, pour votre base de connaissances interne, pour connaître vos concurrents ou je sais pas quoi ? D'accord. D'accord. Je vois.",
+      "Euh, et je voulais aussi en savoir plus sur la rémunération. Euh, donc vous avez dit que la paye dépend des missions. Euh, vous pourriez développer un peu ? Je vois. D'accord.",
+      "Euh, et on peut espérer avoir combien de missions, genre, par mois ? Parce que, euh, je, je me demande s'il y aura une forme de régularité à l'avenir une fois qu'on aura un peu d'expérience, parce que je sais que, genre, quand on débute, ben les missions arrivent peut-être pas de manière régulière, mais je me demande si ça pourrait finir par atteindre le point où, genre, on a des missions genre régulièr— de manière régulière, du coup c'est plus prévisible. D'accord. Je vois.",
+      "Et euh, j'imagine, euh, pour, pour un livreur expérimenté, euh, ça, ça représenterait quoi comme chiffre ? Combien de missions ils auraient par mois et ça ferait combien au total, la paie sur toutes les missions ? D'accord. D'accord. Je vois.",
+      "Euh, et est-ce que, est-ce qu'il y a un peu des, genre des primes, j'imagine, en plus de ça ? Je vois. D'accord.",
+      "Euh, et au niveau des disponibilités, euh, quand est-ce que vous attendez normalement de nous qu'on prenne des missions ? Euh, je me demande juste si je peux caser ça comme un truc à faire après mon travail, qui, qui finit en gros à dix-sept heures. Euh, du coup voilà, je, je me demande si ça collerait avec mon emploi du temps. D'accord. Je vois.",
+      "Et, euh, vous savez, au niv-, euh, au niveau de dans certains cas où il y aurait genre beaucoup plus de circulation que d'habitude, euh, est-ce qu'on est dédommagé pour ce temps en plus qu'on passe sur une mission ? Hmm. D'accord. Je vois.",
+      "Euh, super. Je réfléchis juste aux questions que je pourrais encore avoir. Euh, du coup, euh, la dernière question que j'avais, c'est, euh, est-ce qu'il y a quelque chose que je dois, euh, une-, une expérience que je dois avoir au préalable avant de pouvoir genre postuler, ou que-- pour que vous considériez ma candidature ? D'accord. Super. Et voilà, euh, du coup, euh, je vais postuler alors. Voilà. Merci beaucoup d'avoir répondu à mes questions."
+    ],
+    "english": [
+      "Hi. Um, so I just saw your posting online about, um, you know, becoming a mystery shopper for you guys. Um, so I just, I just wanted to call you guys because I had a couple questions when I saw the posting, if that's okay with you. Great.",
+      "Um, so first of all, um, I'm not really clear on what missions are. So what, what do you mean by missions? So, um, I, I know that, you know, we'll be, uh, we'll be going shopping, we'll be going through a restaurant, all that stuff. We'll be essentially buying other people's services. Um, but then what's next after that?",
+      "Okay. Um, and I guess my question is more about like, what are you going to do with that evaluation? Like, um, are you going to post about it online? Do you like-- Is, is our name involved with that when you post it online? If that's the case, like that's the part that I want to clarify on. Okay. Um, and are the-- So are the evaluations, um, posted online or is it just for your internal, I guess, um, for, for your internal knowledge base to know about your competitors or whatever the case may be? Okay. Okay. I see.",
+      "Um, and I also want to know more about the pay. Um, so you mentioned that the pay is based on missions. Um, could you elaborate on that? I see. Okay.",
+      "Um, and how many missions can we expect to get, you know, like per month? Because, um, I, I'm wondering if there will be some sort of consistency in the future once we get a certain amount of experience because I know, you know, as a beginner, like the missions might not come like consistently, but I'm wondering if it could eventually reach that point where, you know, we get missions like consistent-- on a consistent basis so it's more predictable. Okay. I see.",
+      "And I guess, um, for, for an experienced shopper, um, what, what would that number look like? How many missions would they get per month and what would their total pay across all the missions be? Okay. Okay. I see.",
+      "Um, and is, is-- are there any sort of like bonuses, I guess on top of this? Got it. Okay.",
+      "Um, and in terms of availability, um, when do you normally expect us to take on missions? Um, I'm just wondering if I can fit this in as a thing to do after my day job, which is-- which basically ends at five PM. Um, so yeah, I'm, I'm wondering if that would work with my schedule. Okay. I see.",
+      "And, um, you know, in term, uh, in terms of like in, in certain cases where there may be like a lot more traffic than normal, um, do we get compensated for that extra time that we spend doing a particular mission? Mm. Okay. I see.",
+      "Um, cool. I'm just thinking of what more questions I may have. Um, I guess, uh, the last question I had is, um, is there anything that I need to, um, a-any sort of experience that I need to have beforehand before I can like apply for this or be-- for you to consider my application? Okay. Cool. And yeah, I guess, uh, I'll apply then. Yeah. Thank you very much for answering my questions."
+    ],
+    "audio": "audio/recording-1cs-aggressive.mp3"
+  },
+  {
     "id": "recording-4",
     "title": "Restaurant Picnic Basket Offer Inquiry",
     "date": "2026-06-24",
