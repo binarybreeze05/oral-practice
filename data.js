@@ -1,6 +1,914 @@
 // Regenerated. Newest first.
 window.RECORDINGS = [
   {
+    "id": "a-resp-16",
+    "title": "A16 · Motorcycle Training",
+    "date": "2026-07-04",
+    "source": "section-a-response",
+    "french": [
+      "Bonjour, merci d'avoir décroché. Alors, je vous appelle juste parce que ça m'intéresse de prendre des cours de moto pour enfin passer le permis et je voulais appeler pour poser quelques questions pour voir dans quoi je m'embarque vraiment, parce que je ne sais vraiment pas à quoi ça ressemblerait... si ça vous va.",
+      "Parfait. Alors la première chose à laquelle je pense là tout de suite, c'est la sécurité. J'ai toujours voulu prendre des cours de moto, genre depuis tout petit je rêve de rouler en deux-roues mais une peur que j'ai toujours eue, c'est genre, vous savez, de tomber de la bécane en plein virage ou à un feu et que du coup je me retrouve à l'hôpital avec la jambe cassée sous la moto Donc c'est quelle probabilité, j'imagine, que des scénarios comme ça arrivent",
+      "D'accord. Mais est-ce qu'il vous est déjà arrivé quelque chose comme ça avant dans votre carrière de moniteur, genre un élève qui se serait vraiment planté à moto pendant un cours",
+      "D'accord. Je vais prendre ça pour un non. Enfin bref, ouais, en fait je ne suis pas vraiment sûr de comment-- genre à quoi ressemblerait le rythme de l'entraînement. Donc à quoi ressemble un programme normal en général Combien de fois est-ce qu'on doit venir par semaine, et le programme total ce serait combien de mois",
+      "D'accord. Donc ouais. Alors expliquez-moi un peu, genre quel niveau de compétence je peux m'attendre à avoir en moto, genre est-ce que je serai capable de rouler sur le périph sans flipper à la fin d'une semaine, d'un mois, et de trois mois",
+      "D'accord. Donc vous avez mentionné que les débutants peuvent s'attendre à se sentir plus à l'aise avec les bases au cours du premier mois. Donc c'est quoi exactement les bases Parce que dans ma tête là tout de suite, genre les bases ce serait juste réussir à tenir en équilibre et démarrer sans caler Donc j'essaie juste de comprendre ce que je peux attendre avec impatience, vous voyez Parce que si ça prend trois mois pour finir d'apprendre à faire une trajectoire propre et gérer le freinage d'urgence en moto je veux au moins attendre avec impatience les étapes entre les deux.",
+      "D'accord. Alors ça prendrait combien de temps avant que je puisse rouler à moto genre bien à l'aise, me faufiler entre les caisses et prendre les virages penché à fond comme on voit dans les films N'importe quel gros cube, franchement, du roadster à la grosse sportive pas seulement les petites 125 ou les scooters en particulier. Combien de temps avant que j'arrive à ce niveau Et pour arriver à ce niveau, je veux savoir non seulement combien de temps ça prend, genre du début à la fin, mais aussi combien de semaines, pardon, combien de jours je devrais venir par semaine, et combien d'heures je devrais m'entraîner par semaine, non seulement dans votre centre, mais aussi tout seul, s'il le faut, ce que je devrais gérer niveau logistique, mais voilà.",
+      "D'accord. Euh, d'accord, alors un point important que je dois aussi vous demander, c'est combien coûte l'entraînement et quels sont les différents niveaux de prix des différentes formules que vous proposez",
+      "D'accord. Est-ce que vous pouvez être plus précis là-dessus s'il vous plaît Genre donnez-moi trois options différentes qui sont les plus populaires.",
+      "D'accord. Donc je devrais venir vous voir pour avoir plus de détails là-dessus",
+      "Et vous êtes situés où déjà Je ne crois pas que c'était mentionné dans la",
+      "Ça marche. Ouais, je pense que c'est à peu près toutes les questions que j'ai pour vous pour l'instant alors. Merci beaucoup pour votre"
+    ],
+    "english": [
+      "Hello, thanks for picking up. So, I'm just calling because I'm interested in taking motorcycle lessons to finally get my license, and I wanted to call to ask a few questions to see what I'm really getting myself into, because I really have no idea what it would look like... if that's okay with you.",
+      "Perfect. So the first thing that comes to mind right now is safety. I've always wanted to take motorcycle lessons, like ever since I was little I've dreamed of riding a two-wheeler, but one fear I've always had is, like, you know, falling off the bike right in the middle of a turn or at a light, and then ending up in the hospital with a broken leg under the motorcycle. So what's the probability, I imagine, that scenarios like that happen?",
+      "Okay. But has anything like that ever happened to you before in your career as an instructor, like a student who really crashed on the motorcycle during a lesson?",
+      "Okay. I'll take that as a no. Anyway, yeah, actually I'm not really sure how-- like what the training pace would look like. So what does a normal program generally look like? How many times do we have to come per week, and the whole program would be how many months?",
+      "Okay. So yeah. So explain to me a bit, like what skill level I can expect to have on a motorcycle, like will I be able to ride on the ring road without freaking out at the end of a week, a month, and three months?",
+      "Okay. So you mentioned that beginners can expect to feel more comfortable with the basics during the first month. So what exactly are the basics? Because in my head right now, like the basics would just be managing to keep my balance and start off without stalling. So I'm just trying to understand what I can look forward to, you see? Because if it takes three months to finish learning how to take a clean line and handle emergency braking on a motorcycle, I at least want to look forward to the stages in between.",
+      "Okay. So how long would it take before I can ride a motorcycle really comfortably, weaving between cars and taking turns leaning all the way over like you see in the movies? Any big bike, honestly, from a roadster to a big sport bike, not just the little 125s or scooters in particular. How long before I reach that level? And to get to that level, I want to know not only how long it takes, like from start to finish, but also how many weeks, sorry, how many days a week I should come, and how many hours a week I should practice, not only at your center, but also on my own, if needed, what I'd have to handle logistics-wise, but there you go.",
+      "Okay. Uh, okay, so one important point I also have to ask you is how much does the training cost and what are the different price levels of the different packages you offer?",
+      "Okay. Can you be more specific about that please? Like give me three different options that are the most popular.",
+      "Okay. So I should come see you to get more details about that?",
+      "And where are you located again? I don't think it was mentioned in the",
+      "Sounds good. Yeah, I think that's pretty much all the questions I have for you for now then. Thank you very much for your"
+    ],
+    "audio": null,
+    "frenchSpans": [
+      [
+        [
+          "Bonjour, merci d'avoir décroché. Alors, je vous appelle juste parce que ça m'intéresse de prendre des cours ",
+          0
+        ],
+        [
+          "de moto pour enfin passer le permis",
+          1
+        ],
+        [
+          " et je voulais appeler pour poser quelques questions pour voir dans quoi je m'embarque vraiment, parce que je ne sais vraiment pas à quoi ça ressemblerait... si ça vous va.",
+          0
+        ]
+      ],
+      [
+        [
+          "Parfait. Alors la première chose à laquelle je pense là tout de suite, c'est la sécurité. J'ai toujours voulu prendre des cours ",
+          0
+        ],
+        [
+          "de moto, genre depuis tout petit je rêve de rouler en deux-roues",
+          1
+        ],
+        [
+          " mais une peur que j'ai toujours eue, c'est genre, vous savez, de tomber ",
+          0
+        ],
+        [
+          "de la bécane en plein virage ou à un feu",
+          1
+        ],
+        [
+          " et que ",
+          0
+        ],
+        [
+          "du coup je me retrouve à l'hôpital avec la jambe cassée sous la moto",
+          1
+        ],
+        [
+          " Donc c'est quelle probabilité, j'imagine, que des scénarios comme ça arrivent",
+          0
+        ]
+      ],
+      [
+        [
+          "D'accord. Mais est-ce qu'il vous est déjà arrivé quelque chose comme ça avant dans votre ",
+          0
+        ],
+        [
+          "carrière de moniteur, genre un élève qui se serait vraiment planté à moto pendant un cours",
+          1
+        ]
+      ],
+      [
+        [
+          "D'accord. Je vais prendre ça pour un non. Enfin bref, ouais, en fait je ne suis pas vraiment sûr de comment-- genre à quoi ressemblerait le rythme de l'entraînement. Donc à quoi ressemble un programme normal en général Combien de fois est-ce qu'on doit venir par semaine, et le programme total ce serait combien de mois",
+          0
+        ]
+      ],
+      [
+        [
+          "D'accord. Donc ouais. Alors expliquez-moi un peu, genre quel niveau de compétence je peux m'attendre à avoir en ",
+          0
+        ],
+        [
+          "moto, genre est-ce que je serai capable de rouler sur le périph sans flipper",
+          1
+        ],
+        [
+          " à la fin d'une semaine, d'un mois, et de trois mois",
+          0
+        ]
+      ],
+      [
+        [
+          "D'accord. Donc vous avez mentionné que les débutants peuvent s'attendre à se sentir plus à l'aise avec les bases au cours du premier mois. Donc c'est quoi exactement les bases Parce que dans ma tête là tout de suite, genre ",
+          0
+        ],
+        [
+          "les bases ce serait juste réussir à tenir en équilibre et démarrer sans caler",
+          1
+        ],
+        [
+          " Donc j'essaie juste de comprendre ce que je peux attendre avec impatience, vous voyez Parce que si ça prend trois mois pour finir d'apprendre à ",
+          0
+        ],
+        [
+          "faire une trajectoire propre et gérer le freinage d'urgence en moto",
+          1
+        ],
+        [
+          " je veux au moins attendre avec impatience les étapes entre les deux.",
+          0
+        ]
+      ],
+      [
+        [
+          "D'accord. Alors ça prendrait combien de temps avant que je puisse ",
+          0
+        ],
+        [
+          "rouler à moto genre bien à l'aise, me faufiler entre les caisses et prendre les virages penché à fond",
+          1
+        ],
+        [
+          " comme on voit dans les films N'importe quel ",
+          0
+        ],
+        [
+          "gros cube, franchement, du roadster à la grosse sportive",
+          1
+        ],
+        [
+          " pas seulement ",
+          0
+        ],
+        [
+          "les petites 125 ou les scooters",
+          1
+        ],
+        [
+          " en particulier. Combien de temps avant que j'arrive à ce niveau Et pour arriver à ce niveau, je veux savoir non seulement combien de temps ça prend, genre du début à la fin, mais aussi combien de semaines, pardon, combien de jours je devrais venir par semaine, et combien d'heures je devrais m'entraîner par semaine, non seulement dans votre centre, mais aussi tout seul, s'il le faut, ce que je devrais gérer niveau logistique, mais voilà.",
+          0
+        ]
+      ],
+      [
+        [
+          "D'accord. Euh, d'accord, alors un point important que je dois aussi vous demander, c'est combien coûte l'entraînement et quels sont les différents niveaux de prix des différentes formules que vous proposez",
+          0
+        ]
+      ],
+      [
+        [
+          "D'accord. Est-ce que vous pouvez être plus précis là-dessus s'il vous plaît Genre donnez-moi trois options différentes qui sont les plus populaires.",
+          0
+        ]
+      ],
+      [
+        [
+          "D'accord. Donc je devrais venir vous voir pour avoir plus de détails là-dessus",
+          0
+        ]
+      ],
+      [
+        [
+          "Et vous êtes situés où déjà Je ne crois pas que c'était mentionné dans la",
+          0
+        ]
+      ],
+      [
+        [
+          "Ça marche. Ouais, je pense que c'est à peu près toutes les questions que j'ai pour vous pour l'instant alors. Merci beaucoup pour votre",
+          0
+        ]
+      ]
+    ],
+    "highlightWords": 132
+  },
+  {
+    "id": "a-resp-17",
+    "title": "A17 · Danse Académie",
+    "date": "2026-07-04",
+    "source": "section-a-response",
+    "french": [
+      "Merci d'avoir décroché. Je vous appelle juste parce que j'ai vu une de vos publicités sur les cours de danse, genre là c'était l'école Danse Académie que vous proposez, du coup je voulais poser quelques questions.",
+      "Cool. Alors ma première qu- première question concerne le lieu des cours. Donc j'imagine qu'ils sont en présentiel parce que c'est des cours de danse, du coup faut forcément être sur place pour bouger et voir les pas en vrai, quoi Et où exactement est-ce que les cours ont lieu",
+      "D'accord, je vois. Et est-ce que vous avez seulement... Donc est-ce que vous avez seulement une succursale et un seul emplacement de ce studio, ou est-ce que vous avez aussi, genre, plusieurs succursales",
+      "D'accord. Et si ça ne vous dérange pas, est-ce que vous pourriez me donner l'adresse exacte de ce studio Je me demande juste combien de temps prendrait mon trajet.",
+      "Cool. C'est bon. Alors à propos des cours eux-mêmes, quelle est la taille des classes Genre, combien de personnes il y a dans chaque cours",
+      "Je vois. Et combien de jours par semaine est-ce qu'on doit généralement prendre, ou est-ce que vous nous recommandez de prendre des cours",
+      "D'accord et quelle est la durée d'un cours typique",
+      "D'accord, c'est bon à savoir. Et concernant l'ambiance à l'intérieur du cours, c'est quoi l'ambiance sur le plan social Est-ce que les gens ont tendance à se parler, ou est-ce que les gens restent juste de leur côté en général",
+      "D'accord, c'est bon à savoir parce que je... une partie de la raison pour laquelle j'envisage de prendre des cours c'est aussi pour l'aspect social. Donc c'est... Ouais, c'est bon à savoir. Combien de types différents de danse que vous enseignez, genre classique, salsa, hip-hop, tout ça est-ce que vous proposez Combien de styles différents en gros on peut toucher est-ce qu'on peut apprendre",
+      "Je vois. Et vous avez mentionné dans la publicité que vous proposez aussi des soirées à thème Qu'est-ce que vous voulez dire par là exactement C'est quoi ces soirées à thème en fait, genre c'est quel style de soirée et c'est à quelle fréquence",
+      "D'accord, c'est cool. Et en combien de temps est-ce que je peux m'attendre à, euh, acquérir le... ou de- devenir compétent genre en salsa, quoi, pour arriver à enchaîner les pas sans réfléchir sur une piste En supposant que je commencerais comme un débutant complet qui sait seulement marcher en rythme et taper dans les mains, franchement le niveau zéro total",
+      "D'accord, je vois. Et maintenant je crois qu'il faut que je vous demande pour le prix. Alors quel est le prix, et aussi est-ce qu'on paie avec une cotisation d'adhésion, ou est-ce qu'on doit acheter un forfait de cours",
+      "Oh, d'accord. Je vois. D'accord, donc on peut juste payer au cours sans obligation. D'accord, c'est vraiment bon à savoir. Et concernant les forfaits eux-mêmes, est-ce qu'il y a des dates d'expiration au forfait Genre, on doit prendre un certain nombre de cours dans un délai fixé pour que le forfait reste valable",
+      "Je vois. D'accord, c'est vraiment intéressant. Et j'essaie juste de réfléchir à quelles autres questions je pourrais encore avoir. Est-ce que les soirées à thème sont incluses dans les forfaits qu'on achète, ou est-ce qu'on doit aussi payer pour y aller en plus, genre payer une entrée à part pour chaque soirée salsa ou bachata",
+      "D'accord, je vois. Je crois que c'est toutes les questions que j'avais pour vous. Merci beaucoup pour votre temps."
+    ],
+    "english": [
+      "Thanks for picking up. I'm just calling because I saw one of your ads for dance classes, like it was the Danse Académie school that you offer, so I wanted to ask a few questions.",
+      "Cool. So my first qu- first question is about where the classes are held. So I'm guessing they're in person because they're dance classes, so you necessarily have to be there in person to move and see the steps for real, you know. And where exactly do the classes take place?",
+      "Okay, I see. And do you only have... So do you only have one branch and a single location for this studio, or do you also have, like, several branches?",
+      "Okay. And if you don't mind, could you give me the exact address of this studio? I'm just wondering how long my commute would take.",
+      "Cool. That works. So about the classes themselves, what's the class size? Like, how many people are there in each class?",
+      "I see. And how many days a week do you usually have to take, or do you recommend that we take classes?",
+      "Okay, and how long is a typical class?",
+      "Okay, that's good to know. And regarding the atmosphere inside the class, what's the vibe socially? Do people tend to talk to each other, or do people generally just keep to themselves?",
+      "Okay, that's good to know because I... part of the reason I'm considering taking classes is also for the social aspect. So it's... Yeah, it's good to know. How many different types of dance do you teach, like classical, salsa, hip-hop, all that, do you offer? How many different styles can you basically get into, can you learn?",
+      "I see. And you mentioned in the ad that you also offer themed nights. What do you mean by that exactly? What are these themed nights actually, like what kind of party is it and how often is it?",
+      "Okay, that's cool. And how long can I expect it to take to, uh, get to the... or be- become competent at salsa, like, to manage to string the steps together without thinking on a dance floor? Assuming I'd start as a complete beginner who only knows how to walk in rhythm and clap along, honestly total zero level.",
+      "Okay, I see. And now I think I need to ask you about the price. So what's the price, and also do you pay with a membership fee, or do you have to buy a class package?",
+      "Oh, okay. I see. Alright, so you can just pay per class with no obligation. Okay, that's really good to know. And regarding the packages themselves, are there expiration dates on the package? Like, do you have to take a certain number of classes within a set time frame for the package to stay valid?",
+      "I see. Okay, that's really interesting. And I'm just trying to think about what other questions I might still have. Are the themed nights included in the packages you buy, or do you also have to pay to go to them on top of that, like pay a separate entrance fee for each salsa or bachata night?",
+      "Okay, I see. I think those are all the questions I had for you. Thank you very much for your time."
+    ],
+    "audio": null,
+    "frenchSpans": [
+      [
+        [
+          "Merci d'avoir décroché. Je vous appelle juste parce que j'ai vu une de vos publicités sur les cours de ",
+          0
+        ],
+        [
+          "danse, genre là c'était l'école Danse Académie",
+          1
+        ],
+        [
+          " que vous proposez, du coup je voulais poser quelques questions.",
+          0
+        ]
+      ],
+      [
+        [
+          "Cool. Alors ma première qu- première question concerne le lieu des cours. Donc j'imagine qu'ils sont en présentiel parce que c'est des cours ",
+          0
+        ],
+        [
+          "de danse, du coup faut forcément être sur place pour bouger et voir les pas en vrai, quoi",
+          1
+        ],
+        [
+          " Et où exactement est-ce que les cours ont lieu",
+          0
+        ]
+      ],
+      [
+        [
+          "D'accord, je vois. Et est-ce que vous avez seulement... Donc est-ce que vous avez seulement une succursale et un seul emplacement de ce studio, ou est-ce que vous avez aussi, genre, plusieurs succursales",
+          0
+        ]
+      ],
+      [
+        [
+          "D'accord. Et si ça ne vous dérange pas, est-ce que vous pourriez me donner l'adresse exacte de ce studio Je me demande juste combien de temps prendrait mon trajet.",
+          0
+        ]
+      ],
+      [
+        [
+          "Cool. C'est bon. Alors à propos des cours eux-mêmes, quelle est la taille des classes Genre, combien de personnes il y a dans chaque cours",
+          0
+        ]
+      ],
+      [
+        [
+          "Je vois. Et combien de jours par semaine est-ce qu'on doit généralement prendre, ou est-ce que vous nous recommandez de prendre des cours",
+          0
+        ]
+      ],
+      [
+        [
+          "D'accord et quelle est la durée d'un cours typique",
+          0
+        ]
+      ],
+      [
+        [
+          "D'accord, c'est bon à savoir. Et concernant l'ambiance à l'intérieur du cours, c'est quoi l'ambiance sur le plan social Est-ce que les gens ont tendance à se parler, ou est-ce que les gens restent juste de leur côté en général",
+          0
+        ]
+      ],
+      [
+        [
+          "D'accord, c'est bon à savoir parce que je... une partie de la raison pour laquelle j'envisage de prendre des cours c'est aussi pour l'aspect social. Donc c'est... Ouais, c'est bon à savoir. Combien de types différents de ",
+          0
+        ],
+        [
+          "danse que vous enseignez, genre classique, salsa, hip-hop, tout ça",
+          1
+        ],
+        [
+          " est-ce que vous proposez Combien de ",
+          0
+        ],
+        [
+          "styles différents en gros on peut toucher",
+          1
+        ],
+        [
+          " est-ce qu'on peut apprendre",
+          0
+        ]
+      ],
+      [
+        [
+          "Je vois. Et vous avez mentionné dans la publicité que vous proposez aussi ",
+          0
+        ],
+        [
+          "des soirées à thème",
+          1
+        ],
+        [
+          " Qu'est-ce que vous voulez dire par là exactement C'est quoi ",
+          0
+        ],
+        [
+          "ces soirées à thème en fait, genre c'est quel style de soirée et c'est à quelle fréquence",
+          1
+        ]
+      ],
+      [
+        [
+          "D'accord, c'est cool. Et en combien de temps est-ce que je peux m'attendre à, euh, acquérir le... ou de- devenir compétent ",
+          0
+        ],
+        [
+          "genre en salsa, quoi, pour arriver à enchaîner les pas sans réfléchir sur une piste",
+          1
+        ],
+        [
+          " En supposant que je commencerais comme un débutant complet qui sait seulement ",
+          0
+        ],
+        [
+          "marcher en rythme et taper dans les mains, franchement le niveau zéro total",
+          1
+        ]
+      ],
+      [
+        [
+          "D'accord, je vois. Et maintenant je crois qu'il faut que je vous demande pour le prix. Alors quel est le prix, et aussi est-ce qu'on paie avec une cotisation d'adhésion, ou est-ce qu'on doit acheter un forfait de cours",
+          0
+        ]
+      ],
+      [
+        [
+          "Oh, d'accord. Je vois. D'accord, donc on peut juste payer au cours sans obligation. D'accord, c'est vraiment bon à savoir. Et concernant les forfaits eux-mêmes, est-ce qu'il y a des dates d'expiration au forfait Genre, on doit prendre un certain nombre de cours dans un délai fixé pour que le forfait reste valable",
+          0
+        ]
+      ],
+      [
+        [
+          "Je vois. D'accord, c'est vraiment intéressant. Et j'essaie juste de réfléchir à quelles autres questions je pourrais encore avoir. Est-ce que les ",
+          0
+        ],
+        [
+          "soirées à thème",
+          1
+        ],
+        [
+          " sont incluses dans les forfaits qu'on achète, ou est-ce qu'on doit aussi payer pour ",
+          0
+        ],
+        [
+          "y aller en plus, genre payer une entrée à part pour chaque soirée salsa ou bachata",
+          1
+        ]
+      ],
+      [
+        [
+          "D'accord, je vois. Je crois que c'est toutes les questions que j'avais pour vous. Merci beaucoup pour votre temps.",
+          0
+        ]
+      ]
+    ],
+    "highlightWords": 110
+  },
+  {
+    "id": "a-resp-18",
+    "title": "A18 · Food Product Testers",
+    "date": "2026-07-04",
+    "source": "section-a-response",
+    "french": [
+      "Bonjour. Alors je viens de voir votre annonce en ligne pour devenir testeur de produits alimentaires chez vous. Du coup je voulais juste vous appeler parce que j'avais deux trois questions quand j'ai vu l'annonce, si ça vous va.",
+      "Super. Alors déjà, je vois pas trop bien ce que c'est, genre goûter des trucs à la maison et donner mon avis, quoi. Donc qu'est-ce que vous entendez par « tester des produits », concrètement on fait quoi ? Genre je sais qu'on va recevoir les produits chez nous en livraison, qu'on va les goûter tranquille à la maison, tout ça. En gros on va manger le truc et vous dire ce qu'on en pense. Mais après, qu'est-ce qui se passe",
+      "D'accord. Donc les évaluations elles sont publiées en ligne ou c'est juste pour votre, je sais pas, pour votre base de connaissances interne pour vous renseigner sur ce que les gens pensent de vos produits alimentaires, ou peu importe",
+      "D'accord. Et ma question c'est plutôt genre, qu'est-ce que vous allez faire de cette évaluation Vous allez la publier en ligne Est-ce que vous-- Est-ce que notre nom est associé à ça quand vous la publiez en ligne C'est ça la partie que je voudrais clarifier.",
+      "Je vois. D'accord. Et je voudrais aussi en savoir plus sur la rémunération. Du coup vous avez dit que la rémunération est en cartes cadeaux du coup ? Vous pourriez développer un peu là-dessus",
+      "Je vois. D'accord. Et combien de cartes cadeaux on peut espérer avoir, genre par mois Parce que je me demande s'il y aura une sorte de régularité à l'avenir une fois qu'on a un certain niveau d'expérience parce que je sais que, en tant que débutant, les produits à tester arrivent peut-être pas régulièrement, mais je me demande si ça pourrait finir par arriver à ce stade où on a des dégustations à faire régulièr-- de façon régulière, donc c'est plus prévisible.",
+      "D'accord. Je vois. Et pour un testeur expérimenté, ça donnerait quoi comme chiffre Combien de produits ils goûteraient ils auraient par mois et leur rémunération totale sur toutes les dégustations ça ferait combien",
+      "D'accord. Je vois. Et est-ce qu'il y a des primes en plus de ça",
+      "D'accord. Je vois. Et niveau, dans certains cas où il y aurait genre un produit qui est plus bon, genre un truc périmé ou un plat qui vous rend un peu malade est-ce qu'on est dédommagé pour l'indigestion ou la réaction allergique du coup, genre si faut aller chez le médecin",
+      "Compris. D'accord. Et niveau disponibilités, quand est-ce que vous attendez de nous qu'on prenne les livraisons de produits à tester chez nous normalement Je me demande si je peux caser ça comme un truc à faire après mon travail de jour, qui-- qui finit en gros à cinq heures. Donc voilà, je me demande si ça collerait avec mon emploi du temps.",
+      "Mm. D'accord. Je vois. Cool. Je réfléchis juste à quelles autres questions je pourrais avoir. La dernière question que j'avais, c'est, est-ce qu'il y a quelque chose qu'il faut que je, une sorte d'expérience que je dois avoir au préalable avant de pouvoir postuler à ça ou pour que vous considériez ma candidature",
+      "D'accord. Cool. Du coup je vais postuler alors. Voilà. Merci beaucoup d'avoir répondu à mes questions."
+    ],
+    "english": [
+      "Hello. So I've just seen your online ad about becoming a food product tester with you. So I just wanted to call you because I had a couple of questions when I saw the ad, if that's okay with you.",
+      "Great. So first of all, I don't quite get what it is, like tasting stuff at home and giving my opinion, you know. So what do you mean by \"testing products\" — concretely, what do we do? Like, I know we're going to receive the products at our home by delivery, that we'll taste them comfortably at home, all that. Basically we're going to eat the thing and tell you what we think of it. But then, what happens?",
+      "Okay. So the evaluations, are they published online or is it just for your, I don't know, for your internal knowledge base to inform yourselves about what people think of your food products, or whatever?",
+      "Okay. And my question is more like, what are you going to do with this evaluation? Are you going to publish it online? Do you-- Is our name associated with it when you publish it online? That's the part I'd like to clarify.",
+      "I see. Okay. And I'd also like to know more about the compensation. So you said that the compensation is in gift cards, then? Could you expand a bit on that?",
+      "I see. Okay. And how many gift cards can we hope to get, like per month? Because I'm wondering if there will be some kind of regularity in the future once you have a certain level of experience, because I know that, as a beginner, the products to test maybe don't arrive regularly, but I'm wondering if it could end up reaching that stage where you have tastings to do regular-- on a regular basis, so it's more predictable.",
+      "Okay. I see. And for an experienced tester, what kind of number would that give? How many products would they taste, would they have per month, and their total compensation across all the tastings, how much would that come to?",
+      "Okay. I see. And are there any bonuses on top of that?",
+      "Okay. I see. And in terms of, in some cases where there'd be like a product that's off, like something expired or a dish that makes you a bit sick, do we get compensated for the indigestion or the allergic reaction then, like if I have to go to the doctor?",
+      "Got it. Okay. And in terms of availability, when do you expect us to take in the deliveries of products to test at home normally? I'm wondering if I can fit that in as something to do after my day job, which-- which basically ends at five o'clock. So there you go, I'm wondering if that would work with my schedule.",
+      "Mm. Okay. I see. Cool. I'm just thinking about what other questions I might have. The last question I had is, is there something I need to, some kind of experience I need to have beforehand before I can apply for this, or for you to consider my application?",
+      "Okay. Cool. So I'm going to apply then. There you go. Thank you so much for answering my questions."
+    ],
+    "audio": null,
+    "frenchSpans": [
+      [
+        [
+          "Bonjour. Alors je viens de voir votre annonce en ligne pour devenir ",
+          0
+        ],
+        [
+          "testeur de produits alimentaires",
+          1
+        ],
+        [
+          " chez vous. Du coup je voulais juste vous appeler parce que j'avais deux trois questions quand j'ai vu l'annonce, si ça vous va.",
+          0
+        ]
+      ],
+      [
+        [
+          "Super. Alors déjà, je vois pas trop bien ce que c'est, ",
+          0
+        ],
+        [
+          "genre goûter des trucs à la maison et donner mon avis, quoi.",
+          1
+        ],
+        [
+          " Donc qu'est-ce que vous entendez par ",
+          0
+        ],
+        [
+          "« tester des produits », concrètement on fait quoi ?",
+          1
+        ],
+        [
+          " Genre je sais qu'on va ",
+          0
+        ],
+        [
+          "recevoir les produits chez nous en livraison,",
+          1
+        ],
+        [
+          " qu'on va ",
+          0
+        ],
+        [
+          "les goûter tranquille à la maison,",
+          1
+        ],
+        [
+          " tout ça. En gros on va ",
+          0
+        ],
+        [
+          "manger le truc et vous dire ce qu'on en pense.",
+          1
+        ],
+        [
+          " Mais après, qu'est-ce qui se passe",
+          0
+        ]
+      ],
+      [
+        [
+          "D'accord. Donc les évaluations elles sont publiées en ligne ou c'est juste pour votre, je sais pas, pour votre base de connaissances interne pour vous renseigner sur ",
+          0
+        ],
+        [
+          "ce que les gens pensent de vos produits alimentaires,",
+          1
+        ],
+        [
+          " ou peu importe",
+          0
+        ]
+      ],
+      [
+        [
+          "D'accord. Et ma question c'est plutôt genre, qu'est-ce que vous allez faire de cette évaluation Vous allez la publier en ligne Est-ce que vous-- Est-ce que notre nom est associé à ça quand vous la publiez en ligne C'est ça la partie que je voudrais clarifier.",
+          0
+        ]
+      ],
+      [
+        [
+          "Je vois. D'accord. Et je voudrais aussi en savoir plus sur la rémunération. Du coup vous avez dit que la rémunération est ",
+          0
+        ],
+        [
+          "en cartes cadeaux du coup ?",
+          1
+        ],
+        [
+          " Vous pourriez développer un peu là-dessus",
+          0
+        ]
+      ],
+      [
+        [
+          "Je vois. D'accord. Et combien de ",
+          0
+        ],
+        [
+          "cartes cadeaux",
+          1
+        ],
+        [
+          " on peut espérer avoir, genre par mois Parce que je me demande s'il y aura une sorte de régularité à l'avenir une fois qu'on a un certain niveau d'expérience parce que je sais que, en tant que débutant, ",
+          0
+        ],
+        [
+          "les produits à tester",
+          1
+        ],
+        [
+          " arrivent peut-être pas régulièrement, mais je me demande si ça pourrait finir par arriver à ce stade où on a ",
+          0
+        ],
+        [
+          "des dégustations à faire",
+          1
+        ],
+        [
+          " régulièr-- de façon régulière, donc c'est plus prévisible.",
+          0
+        ]
+      ],
+      [
+        [
+          "D'accord. Je vois. Et pour un ",
+          0
+        ],
+        [
+          "testeur",
+          1
+        ],
+        [
+          " expérimenté, ça donnerait quoi comme chiffre Combien de ",
+          0
+        ],
+        [
+          "produits ils goûteraient",
+          1
+        ],
+        [
+          " ils auraient par mois et leur rémunération totale sur toutes les ",
+          0
+        ],
+        [
+          "dégustations",
+          1
+        ],
+        [
+          " ça ferait combien",
+          0
+        ]
+      ],
+      [
+        [
+          "D'accord. Je vois. Et est-ce qu'il y a des primes en plus de ça",
+          0
+        ]
+      ],
+      [
+        [
+          "D'accord. Je vois. Et niveau, dans certains cas où il y aurait genre ",
+          0
+        ],
+        [
+          "un produit qui est plus bon, genre un truc périmé ou un plat qui vous rend un peu malade",
+          1
+        ],
+        [
+          " est-ce qu'on est dédommagé pour ",
+          0
+        ],
+        [
+          "l'indigestion ou la réaction allergique du coup, genre si faut aller chez le médecin",
+          1
+        ]
+      ],
+      [
+        [
+          "Compris. D'accord. Et niveau disponibilités, quand est-ce que vous attendez de nous qu'on prenne ",
+          0
+        ],
+        [
+          "les livraisons de produits à tester chez nous",
+          1
+        ],
+        [
+          " normalement Je me demande si je peux caser ça comme un truc à faire après mon travail de jour, qui-- qui finit en gros à cinq heures. Donc voilà, je me demande si ça collerait avec mon emploi du temps.",
+          0
+        ]
+      ],
+      [
+        [
+          "Mm. D'accord. Je vois. Cool. Je réfléchis juste à quelles autres questions je pourrais avoir. La dernière question que j'avais, c'est, est-ce qu'il y a quelque chose qu'il faut que je, une sorte d'expérience que je dois avoir au préalable avant de pouvoir postuler à ça ou pour que vous considériez ma candidature",
+          0
+        ]
+      ],
+      [
+        [
+          "D'accord. Cool. Du coup je vais postuler alors. Voilà. Merci beaucoup d'avoir répondu à mes questions.",
+          0
+        ]
+      ]
+    ],
+    "highlightWords": 116
+  },
+  {
+    "id": "a-resp-19",
+    "title": "A19 · La Petite Maison Du Théâtre",
+    "date": "2026-07-04",
+    "source": "section-a-response",
+    "french": [
+      "Bonjour, merci d'avoir décroché. Donc j'ai vu votre publicité sur votre affiche pour le spectacle pour enfants « Coussins-Croissants » et je voulais poser quelques questions de plus, juste pour bien comprendre de quoi il s'agit, si ça vous va.",
+      "Parfait. Donc, juste pour clarifier, tout d'abord, est-ce que c'est un événement unique ou est-ce que c'est genre un événement récurrent Et si c'est un événement récurrent, combien de fois par semaine est-ce qu'il a lieu ou à quelles dates est-ce qu'il a lieu",
+      "D'accord.",
+      "D'accord. Je vois. Bon à savoir. Et ça dure combien de temps cet événement Ça commence quand et ça finit quand",
+      "D'accord. Et du coup, le goûter juste après, ça dure genre combien de temps dure le goûter qui suit le spectacle",
+      "Je vois. Et j'aurais probablement dû demander ça au début, mais en vrai c'est un spectacle sur quoi, ça raconte quoi aux petits sur quoi",
+      "D'accord. Je veux encore en demander plus sur le spectacle lui-même, « Coussins-Croissants » quoi Alors, euh, c'est quoi le genre de spectacle, franchement, genre c'est du théâtre joué, c'est des marionnettes, y a des chansons Parce que évidemment je vois bien que c'est un truc pour les enfants mais genre je sais pas trop à quoi m'attendre en vrai, ça se passe comment sur scène Donc je veux en savoir plus là-dessus.",
+      "D'accord donc c'est dans votre petit théâtre, La Petite Maison du Théâtre qui est du coup une salle rien que pour les enfants j'imagine Alors où se trouve exactement ce lieu",
+      "D'accord. Et est-ce qu'il y a un âge minimum requis pour cette ce spectacle pour les petits",
+      "Compris. D'accord. Et en ce qui concerne la restauration, quel genre de goûter vous servez aux enfants après, genre des croissants, un jus, un truc comme ça vous proposez",
+      "Je vois. D'accord. Et vous avez mentionné dans la publicité que vous proposez des tarifs groupes pour ça. C'est combien le billet pour une place pour un enfant tout seul",
+      "D'accord. Je vois. Donc on pense à, euh... Je pense que ce sera un groupe de huit enfants. Ce sera mon fils et sept de ses copains. Donc ça reviendrait à combien",
+      "D'accord. Compris. J'essaie juste de réfléchir aux autres questions qu'il pourrait me rester à poser. Et pour ce qui est de la réservation, est-ce qu'on vous appelle juste pour réserver, ou est-ce qu'on faut passer par un site pour réserver en ligne",
+      "Je veux juste savoir, genre, si au cas où on rate une séance de Coussins-Croissants, genre on tombe malade ou je sais pas, du coup ça serait bien qu'on puisse quand même la faire à l'avenir.",
+      "Du coup je me demande si les billets ont tendance à partir vraiment vite Et si c'est le cas, alors combien de temps à l'avance est-ce qu'on devrait réserver, et à quelle vitesse vous pensez que les billets pour ça vont partir",
+      "Je vois. D'accord. Et c'est bon à savoir. Euh, niveau parking, où est-ce qu'on peut se garer et est-ce qu'on doit payer-- combien est-ce qu'on doit payer pour le parking Parce que je suppose que ce serait plutôt une nuit chargée. Du coup j'ai peur que le parking soit difficile.",
+      "Je vois. C'est intéressant. Ouais, je pense que j'ai fait le tour de mes questions. Merci beaucoup de m'avoir consacré du temps."
+    ],
+    "english": [
+      "Hello, thank you for picking up. So I saw your ad on your poster for the children's show \"Coussins-Croissants\" and I wanted to ask a few more questions, just to really understand what it's about, if that's okay with you.",
+      "Perfect. So, just to clarify, first of all, is it a one-time event or is it like a recurring event? And if it's a recurring event, how many times a week does it take place, or on which dates does it take place?",
+      "Okay.",
+      "Okay. I see. Good to know. And how long does this event last? When does it start and when does it end?",
+      "Okay. And so, the snack right afterwards, how long does that last, like how long is the snack that follows the show?",
+      "I see. And I probably should have asked this at the beginning, but honestly, what is the show about, what does it tell the little ones about, about what?",
+      "Okay. I'd like to ask even more about the show itself, \"Coussins-Croissants\" right? So, uh, what kind of show is it, honestly, like is it acted theater, is it puppets, are there songs? Because obviously I can tell it's something for children, but like I don't really know what to expect honestly, how does it play out on stage? So I'd like to know more about that.",
+      "Okay so it's in your little theater, La Petite Maison du Théâtre, which is therefore a venue just for children I imagine? So where exactly is this place located?",
+      "Okay. And is there a minimum age required for this, for this show for the little ones?",
+      "Got it. Okay. And regarding the refreshments, what kind of snack do you serve the children afterwards, like croissants, a juice, something like that, is that what you offer?",
+      "I see. Okay. And you mentioned in the ad that you offer group rates for this. How much is a ticket for a single spot for one child on their own?",
+      "Okay. I see. So we're thinking of, uh... I think it'll be a group of eight children. It'll be my son and seven of his friends. So how much would that come to?",
+      "Okay. Got it. I'm just trying to think of any other questions I might still have to ask. And as for the booking, do we just call you to reserve, or do we have to go through a website to book online?",
+      "I just want to know, like, in case we miss a Cushions-and-Croissants session, like if we get sick or I don't know, then it would be nice if we could still do it later on.",
+      "So I'm wondering whether the tickets tend to go really fast. And if that's the case, then how far in advance should we book, and how quickly do you think the tickets for this are going to sell out?",
+      "I see. Okay. And that's good to know. Uh, regarding parking, where can we park and do we have to pay-- how much do we have to pay for parking? Because I'm guessing it would be a pretty busy night. So I'm worried that parking might be difficult.",
+      "I see. That's interesting. Yeah, I think I've covered all my questions. Thank you so much for taking the time for me."
+    ],
+    "audio": null,
+    "frenchSpans": [
+      [
+        [
+          "Bonjour, merci d'avoir décroché. Donc j'ai vu votre publicité sur ",
+          0
+        ],
+        [
+          "votre affiche pour le spectacle pour enfants « Coussins-Croissants »",
+          1
+        ],
+        [
+          " et je voulais poser quelques questions de plus, juste pour bien comprendre de quoi il s'agit, si ça vous va.",
+          0
+        ]
+      ],
+      [
+        [
+          "Parfait. Donc, juste pour clarifier, tout d'abord, est-ce que c'est un événement unique ou est-ce que c'est genre un événement récurrent Et si c'est un événement récurrent, combien de fois par semaine est-ce qu'il a lieu ou à quelles dates est-ce qu'il a lieu",
+          0
+        ]
+      ],
+      [
+        [
+          "D'accord.",
+          0
+        ]
+      ],
+      [
+        [
+          "D'accord. Je vois. Bon à savoir. Et ça dure combien de temps cet événement Ça commence quand et ça finit quand",
+          0
+        ]
+      ],
+      [
+        [
+          "D'accord. ",
+          0
+        ],
+        [
+          "Et du coup, le goûter juste après, ça dure genre",
+          1
+        ],
+        [
+          " combien de temps dure ",
+          0
+        ],
+        [
+          "le goûter qui suit le spectacle",
+          1
+        ]
+      ],
+      [
+        [
+          "Je vois. Et j'aurais probablement dû demander ça au début, mais ",
+          0
+        ],
+        [
+          "en vrai c'est un spectacle sur quoi, ça raconte quoi aux petits",
+          1
+        ],
+        [
+          " sur quoi",
+          0
+        ]
+      ],
+      [
+        [
+          "D'accord. Je veux encore en demander plus sur ",
+          0
+        ],
+        [
+          "le spectacle lui-même, « Coussins-Croissants » quoi",
+          1
+        ],
+        [
+          " Alors, euh, c'est quoi ",
+          0
+        ],
+        [
+          "le genre de spectacle, franchement, genre c'est du théâtre joué, c'est des marionnettes, y a des chansons",
+          1
+        ],
+        [
+          " Parce que évidemment ",
+          0
+        ],
+        [
+          "je vois bien que c'est un truc pour les enfants",
+          1
+        ],
+        [
+          " mais genre ",
+          0
+        ],
+        [
+          "je sais pas trop à quoi m'attendre en vrai, ça se passe comment sur scène",
+          1
+        ],
+        [
+          " Donc je veux en savoir plus là-dessus.",
+          0
+        ]
+      ],
+      [
+        [
+          "D'accord donc c'est dans ",
+          0
+        ],
+        [
+          "votre petit théâtre, La Petite Maison du Théâtre",
+          1
+        ],
+        [
+          " qui est ",
+          0
+        ],
+        [
+          "du coup une salle rien que pour les enfants j'imagine",
+          1
+        ],
+        [
+          " Alors où se trouve exactement ce lieu",
+          0
+        ]
+      ],
+      [
+        [
+          "D'accord. Et est-ce qu'il y a un âge minimum requis pour cette ",
+          0
+        ],
+        [
+          "ce spectacle pour les petits",
+          1
+        ]
+      ],
+      [
+        [
+          "Compris. D'accord. Et en ce qui concerne la restauration, quel genre de ",
+          0
+        ],
+        [
+          "goûter vous servez aux enfants après, genre des croissants, un jus, un truc comme ça",
+          1
+        ],
+        [
+          " vous proposez",
+          0
+        ]
+      ],
+      [
+        [
+          "Je vois. D'accord. Et vous avez mentionné dans la publicité que vous proposez des tarifs ",
+          0
+        ],
+        [
+          "groupes",
+          1
+        ],
+        [
+          " pour ça. C'est combien le billet pour une ",
+          0
+        ],
+        [
+          "place",
+          1
+        ],
+        [
+          " pour ",
+          0
+        ],
+        [
+          "un enfant tout seul",
+          1
+        ]
+      ],
+      [
+        [
+          "D'accord. Je vois. Donc on pense à, euh... Je pense que ce sera un groupe de huit enfants. Ce sera mon fils et sept de ses copains. Donc ça reviendrait à combien",
+          0
+        ]
+      ],
+      [
+        [
+          "D'accord. Compris. J'essaie juste de réfléchir aux autres questions qu'il pourrait me rester à poser. Et pour ce qui est de la réservation, est-ce qu'on vous appelle juste pour réserver, ou est-ce qu'on ",
+          0
+        ],
+        [
+          "faut passer par un site pour réserver en ligne",
+          1
+        ]
+      ],
+      [
+        [
+          "Je veux juste savoir, genre, si au cas où on rate ",
+          0
+        ],
+        [
+          "une séance de Coussins-Croissants, genre on tombe malade ou je sais pas, du coup ça serait bien",
+          1
+        ],
+        [
+          " qu'on puisse quand même la faire à l'avenir.",
+          0
+        ]
+      ],
+      [
+        [
+          "Du coup je me demande si les billets ont tendance à partir vraiment vite Et si c'est le cas, alors combien de temps à l'avance est-ce qu'on devrait réserver, et à quelle vitesse vous pensez que les billets pour ça vont partir",
+          0
+        ]
+      ],
+      [
+        [
+          "Je vois. D'accord. Et c'est bon à savoir. Euh, niveau parking, où est-ce qu'on peut se garer et est-ce qu'on doit payer-- combien est-ce qu'on doit payer pour le parking Parce que je suppose que ce serait plutôt une nuit chargée. Du coup j'ai peur que le parking soit difficile.",
+          0
+        ]
+      ],
+      [
+        [
+          "Je vois. C'est intéressant. Ouais, je pense que j'ai fait le tour de mes questions. Merci beaucoup de m'avoir consacré du temps.",
+          0
+        ]
+      ]
+    ],
+    "highlightWords": 153
+  },
+  {
     "id": "tef-b-1",
     "title": "B1 · Volunteering for Seniors",
     "date": "2026-07-03",
