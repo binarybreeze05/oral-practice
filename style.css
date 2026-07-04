@@ -106,3 +106,24 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Ar
   .seg-head{display:none}
   #segs{padding-top:8px}
 }
+
+/* ---- blank-fill highlight + word counter (blanks_workflow responses) ---- */
+:root{ --hl-bg:#ffdf87; --hl-ink:#4a3800 }
+@media (prefers-color-scheme: dark){ :root:not([data-theme]){ --hl-bg:#4e400f; --hl-ink:#ffe08a } }
+:root[data-theme="dark"]{ --hl-bg:#4e400f; --hl-ink:#ffe08a }
+
+.seg-fr mark.hl{ background:var(--hl-bg); color:var(--hl-ink); border-radius:3px; padding:.02em .18em;
+  font-weight:600; box-decoration-break:clone; -webkit-box-decoration-break:clone }
+.hlcount{ font-size:11px; font-weight:700; color:var(--hl-ink); background:var(--hl-bg);
+  padding:2px 8px; border-radius:11px; white-space:nowrap }
+
+/* ---- source filter chips (sidebar) ---- */
+.filters{ display:flex; flex-wrap:wrap; gap:6px; margin-top:10px }
+.filters:empty{ display:none }
+.chip{ font-size:11px; line-height:1; padding:5px 9px; border-radius:12px; cursor:pointer;
+  border:1px solid rgba(255,255,255,.16); background:transparent; color:var(--sidemuted);
+  white-space:nowrap; user-select:none }
+.chip:hover:not(.active){ background:rgba(255,255,255,.07); color:var(--sideink) }
+.chip.active{ background:var(--accent); border-color:transparent; color:#fff }
+.chip .n{ opacity:.6; margin-left:5px; font-variant-numeric:tabular-nums }
+.chip.active .n{ opacity:.85 }
