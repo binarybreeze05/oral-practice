@@ -127,3 +127,14 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Ar
 .chip.active{ background:var(--accent); border-color:transparent; color:#fff }
 .chip .n{ opacity:.6; margin-left:5px; font-variant-numeric:tabular-nums }
 .chip.active .n{ opacity:.85 }
+
+/* ---- user word-highlighting (tap a French word to highlight; tap it again to remove) ---- */
+:root{ --uhl-bg:#bfe8c9; --uhl-ink:#0f3d20 }
+@media (prefers-color-scheme: dark){ :root:not([data-theme]){ --uhl-bg:#204d34; --uhl-ink:#a7f3d0 } }
+:root[data-theme="dark"]{ --uhl-bg:#204d34; --uhl-ink:#a7f3d0 }
+
+.seg-fr .w{ cursor:pointer; border-radius:3px; -webkit-tap-highlight-color:transparent }
+@media(hover:hover){ .seg-fr .w:hover{ background:rgba(59,130,246,.12) } }
+.seg-fr .w.uhl,
+.seg-fr .w.uhl:hover{ background:var(--uhl-bg); color:var(--uhl-ink); padding:.03em .12em;
+  box-decoration-break:clone; -webkit-box-decoration-break:clone }

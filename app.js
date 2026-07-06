@@ -15,6 +15,7 @@
   var themeBtn = document.getElementById('theme-toggle');
 
   var curIndex = -1;
+  var curId = null, curHL = new Set();   // per-recording set of user word highlights ("seg:wi")
 
   /* ---- theme toggle (system default, manual override, persisted) ---- */
   var root = document.documentElement;
@@ -105,7 +106,41 @@
     countEl.textContent = items.length + ' recording' + (items.length === 1 ? '' : 's');
   }
 
+  /* ---- user word-highlighting (tap a French word to highlight; tap it again to remove) ---- */
+  var HL_KEY = 'oralhl:';
+  var WORD_RE = /[\p{L}\p{N}]+(?:[’'\-][\p{L}\p{N}]+)*/gu;
+  function loadHL(id) {
+    try { return new Set(JSON.parse(localStorage.getItem(HL_KEY + id) || '[]')); }
+    catch (e) { return new Set(); }
+  }
+  function saveHL(id, set) {
+    try {
+      if (set.size) localStorage.setItem(HL_KEY + id, JSON.stringify(Array.from(set)));
+      else localStorage.removeItem(HL_KEY + id);
+    } catch (e) {}
+  }
+  // Append `text` to `el`, wrapping each word in a clickable <span class="w"> so it can be
+  // toggled. `state.wi` is the running word index within the segment (a stable id for
+  // persistence); separators (spaces, punctuation) stay as plain text nodes.
+  function appendWords(el, text, segIndex, state) {
+    WORD_RE.lastIndex = 0;
+    var last = 0, m;
+    while ((m = WORD_RE.exec(text))) {
+      if (m.index > last) el.appendChild(document.createTextNode(text.slice(last, m.index)));
+      var k = segIndex + ':' + (state.wi++);
+      var w = document.createElement('span');
+      w.className = curHL.has(k) ? 'w uhl' : 'w';
+      w.setAttribute('data-k', k);
+      w.textContent = m[0];
+      el.appendChild(w);
+      last = m.index + m[0].length;
+    }
+    if (last < text.length) el.appendChild(document.createTextNode(text.slice(last)));
+  }
+
   function renderEntry(r) {
+    curId = (r.id != null ? r.id : (r.title || ''));
+    curHL = loadHL(curId);
     document.getElementById('entry-title').textContent = r.title;
     document.getElementById('entry-date').textContent = r.date || '';
     var hl = document.getElementById('entry-hl');
@@ -117,12 +152,13 @@
     for (var i = 0; i < n; i++) {
       var row = document.createElement('div'); row.className = 'seg';
       var l = document.createElement('div'); l.className = 'seg-fr';
-      if (spans && spans[i]) {                          // response entry: highlight the once-blank words
+      var state = { wi: 0 };
+      if (spans && spans[i]) {                          // response entry: blank-fill words stay marked
         spans[i].forEach(function (s) {
           if (s[1]) { var m = document.createElement('mark'); m.className = 'hl'; m.textContent = s[0]; l.appendChild(m); }
-          else { l.appendChild(document.createTextNode(s[0])); }
+          else { appendWords(l, s[0], i, state); }
         });
-      } else { l.textContent = fr[i] || ''; }
+      } else { appendWords(l, fr[i] || '', i, state); }
       var rt = document.createElement('div'); rt.className = 'seg-en'; rt.textContent = en[i] || '';
       row.appendChild(l); row.appendChild(rt); segsEl.appendChild(row);
     }
@@ -184,6 +220,18 @@
   player.addEventListener('play', function () { renderList(currentItems()); });
   player.addEventListener('pause', function () { renderList(currentItems()); });
   searchEl.addEventListener('input', function () { renderList(currentItems()); });
+
+  /* tap a French word to (un)highlight it; persists per recording */
+  segsEl.addEventListener('click', function (e) {
+    var w = e.target.closest && e.target.closest('.w');
+    if (!w || !segsEl.contains(w)) return;
+    var sel = window.getSelection && window.getSelection();
+    if (sel && !sel.isCollapsed && String(sel)) return;   // drag-to-select (copy) wins over toggling
+    var k = w.getAttribute('data-k');
+    if (curHL.has(k)) { curHL.delete(k); w.classList.remove('uhl'); }
+    else { curHL.add(k); w.classList.add('uhl'); }
+    saveHL(curId, curHL);
+  });
 
   renderFilters();
   renderList(currentItems());
