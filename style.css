@@ -138,3 +138,14 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Ar
 .seg-fr .w.uhl,
 .seg-fr .w.uhl:hover{ background:var(--uhl-bg); color:var(--uhl-ink); padding:.03em .12em;
   box-decoration-break:clone; -webkit-box-decoration-break:clone }
+
+/* eraser toggle (reader header) + erase-mode cues */
+.erase-toggle{ margin-left:auto; align-self:center; font-size:12px; font-weight:600; line-height:1;
+  padding:6px 12px; border-radius:999px; cursor:pointer; white-space:nowrap;
+  border:1px solid var(--segborder); background:transparent; color:var(--muted) }
+.erase-toggle:hover{ background:var(--seghover); color:var(--ink) }
+.erase-toggle[aria-pressed="true"]{ background:#e5484d; border-color:#e5484d; color:#fff }
+@media(hover:hover){
+  #segs.erasing .seg-fr .w:hover{ background:transparent }
+  #segs.erasing .seg-fr .w.uhl:hover{ background:var(--uhl-bg); text-decoration:line-through }
+}

@@ -13,9 +13,11 @@
   var npTitle = document.getElementById('np-title');
   var contEl = document.getElementById('continuous');
   var themeBtn = document.getElementById('theme-toggle');
+  var eraseBtn = document.getElementById('erase-toggle');
 
   var curIndex = -1;
   var curId = null, curHL = new Set();   // per-recording set of user word highlights ("seg:wi")
+  var eraseMode = false;                 // when true, select/tap removes highlights instead of adding
 
   /* ---- theme toggle (system default, manual override, persisted) ---- */
   var root = document.documentElement;
@@ -221,39 +223,51 @@
   player.addEventListener('pause', function () { renderList(currentItems()); });
   searchEl.addEventListener('input', function () { renderList(currentItems()); });
 
-  /* ---- highlight French words: tap one to toggle it, or drag-select a run to highlight it ---- */
+  /* ---- highlight / erase French words ----
+     Highlight mode (default): tap a word to toggle it, or drag-select a run to highlight it.
+     Erase mode (Erase button on): tap or drag-select highlighted words to remove them. */
   var afterSelect = false;   // true right after a drag-select, so the trailing click doesn't toggle
 
-  function highlightSelection() {                     // green-highlight every word the selection touches
+  function paintErase() {
+    eraseBtn.setAttribute('aria-pressed', eraseMode ? 'true' : 'false');
+    eraseBtn.textContent = eraseMode ? 'Erasing' : 'Erase';
+    segsEl.classList.toggle('erasing', eraseMode);
+  }
+  eraseBtn.addEventListener('click', function () { eraseMode = !eraseMode; paintErase(); });
+  paintErase();
+
+  function setHL(el, on) {                             // add/remove one word's highlight; true if it changed
+    var k = el.getAttribute('data-k');
+    if (on && !curHL.has(k)) { curHL.add(k); el.classList.add('uhl'); return true; }
+    if (!on && curHL.has(k)) { curHL.delete(k); el.classList.remove('uhl'); return true; }
+    return false;
+  }
+  function applySelection() {                          // (un)highlight every word the selection touches
     var sel = window.getSelection && window.getSelection();
     if (!sel || !sel.rangeCount || sel.isCollapsed) return false;
     var rng = sel.getRangeAt(0), words = segsEl.querySelectorAll('.seg-fr .w'), changed = false;
     for (var i = 0; i < words.length; i++) {
-      if (!rng.intersectsNode(words[i])) continue;
-      var k = words[i].getAttribute('data-k');
-      if (!curHL.has(k)) { curHL.add(k); words[i].classList.add('uhl'); changed = true; }
+      if (rng.intersectsNode(words[i]) && setHL(words[i], !eraseMode)) changed = true;
     }
     if (changed) { saveHL(curId, curHL); sel.removeAllRanges(); }
     return changed;
   }
   function resetSelect() { afterSelect = false; }
-  function endSelect() { if (highlightSelection()) afterSelect = true; }
+  function endSelect() { if (applySelection()) afterSelect = true; }
   segsEl.addEventListener('mousedown', resetSelect);
   segsEl.addEventListener('touchstart', resetSelect, { passive: true });
   segsEl.addEventListener('mouseup', endSelect);
   segsEl.addEventListener('touchend', endSelect);
 
-  /* tap a single French word to (un)highlight it */
+  /* tap a single French word: toggle it (highlight mode) or remove it (erase mode) */
   segsEl.addEventListener('click', function (e) {
     if (afterSelect) { afterSelect = false; return; }   // this click trailed a drag-select — ignore it
     var w = e.target.closest && e.target.closest('.w');
     if (!w || !segsEl.contains(w)) return;
     var sel = window.getSelection && window.getSelection();
-    if (sel && !sel.isCollapsed && String(sel)) return; // a selection is active — leave it for select-highlight
-    var k = w.getAttribute('data-k');
-    if (curHL.has(k)) { curHL.delete(k); w.classList.remove('uhl'); }
-    else { curHL.add(k); w.classList.add('uhl'); }
-    saveHL(curId, curHL);
+    if (sel && !sel.isCollapsed && String(sel)) return; // a selection is active — leave it for applySelection
+    var on = eraseMode ? false : !curHL.has(w.getAttribute('data-k'));  // erase only removes; else toggle
+    if (setHL(w, on)) saveHL(curId, curHL);
   });
 
   renderFilters();

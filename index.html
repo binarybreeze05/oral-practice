@@ -7,7 +7,7 @@
 <script>/* apply saved theme before paint to avoid flash */
   (function(){var t=localStorage.getItem('theme'); if(t) document.documentElement.setAttribute('data-theme', t);})();
 </script>
-<link rel="stylesheet" href="style.css?v=7">
+<link rel="stylesheet" href="style.css?v=8">
 <link rel="manifest" href="manifest.webmanifest">
 <meta name="theme-color" content="#1f232a">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
@@ -40,6 +40,7 @@
           <h2 id="entry-title"></h2>
           <span id="entry-date" class="date"></span>
           <span id="entry-hl" class="hlcount" hidden title="words you spontaneously filled into the blanks (highlighted below)"></span>
+          <button id="erase-toggle" class="erase-toggle" type="button" aria-pressed="false" title="Eraser — when on, tap or drag-select highlighted words to remove them">Erase</button>
         </div>
       </div>
       <div class="seg-head"><div>Français</div><div>English</div></div>
@@ -55,7 +56,7 @@
   </label>
 </footer>
 <script src="data.js"></script>
-<script src="app.js?v=7"></script>
+<script src="app.js?v=8"></script>
 <script>
   if ('serviceWorker' in navigator) {
     window.addEventListener('load', function () {
