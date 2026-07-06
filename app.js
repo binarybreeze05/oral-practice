@@ -221,12 +221,35 @@
   player.addEventListener('pause', function () { renderList(currentItems()); });
   searchEl.addEventListener('input', function () { renderList(currentItems()); });
 
-  /* tap a French word to (un)highlight it; persists per recording */
+  /* ---- highlight French words: tap one to toggle it, or drag-select a run to highlight it ---- */
+  var afterSelect = false;   // true right after a drag-select, so the trailing click doesn't toggle
+
+  function highlightSelection() {                     // green-highlight every word the selection touches
+    var sel = window.getSelection && window.getSelection();
+    if (!sel || !sel.rangeCount || sel.isCollapsed) return false;
+    var rng = sel.getRangeAt(0), words = segsEl.querySelectorAll('.seg-fr .w'), changed = false;
+    for (var i = 0; i < words.length; i++) {
+      if (!rng.intersectsNode(words[i])) continue;
+      var k = words[i].getAttribute('data-k');
+      if (!curHL.has(k)) { curHL.add(k); words[i].classList.add('uhl'); changed = true; }
+    }
+    if (changed) { saveHL(curId, curHL); sel.removeAllRanges(); }
+    return changed;
+  }
+  function resetSelect() { afterSelect = false; }
+  function endSelect() { if (highlightSelection()) afterSelect = true; }
+  segsEl.addEventListener('mousedown', resetSelect);
+  segsEl.addEventListener('touchstart', resetSelect, { passive: true });
+  segsEl.addEventListener('mouseup', endSelect);
+  segsEl.addEventListener('touchend', endSelect);
+
+  /* tap a single French word to (un)highlight it */
   segsEl.addEventListener('click', function (e) {
+    if (afterSelect) { afterSelect = false; return; }   // this click trailed a drag-select — ignore it
     var w = e.target.closest && e.target.closest('.w');
     if (!w || !segsEl.contains(w)) return;
     var sel = window.getSelection && window.getSelection();
-    if (sel && !sel.isCollapsed && String(sel)) return;   // drag-to-select (copy) wins over toggling
+    if (sel && !sel.isCollapsed && String(sel)) return; // a selection is active — leave it for select-highlight
     var k = w.getAttribute('data-k');
     if (curHL.has(k)) { curHL.delete(k); w.classList.remove('uhl'); }
     else { curHL.add(k); w.classList.add('uhl'); }
