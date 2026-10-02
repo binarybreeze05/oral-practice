@@ -1,0 +1,1 @@
+Deck builder data: exported decks (deck-builder/decks/*.json), written by the deck builder at /deck-builder/. Not part of the website, so exports never rebuild the site.
