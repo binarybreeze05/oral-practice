@@ -204,7 +204,8 @@ $("#tab-build").addEventListener("click", function () { show("build"); });
 // ---------- the store: JSON files in the GitHub repo ----------
 // Network only on: Connect, opening My decks (one read of _index.json), Study/Edit of a deck not cached
 // (one read), Export (deck file + index), Delete. Nothing in the background.
-var GH = {owner: "binarybreeze05", repo: "oral-practice", branch: "main", dir: "deck-builder/decks"};
+// decks live on their own branch (deck-data): the site builds from main, so exports never trigger a site rebuild
+var GH = {owner: "binarybreeze05", repo: "oral-practice", branch: "deck-data", dir: "deck-builder/decks"};
 var TOKEN_KEY = "tef-decks::gh-token", CACHE_KEY = "tef-decks::cache";
 function token() { return lsGet(TOKEN_KEY) || ""; }
 function b64enc(s) { return btoa(unescape(encodeURIComponent(s))); }
