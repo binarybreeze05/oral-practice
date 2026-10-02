@@ -118,9 +118,18 @@ button{cursor:pointer}
 
 <section id="view-decks" class="list">
   <div class="gh" id="ghbox" hidden>
-    <label for="ghtoken">GitHub token for <b>binarybreeze05/oral-practice</b> (fine-grained, Contents: read and write). It is kept only in this browser.</label>
-    <input id="ghtoken" type="password" autocomplete="off" placeholder="github_pat_…">
-    <div class="rowb"><button class="btn primary" id="ghsave">Connect</button><button class="btn" id="ghforget">Forget token</button><small id="ghmsg"></small></div>
+    <form id="ghunlock" class="gh-un">
+      <label for="ghpass">Passphrase to connect this browser to GitHub</label>
+      <input id="ghpass" type="password" autocomplete="current-password" placeholder="four-words-with-dashes">
+      <div class="rowb"><button class="btn primary" type="submit">Connect</button><small id="ghmsg"></small></div>
+    </form>
+    <details><summary style="cursor:pointer;color:var(--mute);font-size:13px">Use a different GitHub token</summary>
+      <div style="display:grid;gap:8px;margin-top:8px">
+        <label for="ghtoken">GitHub token for <b>binarybreeze05/oral-practice</b> (fine-grained, Contents: read and write). Kept only in this browser.</label>
+        <input id="ghtoken" type="password" autocomplete="off" placeholder="github_pat_…">
+        <div class="rowb"><button class="btn" id="ghsave" type="button">Connect with token</button><button class="btn" id="ghforget" type="button">Disconnect this browser</button></div>
+      </div>
+    </details>
   </div>
   <h1>My decks</h1>
   <p class="sub" id="decks-sub">Loading your exported decks…</p>
@@ -241,14 +250,33 @@ function progressOf(key) {
   return seen ? done + " done · " + (seen - done) + " in play" : "not started";
 }
 function loadDecks() {
-  if (!token()) { $("#ghbox").hidden = false; $("#decks-sub").textContent = "Connect GitHub above to see and export decks. Build works without it; drafts stay on this device."; $("#decks").innerHTML = ""; return; }
+  if (!token()) { $("#ghbox").hidden = false; $("#decks-sub").textContent = "Type your passphrase above to connect this browser. Build works without it; drafts stay on this device."; $("#decks").innerHTML = ""; return; }
   $("#decks-sub").textContent = "Loading your exported decks…";
   readJSON(GH.dir + "/_index.json").then(function (f) { SERVER = f ? f.data.decks : {}; renderDecks(); })
     .catch(function (e) { $("#decks-sub").textContent = e.code === 401 ? "GitHub refused the token. Paste a new one above." : "Couldn't load the deck list (" + (e.code || "network") + "). Try again in a moment."; if (e.code === 401) $("#ghbox").hidden = false; });
 }
-$("#ghbtn").addEventListener("click", function () { show("decks"); $("#ghbox").hidden = !$("#ghbox").hidden; if (!$("#ghbox").hidden) $("#ghtoken").focus(); });
-$("#ghsave").addEventListener("click", async function () {
+$("#ghbtn").addEventListener("click", function () { show("decks"); $("#ghbox").hidden = !$("#ghbox").hidden; if (!$("#ghbox").hidden) (GH_ENC ? $("#ghpass") : $("#ghtoken")).focus(); });
+var GH_ENC = {"kdf": "PBKDF2-SHA256", "iter": 600000, "salt": "JYVHC2vBjna0fmFJHvwegQ==", "iv": "CWorOz4sBcoisb9l", "ct": "TGBnS5dKeKlDR97hM92WbZl2BHTvPI+qWEbG5sdxgUtmazI0id36ZR1WGCAObNDD17Wv1TDTg8Cn9+gXKDj2IlU2aglRKptjEYYOIqB6QcETD0nT9VL9Z6Oyho1UUrjXiuDKGys6og9LI2BDCg=="};   // the token, AES-GCM encrypted with a key derived from the passphrase (PBKDF2-SHA256)
+function unb64(s) { var b = atob(s), u = new Uint8Array(b.length); for (var i = 0; i < b.length; i++) u[i] = b.charCodeAt(i); return u; }
+async function decryptToken(pass) {
+  var base = await crypto.subtle.importKey("raw", new TextEncoder().encode(pass), "PBKDF2", false, ["deriveKey"]);
+  var key = await crypto.subtle.deriveKey({name: "PBKDF2", hash: "SHA-256", salt: unb64(GH_ENC.salt), iterations: GH_ENC.iter}, base, {name: "AES-GCM", length: 256}, false, ["decrypt"]);
+  var pt = await crypto.subtle.decrypt({name: "AES-GCM", iv: unb64(GH_ENC.iv)}, key, unb64(GH_ENC.ct));
+  return new TextDecoder().decode(pt);
+}
+if (!GH_ENC) $("#ghunlock").hidden = true;
+$("#ghunlock").addEventListener("submit", async function (e) {
+  e.preventDefault();
+  var pass = $("#ghpass").value; if (!pass) { $("#ghmsg").textContent = "Type the passphrase."; return; }
+  $("#ghmsg").textContent = "Unlocking…";
+  var t; try { t = await decryptToken(pass.trim()); } catch (err) { $("#ghmsg").textContent = "That passphrase doesn't match."; return; }
+  $("#ghpass").value = ""; connect(t);
+});
+$("#ghsave").addEventListener("click", function () {
   var t = $("#ghtoken").value.trim(); if (!t) { $("#ghmsg").textContent = "Paste a token first."; return; }
+  connect(t);
+});
+async function connect(t) {
   $("#ghmsg").textContent = "Checking…";
   try {
     var r = await fetch("https://api.github.com/repos/" + GH.owner + "/" + GH.repo, {headers: {"Authorization": "Bearer " + t, "Accept": "application/vnd.github+json"}});
@@ -257,7 +285,7 @@ $("#ghsave").addEventListener("click", async function () {
     if (j.permissions && !j.permissions.push) { $("#ghmsg").textContent = "This token can read but not write. Give it Contents: Read and write."; return; }
     lsSet(TOKEN_KEY, t); $("#ghtoken").value = ""; $("#ghmsg").textContent = ""; $("#ghbox").hidden = true; toast("Connected to GitHub"); loadDecks();
   } catch (e) { $("#ghmsg").textContent = "Couldn't reach GitHub from this network."; }
-});
+}
 $("#ghforget").addEventListener("click", function () { try { localStorage.removeItem(TOKEN_KEY); } catch (e) {} $("#ghmsg").textContent = "Token removed from this browser."; SERVER = null; loadDecks(); });
 function renderDecks() {
   var keys = Object.keys(SERVER || {});
