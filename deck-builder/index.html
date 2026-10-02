@@ -438,7 +438,7 @@ $("#export").addEventListener("click", async function () {
     await updateIndex(function (idx) { idx.decks[key] = meta; }, "Deck builder: index");
     cachePut(key, doc); if (SERVER) SERVER[key] = meta;
     $("#status").textContent = "Exported “" + name + "” · " + new Date().toLocaleTimeString([], {hour: "2-digit", minute: "2-digit"});
-    toast("Exported “" + name + "” (" + rows.length + " cards) to My decks");
+    toast("Exported “" + name + "” (" + rows.length + (rows.length === 1 ? " card" : " cards") + ") to My decks");
   } catch (e) {
     toast(e.code === 401 ? "GitHub refused the token. Reconnect under GitHub." : "Export failed (" + (e.code || "network") + "). Your draft is safe; try again.");
   } finally { btn.disabled = false; btn.textContent = "Export deck"; }
