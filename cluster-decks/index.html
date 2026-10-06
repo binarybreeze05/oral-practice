@@ -24,6 +24,9 @@ h1{font-size:22px;margin:0 0 4px}
 .why{grid-column:2/4;color:var(--ink2);font-size:13px;line-height:1.45}
 .use{color:var(--ink);font-weight:600}
 .how{color:var(--ink2);font-size:13px;margin:-8px 0 20px;padding:10px 12px;border-left:2px solid var(--line)}
+.sortbar{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin:0 0 12px;color:var(--mute);font-size:12.5px}
+.sortbar button{font:inherit;color:var(--ink2);background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:3px 10px;cursor:pointer}
+.sortbar button:hover{border-color:var(--a)}.sortbar button.on{color:var(--ink);border-color:var(--a);font-weight:600}
 @media (max-width:520px){.deck{grid-template-columns:26px 1fr}.pg{grid-column:2}.meta,.why{grid-column:2}}
 </style></head><body>
 <main>
@@ -36,6 +39,7 @@ h1{font-size:22px;margin:0 0 4px}
     <br><b>T2 · strong</b>: high value. Second examples of key moves, or strong B2/C1 sentences that are a bit longer or more specific.
     <br><b>T3 · useful</b>: good to know. Tied to one ad, longer, or overlapping with higher cards.
     <br><b>T4 · low priority</b>: near-duplicates, long ad-specific stories, details you won't reuse. Skim them.</div>
+  <div class="sortbar" id="sortbar">Sort: <button data-s="study">study order</button><button data-s="core-asc">smallest core first</button><button data-s="core-desc">largest core first</button></div>
   <div id="list"></div>
   <p class="note">Card front: the literal English, then what an American would say. Back: the French. In a deck, press <b>e</b> to edit a card, <b>Esc</b> when done.
   Progress and edits are saved in this browser only.</p>
@@ -69,12 +73,29 @@ function open(d) {
 var want = decodeURIComponent(location.hash.slice(1));
 // document.open() while this page is still parsing would write into it instead of replacing it: wait for the parse
 if (BY[want]) { document.querySelector("main").hidden = true; addEventListener("DOMContentLoaded", function () { setTimeout(function () { open(BY[want]); }, 0); }); return; }
-document.getElementById("list").innerHTML = DECKS.map(function (d) {
+var SORT_KEY = NS + "::index-sort";
+var sortMode = "study"; try { sortMode = localStorage.getItem(SORT_KEY) || "study"; } catch (e) {}
+function sorted() {
+  var ds = DECKS.slice(), c = function (d) { return d.core || d.cards.length; };
+  if (sortMode === "core-asc") ds.sort(function (a, b) { return c(a) - c(b) || a.rank - b.rank; });
+  else if (sortMode === "core-desc") ds.sort(function (a, b) { return c(b) - c(a) || a.rank - b.rank; });
+  return ds;
+}
+function renderList() {
+  [].forEach.call(document.querySelectorAll("#sortbar button"), function (b) { b.className = b.getAttribute("data-s") === sortMode ? "on" : ""; });
+document.getElementById("list").innerHTML = sorted().map(function (d) {
   return '<a class="deck" href="#' + d.did + '"><span class="rk">' + d.rank + '</span><span class="nm"><span class="tag ' + d.sec + '">' + d.sec + "</span>" + esc(d.name) +
     '</span><span class="pg">' + progress(d) + '</span><span class="meta">' + d.cards.length + " cards" + (d.core ? " (core: first " + d.core + ")" : "") + " · ~" + Math.round(d.secs / 60) + " min · " +
     esc(d.bucket) + (d.need ? " · " + esc(d.need) : "") + "</span>" +
     '<span class="why"><span class="use">Used in ' + d.used + " of " + d.of + " Section " + d.sec + " answers" + (d.gram.length ? " · " + esc(d.gram.join(", ")) : "") + ".</span> " + esc(d.why) + "</span></a>";
 }).join("");
+}
+document.getElementById("sortbar").addEventListener("click", function (e) {
+  var b = e.target.closest("button"); if (!b) return;
+  sortMode = b.getAttribute("data-s"); try { localStorage.setItem(SORT_KEY, sortMode); } catch (err) {}
+  renderList();
+});
+renderList();
 addEventListener("hashchange", function () { if (BY[decodeURIComponent(location.hash.slice(1))]) location.reload(); });
 })();
 </script>
