@@ -83,10 +83,10 @@ function sorted() {
 }
 function renderList() {
   [].forEach.call(document.querySelectorAll("#sortbar button"), function (b) { b.className = b.getAttribute("data-s") === sortMode ? "on" : ""; });
-document.getElementById("list").innerHTML = sorted().map(function (d) {
-  return '<a class="deck" href="#' + d.did + '"><span class="rk">' + d.rank + '</span><span class="nm"><span class="tag ' + d.sec + '">' + d.sec + "</span>" + esc(d.name) +
+document.getElementById("list").innerHTML = sorted().map(function (d, i) {
+  return '<a class="deck" href="#' + d.did + '"><span class="rk">' + (i + 1) + '</span><span class="nm"><span class="tag ' + d.sec + '">' + d.sec + "</span>" + esc(d.name) +
     '</span><span class="pg">' + progress(d) + '</span><span class="meta">' + d.cards.length + " cards" + (d.core ? " (core: first " + d.core + ")" : "") + " · ~" + Math.round(d.secs / 60) + " min · " +
-    esc(d.bucket) + (d.need ? " · " + esc(d.need) : "") + "</span>" +
+    esc(d.bucket) + (d.need ? " · " + esc(d.need) : "") + (sortMode !== "study" ? " · study rank " + d.rank : "") + "</span>" +
     '<span class="why"><span class="use">Used in ' + d.used + " of " + d.of + " Section " + d.sec + " answers" + (d.gram.length ? " · " + esc(d.gram.join(", ")) : "") + ".</span> " + esc(d.why) + "</span></a>";
 }).join("");
 }
