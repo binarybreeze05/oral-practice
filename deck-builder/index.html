@@ -52,13 +52,13 @@ button{cursor:pointer}
 #dname{flex:1 1 200px;min-width:0;font-size:16px;font-weight:700;border:1px solid transparent;background:transparent;border-radius:6px;padding:3px 8px}
 #dname:hover,#dname:focus{border-color:var(--line);background:var(--panel)}
 .count{color:var(--mute);font-size:12.5px;font-variant-numeric:tabular-nums;white-space:nowrap}
-.heads,.row{display:grid;grid-template-columns:40px minmax(0,1fr) minmax(0,1fr)}
+.heads,.row{display:grid;grid-template-columns:52px minmax(0,1fr) minmax(0,1fr)}
 .heads{border-bottom:1px solid var(--line)}
 .heads div{padding:6px 14px;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--mute)}
 .row{border-bottom:1px solid var(--line)}
 .row.newbox{border-top:2px solid #45464b}
-.gut .tier{font:600 9.5px/1 var(--sans);letter-spacing:.03em;padding:2px 4px;margin-top:3px;border-radius:3px;border:1px solid}
-.gut .tier.t1{color:#57B5B0;border-color:#3b6f6c}.gut .tier.t2{color:#9fb7a0;border-color:#4a5a4b}.gut .tier.t3{color:#8a8a8a;border-color:#45464b}.gut .tier.t4{color:#6a6a6a;border-color:#38393d}
+.gut .tier{font:800 14px/1 var(--sans);letter-spacing:.02em;padding:5px 6px;margin:4px 0 2px;border-radius:5px;min-width:30px;text-align:center}
+.gut .tier.t1{background:#57B5B0;color:#0f1a1a}.gut .tier.t2{background:#8fb07a;color:#141a10}.gut .tier.t3{background:#c9a35a;color:#1c160a}.gut .tier.t4{background:#5a5c63;color:#e6e6e6}
 .row:focus-within{background:#1d2122}
 .gut{display:flex;flex-direction:column;align-items:center;gap:2px;padding-top:10px;color:var(--mute);font:11px var(--mono)}
 .gut .tl{display:none;flex-direction:column}
@@ -79,7 +79,7 @@ button{cursor:pointer}
 .cell .tags .gr{color:#6f7780;font-style:italic}
 .addrow{padding:10px 12px 70px 52px}
 .hint{color:var(--mute);text-align:center;padding:50px 16px;line-height:1.8}
-@media (max-width:640px){.heads{display:none}.row{grid-template-columns:30px minmax(0,1fr)}.cell.back{grid-column:2;border-top:1px dashed var(--line)}}
+@media (max-width:640px){.heads{display:none}.row{grid-template-columns:44px minmax(0,1fr)}.cell.back{grid-column:2;border-top:1px dashed var(--line)}}
 /* cluster drawer */
 .scrim{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:20}
 .drawer{position:fixed;top:0;bottom:0;left:0;width:min(380px,92vw);z-index:21;background:var(--panel);border-right:1px solid var(--line);overflow:auto;padding-bottom:20px}
