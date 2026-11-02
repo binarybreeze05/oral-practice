@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow"><meta name="referrer" content="no-referrer">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'; base-uri 'none'; form-action 'none';">
+<title>TCF date watch</title>
+<style>
+:root { --bg: #f6f7f9; --card: #ffffff; --ink: #1b1f2a; --soft: #5b6273; --rule: #dde1ea; --accent: #2b4aa0;
+  --chg: #fff4d6; --chg-ink: #6b4a00; --open: #0f7a3e; --open-bg: #dcf3e5; --full: #8a3b2e; --full-bg: #f6e3df;
+  --warn: #a3520c; color-scheme: light; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #14161b; --card: #1b1e25; --ink: #e6e8ee; --soft: #9aa1b2; --rule: #2a3040; --accent: #93a9ff;
+  --chg: #3a3015; --chg-ink: #ffd98a; --open: #7fe0a6; --open-bg: #173826; --full: #f0a99b; --full-bg: #3a1f1a;
+  --warn: #f0a458; color-scheme: dark; } }
+:root[data-theme="dark"] {
+  --bg: #14161b; --card: #1b1e25; --ink: #e6e8ee; --soft: #9aa1b2; --rule: #2a3040; --accent: #93a9ff;
+  --chg: #3a3015; --chg-ink: #ffd98a; --open: #7fe0a6; --open-bg: #173826; --full: #f0a99b; --full-bg: #3a1f1a;
+  --warn: #f0a458; color-scheme: dark; }
+* { box-sizing: border-box }
+html, body { margin: 0; background: var(--bg); color: var(--ink) }
+body { font: 15px/1.55 -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif }
+.wrap { width: min(100% - 32px, 860px); margin: 32px auto 64px }
+a { color: var(--accent) }
+.back { font-size: 13px; text-decoration: none }
+h1 { font-size: 22px; margin: 10px 0 4px }
+h2 { font-size: 15px; margin: 30px 0 10px; color: var(--soft); text-transform: uppercase; letter-spacing: .06em }
+.sub { color: var(--soft); font-size: 13.5px }
+.sites { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr)); gap: 14px;
+  align-items: start }
+.site { background: var(--card); border: 1px solid var(--rule); border-radius: 10px; padding: 14px 16px }
+.site-h { display: flex; justify-content: space-between; align-items: baseline; gap: 10px }
+.site-h b { font-size: 16px }
+.site-h a { font-size: 13px; white-space: nowrap }
+.where { color: var(--soft); font-size: 13px; margin-bottom: 8px }
+.sess { display: flex; gap: 10px; align-items: baseline; padding: 7px 0; border-top: 1px solid var(--rule) }
+.sess .d { font-weight: 600; min-width: 0; flex: 1 }
+.sess .x { display: block; font-weight: 400; color: var(--soft); font-size: 12.5px }
+.sess.past { opacity: .5 }
+.pill { font-size: 12px; font-weight: 700; padding: 1px 8px; border-radius: 99px; white-space: nowrap }
+.pill.full { color: var(--full); background: var(--full-bg) }
+.pill.open { color: var(--open); background: var(--open-bg) }
+.none, .prob { color: var(--soft); font-size: 13.5px; padding: 7px 0; border-top: 1px solid var(--rule) }
+.prob { color: var(--warn) }
+table { width: 100%; border-collapse: collapse; background: var(--card); border: 1px solid var(--rule); border-radius: 10px;
+  overflow: hidden }
+th, td { text-align: left; vertical-align: top; padding: 9px 14px; border-top: 1px solid var(--rule) }
+th { font-size: 12.5px; color: var(--soft); font-weight: 600; border-top: 0 }
+td.dt { white-space: nowrap; width: 1%; font-variant-numeric: tabular-nums }
+td.dt span { display: block; color: var(--soft); font-size: 12px }
+tr.chg td { background: var(--chg); color: var(--chg-ink) }
+td ul { margin: 0; padding-left: 18px }
+.same { color: var(--soft) }
+td .prob { border: 0; padding: 2px 0 0 }
+</style>
+</head>
+<body>
+<div class="wrap">
+<a class="back" href="../">← oral practice</a>
+<h1>TCF date watch</h1>
+<div class="sub">TCF Canada session dates at Ashton Testing and UVic, checked once a day from your Mac (9:00). Last check Mon 2 Nov 2026 at 16:51.</div>
+<h2>Dates on the sites now</h2>
+<div class="sites"><div class="site"><div class="site-h"><b>Ashton Testing</b><a href="https://ashtontesting.ca/tcf-canada-test/" rel="noopener noreferrer">Open site ↗</a></div><div class="where">Vancouver · computer-based · $410</div><div class="sess"><span class="d">Nov 23rd 5.00 pm</span><span class="pill full">Full</span></div><div class="sess"><span class="d">Nov 30th 5.00 pm</span><span class="pill full">Full</span></div><div class="sess"><span class="d">Dec 12th 9.00 am</span><span class="pill full">Full</span></div></div><div class="site"><div class="site-h"><b>UVic</b><a href="https://continuingstudies.uvic.ca/languages/topics/french-language/french-language-examinations/tcf-canada" rel="noopener noreferrer">Open site ↗</a></div><div class="where">Victoria · paper-based</div><div class="sess past"><span class="d">October 3, 2026<span class="x">This session is now full!</span><span class="x">Registration opens at 8:30 am on Wednesday, July 15. Registration deadline is Tuesday, August 25.</span><span class="x">Withdrawal deadline Tuesday, September 1.</span></span><span class="pill full">Full</span></div><div class="sess"><span class="d">December 5, 2026<span class="x">This session is now full!</span><span class="x">Registration opens at 8:30 am on Wednesday, September 16. Registration deadline is Friday, October 30.</span><span class="x">Withdrawal deadline Friday, November 6.</span></span><span class="pill full">Full</span></div><div class="none">Page also says: Please continue to monitor this page for updates regarding the registration and exam dates, or go to France Education International to find other approved TCF Centres.</div></div></div>
+<h2>Daily log</h2>
+<table><thead><tr><th>Date</th><th>Result</th></tr></thead><tbody>
+<tr><td class="dt">Mon 2 Nov 2026<span>16:51</span></td><td>First check, watching from here: Ashton Testing 3 dates, all full · UVic 2 dates, all full</td></tr>
+</tbody></table>
+</div>
+</body>
+</html>
