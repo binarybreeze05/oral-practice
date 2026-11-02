@@ -17,8 +17,9 @@
   --f-text: "Literata", Georgia, "Times New Roman", serif;
   --f-ui: "Schibsted Grotesk", "Helvetica Neue", Arial, sans-serif;
   --f-mono: "IBM Plex Mono", ui-monospace, Menlo, monospace;
-  --step--1: 0.8125rem; --step-0: 1.0625rem; --step-1: 1.25rem;
-  --pad: 2.25rem;
+  /* text fills each panel; the body size grows with the window so wide screens do not get very long lines */
+  --step--1: 0.8125rem; --step-0: clamp(1.0625rem, 0.55rem + 0.6vw, 1.3125rem); --step-1: 1.25rem;
+  --pad: clamp(1rem, 2.4vw, 3rem);
 }
 @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
   --panel-en: #14161b; --panel-fr: #161c2a; --bar: #0f1115; --ink: #e6e8ee; --ink-soft: #9aa1b2; --rule: #2a3040;
@@ -66,7 +67,6 @@ main { padding-bottom: 4rem }
 .cell { min-width: 0; padding-left: var(--pad); padding-right: var(--pad) }
 .cell.en { padding-left: max(var(--pad), env(safe-area-inset-left, 0px)) }
 .cell.fr { padding-right: max(var(--pad), env(safe-area-inset-right, 0px)) }
-.cell > * { max-width: 68ch }
 h2 { margin: 0; display: flex; flex-wrap: wrap; align-items: baseline; gap: .2rem .6rem; font: 600 var(--step-1)/1.25 var(--f-ui);
   letter-spacing: -.01em; text-wrap: balance }
 .rid { font: 500 var(--step--1)/1 var(--f-mono); color: var(--accent); background: var(--accent-soft); padding: .3rem .45rem; border-radius: 4px; align-self: center }
