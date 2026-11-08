@@ -6,6 +6,7 @@
   var POS_W = function (n) { return n <= 4 ? 3 : n <= 10 ? 9 : n <= 19 ? 15 : n <= 29 ? 21 : n <= 35 ? 26 : 33; };
   var NCLC = [[549, '10'], [524, '9'], [499, '8'], [453, '7'], [406, '6'], [375, '5'], [342, '4'], [0, '<4']];
   var CHECK = [[4, 2], [10, 7], [19, 18], [29, 35], [35, 48], [39, 58]];
+  var CAP = { A1: '1:00', A2: '1:30', B1: '2:00', B2: '2:00', C1: '2:10', C2: '2:30' }, CAPS = { A1: 60, A2: 90, B1: 120, B2: 120, C1: 130, C2: 150 };
   var U = window.CRAM, $ = U.$, el = U.el, store = U.store;
 
   function nclc(s) { for (var i = 0; i < NCLC.length; i++) if (s >= NCLC[i][0]) return NCLC[i][1]; return '<4'; }
@@ -80,6 +81,8 @@
       c.textContent = U.mmss(s) + ' left · answered ' + n + '/39' + (target && n < target ? ' · behind pace (aim Q' + target + ')' : '');
       c.className = 'clock' + (s < 300 ? ' hot' : '') + (target && n < target ? ' behind' : '');
     }
+    var qt = $('#qtime', root);
+    if (qt && mock.q0) { var e = Math.floor((Date.now() - mock.q0) / 1000), lv = C[mock.items[mock.i]].lv; qt.textContent = 'this question ' + U.mmss(e); qt.className = 'dtimer' + (e > CAPS[lv] ? ' hot' : ''); }
   }
 
   function drawMock(root) {
@@ -96,9 +99,11 @@
     bar.appendChild(nav);
     root.appendChild(bar);
     var card = el('div', 'qcard');
-    card.appendChild(el('div', 'qmeta', 'Question ' + n + ' / 39 · ' + c.lv + ' · ' + POS_W(n) + ' pts'));
-    card.appendChild(docBlock(c));
+    card.appendChild(el('div', 'qmeta', 'Question ' + n + ' / 39 · ' + c.lv + ' · ' + POS_W(n) + ' pts · move on after ' + CAP[c.lv]));
+    var qt = el('div', 'dtimer', ''); qt.id = 'qtime'; card.appendChild(qt);
+    mock.q0 = Date.now();
     card.appendChild(el('div', 'qtext', c.q));
+    card.appendChild(docBlock(c));
     var opts = el('div', 'opts');
     c.o.forEach(function (o) {
       var b = el('button', 'opt' + (mock.ans[mock.i] === o[0] ? ' pick' : ''));
@@ -152,7 +157,7 @@
     var h = el('div', 'result');
     h.innerHTML = '<div class="big">' + r.score + ' / 699 · NCLC ' + nclc(r.score) + '</div><div>' + r.raw + '/39 right · ' +
       ['A1', 'A2', 'B1', 'B2', 'C1', 'C2'].map(function (l) { return r.by[l] ? l + ' ' + r.by[l][0] + '/' + r.by[l][1] : ''; }).filter(Boolean).join(' · ') +
-      '</div><div class="note">NCLC 7 needs 453. Misses went into Drill → "My misses". Review every miss below: say in English why the right answer is right before you move on.</div>';
+      '</div><div class="note">NCLC 7 needs 453. Misses went into Drill → "My misses". For each A1–B2 miss, say aloud the French words that prove the right answer and tag it on paper: V vocabulary · T trap · I inference · P pace. For C1/C2 misses, read the reason only.</div>';
     var back = el('button', 'btn', '‹ All papers'); back.onclick = function () { mock = null; renderMockList(root); };
     var again = el('button', 'mini', 'Retake this paper (clears this result)');
     again.onclick = function () { if (!confirm('Retake ' + m.test + '? Your saved answers for it will be replaced.')) return; var res = results(); delete res[m.test]; store.set('mock.results', res); store.set('mock.live', null); mock = null; renderMockList(root); };
@@ -222,6 +227,7 @@
     var st = stats(), line = ['A1', 'A2', 'B1', 'B2', 'C1', 'C2'].map(function (l) {
       var x = st[l]; return x ? l + ' ' + x[0] + '/' + x[1] + ' (' + Math.round(100 * x[0] / x[1]) + '%)' : null;
     }).filter(Boolean).join(' · ');
+    root.appendChild(el('div', 'note', 'Rhythm: question first, then the document. Hit → Next at once. Miss → read your option\'s reason and the right one\'s, then Next.'));
     root.appendChild(el('div', 'note', (line || 'No drill answers yet.') + ' · today ' + (store.get('drill.today', 0)) + ' answered'));
     if (!D.queue.length) { root.appendChild(el('p', 'note', 'Nothing in this set.')); return; }
     if (D.i >= D.queue.length) { root.appendChild(el('p', 'note', 'Set finished. Pick another level or run My misses.')); return; }
@@ -229,8 +235,8 @@
     var card = el('div', 'qcard');
     card.appendChild(el('div', 'qmeta', (D.i + 1) + ' / ' + D.queue.length + ' · ' + c.lv + ' · in ' + c.seen + ' test' + (c.seen > 1 ? 's' : '') + ' · aim ' + TARGET[c.lv] + ' s'));
     var timer = el('div', 'dtimer', '0 s'); card.appendChild(timer);
-    card.appendChild(docBlock(c));
     card.appendChild(el('div', 'qtext', c.q));
+    card.appendChild(docBlock(c));
     var box = el('div', 'opts');
     D.t0 = Date.now();
     var iv = setInterval(function () { if (!document.body.contains(timer)) return clearInterval(iv); var s = Math.round((Date.now() - D.t0) / 1000); timer.textContent = s + ' s'; timer.className = 'dtimer' + (s > TARGET[c.lv] ? ' hot' : ''); }, 500);

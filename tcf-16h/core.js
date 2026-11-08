@@ -30,8 +30,17 @@
     chunks: function (r, o) { window.WRITING.chunks(r, o); },
     cut: function (r, o) { window.WRITING.cut(r, o); },
     rules: function (r) { var s = el('div', 'sheet'); s.innerHTML = window.SHEETS.rules; r.appendChild(s); window.WRITING.errlog(r); },
-    words: function (r) { renderWords(r); }
+    words: function (r) { renderWords(r); },
+    templates: function (r) { sheetWithScratch(r, 'templates', 'Type the slot list from memory here, then compare with the sheet above.'); },
+    card: function (r) { sheetWithScratch(r, 'card', 'Type the T1, T2, T3 skeletons and the T3 summary frame from memory here.'); }
   };
+  function sheetWithScratch(r, name, label) {
+    var s = el('div', 'sheet'); s.innerHTML = window.SHEETS[name]; r.appendChild(s);
+    var w = el('div', 'qcard'); w.appendChild(el('div', 'wlabel', label));
+    var ta = el('textarea', 'pad'); ta.value = store.get('scratch.' + name, ''); ta.oninput = function () { store.set('scratch.' + name, ta.value); };
+    var clr = el('button', 'mini', 'Clear'); clr.onclick = function () { ta.value = ''; store.set('scratch.' + name, ''); };
+    w.appendChild(ta); w.appendChild(clr); r.appendChild(w);
+  }
   function renderWords(r) {
     var s = el('div', 'sheet'); s.innerHTML = window.SHEETS.wordsIntro || ''; r.appendChild(s);
     var W = window.WR.words || [], cats = {};
@@ -44,8 +53,9 @@
         var cb = el('input'); cb.type = 'checkbox'; cb.checked = !!known[w.id]; cb.title = 'I know this';
         cb.onchange = function () { var k = store.get('words.known', {}); if (cb.checked) k[w.id] = 1; else delete k[w.id]; store.set('words.known', k); row.classList.toggle('done', cb.checked); };
         var b = el('div', 'bbody');
-        b.innerHTML = '<div class="btitle"><span class="fr">' + U.esc(w.fr) + '</span> <span class="bmin">' + U.esc(w.en) + (w.n ? ' · ' + w.n + '× in B2-C2' : '') + '</span></div>' +
+        b.innerHTML = '<div class="btitle"><span class="fr">' + U.esc(w.fr) + '</span> <span class="bmin hid">' + U.esc(w.en) + '</span><span class="bmin">' + (w.n ? ' · ' + w.n + '× in B2-C2' : '') + '</span></div>' +
           (w.ex ? '<div class="bdo fr" style="font-family:var(--fr)">' + U.esc(w.ex) + '</div>' : '') + (w.trap ? '<div class="bout">Trap: ' + U.esc(w.trap) + '</div>' : '') + (w.mine ? '<div class="bout">You used it: ' + U.esc(w.mine) + '</div>' : '');
+        var en = b.querySelector('.hid'); if (en) en.onclick = function () { en.classList.toggle('show'); };
         row.appendChild(cb); row.appendChild(b); r.appendChild(row);
       });
     });

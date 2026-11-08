@@ -66,7 +66,8 @@
   var P = { t: 'EE_T1', idx: 0 };
   function renderPad(root, opts) {
     if (opts) {
-      if (opts.t && opts.t !== P.t) { P.list = null; }
+      if (opts.t && opts.t !== P.t) { P.list = null; P.part = null; }
+      if (opts.list && !opts.part && !opts.keep) P.part = null;
       for (var k in opts) P[k] = opts[k];
       if (opts.n != null) { P.idx = Math.max(0, prompts(P.t).map(function (p) { return p.n; }).indexOf(opts.n)); delete P.n; }
       if (opts.list && opts.n == null && !opts.keep) { P.idx = Math.max(0, prompts(P.t).map(function (p) { return p.n; }).indexOf(opts.list[0])); }
@@ -75,7 +76,7 @@
     var tabs = el('div', 'filters');
     Object.keys(TASKS).forEach(function (t) {
       var b = el('button', 'chip' + (P.t === t ? ' on' : ''), TASKS[t].label + ' (' + TASKS[t].mins + ' min)');
-      b.onclick = function () { P.list = null; renderPad(root, { t: t, idx: 0 }); };
+      b.onclick = function () { P.list = null; P.part = null; renderPad(root, { t: t, idx: 0 }); };
       tabs.appendChild(b);
     });
     root.appendChild(tabs);
@@ -83,7 +84,7 @@
     root.appendChild(el('div', 'note', 'Prompts ranked by how often their family was listed. Write first with the timer, then Copy for grading and paste it to Claude.'));
     var sel = el('select', 'psel');
     list.forEach(function (p, i) {
-      var o = el('option', '', (i + 1) + '. [' + famLabel(p) + '] ' + p.en.slice(0, 90));
+      var o = el('option', '', '#' + p.n + ' · ' + famLabel(p) + ' · ' + p.en.slice(0, 90));
       o.value = i; if (i === P.idx) o.selected = true; sel.appendChild(o);
     });
     sel.onchange = function () { renderPad(root, { idx: +sel.value }); };
@@ -96,21 +97,32 @@
     root.appendChild(lang); root.appendChild(pb);
     var m = WR.models[P.t + ':' + p.fam];
     if (m) root.appendChild(el('div', 'note', 'Your model for this family: Writing → Models → "' + m.title + '". Write first, look after.'));
-    var key = 'pad.' + P.t + '.' + p.n, boxes = [];
+    var key = 'pad.' + P.t + '.' + p.n, boxes = [], mins = TASKS[P.t].mins, part = P.t === 'EE_T3' ? (P.part || 'full') : 'full';
     if (P.t === 'EE_T3') {
-      boxes.push(box(key + '.a', 40, 60, 'Partie 1 · résumé des deux documents (40–60 mots)'));
-      boxes.push(box(key + '.b', 80, 120, 'Partie 2 · votre opinion (80–120 mots)'));
+      var pc = el('div', 'filters');
+      [['full', 'Full task (28 min)'], ['a', 'Part 1 only (6 min)'], ['b', 'Part 2 only (15 min)']].forEach(function (x) {
+        var c = el('button', 'chip' + (part === x[0] ? ' on' : ''), x[1]);
+        c.onclick = function () { renderPad(root, { part: x[0], n: p.n, keep: true }); };
+        pc.appendChild(c);
+      });
+      root.appendChild(pc);
+      if (part !== 'b') boxes.push(box(key + '.a', 40, 60, 'Partie 1 · résumé des deux documents (40–60 mots)'));
+      if (part !== 'a') boxes.push(box(key + '.b', 80, 120, 'Partie 2 · votre opinion (80–120 mots)'));
+      mins = part === 'a' ? 6 : part === 'b' ? 15 : 28;
     } else boxes.push(box(key, TASKS[P.t].min, TASKS[P.t].max));
-    var tm = timer(TASKS[P.t].mins);
+    var tm = timer(mins, key + '.' + part);
     root.appendChild(tm);
     boxes.forEach(function (b) { root.appendChild(b); });
     var tot = el('div', 'note');
-    if (P.t === 'EE_T3') { var up = function () { tot.textContent = 'Total ' + (boxes[0].n() + boxes[1].n()) + ' words (120–180)'; }; root.addEventListener('input', up); up(); root.appendChild(tot); }
+    if (P.t === 'EE_T3' && boxes.length === 2) { var up = function () { tot.textContent = 'Total ' + (boxes[0].n() + boxes[1].n()) + ' words (120–180)'; }; root.addEventListener('input', up); up(); root.appendChild(tot); }
     var acts = el('div', 'acts');
     var cp = el('button', 'btn primary', 'Copy for grading');
     cp.onclick = function () {
       var text = boxes.map(function (b) { return b.text(); }).join('\n\n');
-      U.copy(gradePrompt(P.t, p, text), cp);
+      var g = gradePrompt(P.t, p, text);
+      if (part === 'a') g = g.replace('(part 1 summary 40–60 + part 2 opinion 80–120 = 120–180 words)', '(PART 1 ONLY: neutral summary of both documents, 40–60 words; grade only that part)');
+      if (part === 'b') g = g.replace('(part 1 summary 40–60 + part 2 opinion 80–120 = 120–180 words)', '(PART 2 ONLY: my opinion, 80–120 words; grade only that part)');
+      U.copy(g, cp);
       var hist = store.get('pad.history', []); hist.push({ t: P.t, n: p.n, words: wc(text), at: new Date().toISOString() }); store.set('pad.history', hist);
     };
     acts.appendChild(cp);
@@ -124,22 +136,30 @@
     root.appendChild(checklist(P.t));
   }
 
-  function timer(mins) {
-    var w = el('div', 'wtimer'), s = mins * 60, iv = null, t0 = 0;
-    var lab = el('span', 'clock', U.mmss(s));
-    var b = el('button', 'btn', 'Start ' + mins + ' min');
+  function timer(mins, key) {
+    var w = el('div', 'wtimer'), K = key ? 'timer.' + key : null;
+    var st = (K && store.get(K, null)) || { t0: null, left: mins * 60, mins: mins };
+    if (st.mins !== mins) st = { t0: null, left: mins * 60, mins: mins };
+    var lab = el('span', 'clock'), b = el('button', 'btn'), rs = el('button', 'mini', 'Reset timer'), iv = null;
+    function save() { if (K) store.set(K, st); }
+    function leftNow() { return st.t0 ? Math.max(0, st.left - Math.floor((Date.now() - st.t0) / 1000)) : st.left; }
+    function paint() {
+      var s = leftNow();
+      lab.textContent = s ? U.mmss(s) : 'Time. Stop typing, run the checklist.';
+      lab.className = 'clock' + (s < 120 ? ' hot' : '');
+      b.textContent = st.t0 ? 'Pause' : (s === mins * 60 ? 'Start ' + mins + ' min' : 'Resume');
+      if (!s && st.t0) { st.left = 0; st.t0 = null; save(); clearInterval(iv); iv = null; }
+    }
+    function run() { clearInterval(iv); iv = setInterval(function () { if (!document.body.contains(w)) return clearInterval(iv); paint(); }, 500); }
     b.onclick = function () {
-      if (iv) { clearInterval(iv); iv = null; b.textContent = 'Resume'; return; }
-      t0 = Date.now() - (mins * 60 - s) * 1000;
-      iv = setInterval(function () {
-        if (!document.body.contains(w)) return clearInterval(iv);
-        s = Math.max(0, mins * 60 - Math.floor((Date.now() - t0) / 1000));
-        lab.textContent = U.mmss(s); lab.className = 'clock' + (s < 120 ? ' hot' : '');
-        if (!s) { clearInterval(iv); iv = null; lab.textContent = 'Time. Stop typing, run the checklist.'; }
-      }, 500);
-      b.textContent = 'Pause';
+      if (st.t0) { st.left = leftNow(); st.t0 = null; clearInterval(iv); iv = null; }
+      else if (st.left > 0) { st.t0 = Date.now(); run(); }
+      save(); paint();
     };
-    w.appendChild(b); w.appendChild(lab);
+    rs.onclick = function () { st = { t0: null, left: mins * 60, mins: mins }; save(); clearInterval(iv); paint(); };
+    if (st.t0) run();
+    paint();
+    w.appendChild(b); w.appendChild(lab); w.appendChild(rs);
     return w;
   }
 
@@ -306,7 +326,7 @@
     var key = 'cut.' + a.id;
     if (store.get(key, null) == null) store.set(key, a.fr);
     var b = a.t === 'EE_T3' ? box(key, 80, 120, 'Target: ' + a.target) : box(key, T.min, T.max, 'Target: ' + a.target);
-    root.appendChild(timer(12));
+    root.appendChild(timer(12, 'cut.' + a.id));
     root.appendChild(b);
     var rs = el('button', 'mini', 'Reset to the full answer'); rs.onclick = function () { store.set(key, a.fr); renderCut(root, { id: a.id }); };
     root.appendChild(rs);
