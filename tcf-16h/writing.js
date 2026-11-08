@@ -231,10 +231,12 @@
       var body = el('div', 'mbody');
       function draw(recall) {
         body.innerHTML = '';
+        var lastPart = null;
         m.s.forEach(function (s) {
-          if (s.br) { body.appendChild(el('div', 'gap')); }
+          if (s.part && s.part !== lastPart) { lastPart = s.part; body.appendChild(el('div', 'wlabel', s.part === 'a' ? 'Partie 1 · résumé (frame, generic)' : 'Partie 2 · your opinion')); }
+          else if (s.br) { body.appendChild(el('div', 'gap')); }
           var row = el('div', 'ms' + (recall ? ' hide' : ''));
-          row.innerHTML = '<div class="fr">' + U.esc(s.fr) + '</div><div class="en">' + U.esc(s.en || '') + '</div>';
+          row.innerHTML = '<div class="fr">' + U.esc(s.fr) + '</div><div class="en">' + U.esc(s.en || '') + (s.gen ? ' <span class="gen">generic</span>' : '') + '</div>';
           if (recall) row.onclick = function () { row.classList.toggle('hide'); };
           body.appendChild(row);
         });
