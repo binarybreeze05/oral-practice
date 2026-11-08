@@ -34,7 +34,7 @@
   var REC = ['test30', 'test28', 'test09', 'test13', 'test10'];
   var PAPERS = REC.map(function (t) { return RD.papers.filter(function (p) { return p.test === t; })[0]; })
     .concat(RD.papers.filter(function (p) { return REC.indexOf(p.test) < 0; }));
-  var INMOCK = {}; PAPERS.slice(0, 5).forEach(function (p) { p.items.forEach(function (i) { INMOCK[i] = 1; }); });
+  var INMOCK = {}; PAPERS.slice(0, 3).forEach(function (p) { p.items.forEach(function (i) { INMOCK[i] = 1; }); });
   var mock = null, tick = null;
   function results() { return store.get('mock.results', {}); }
 
@@ -195,7 +195,9 @@
       if (D.misses) return miss[c.id];
       return c.lv === D.lv && (!D.seen2 || c.seen >= 2) && !INMOCK[c.id];
     });
-    q.sort(function (a, b) { return (done[a.id] ? 1 : 0) - (done[b.id] ? 1 : 0) || b.seen - a.seen || (a.id < b.id ? -1 : 1); });
+    var ORD = { B2: 0, C1: 1, C2: 2, B1: 3, A2: 4, A1: 5 };
+    if (D.misses) q.sort(function (a, b) { return ORD[a.lv] - ORD[b.lv] || b.seen - a.seen; });
+    else q.sort(function (a, b) { return (done[a.id] ? 1 : 0) - (done[b.id] ? 1 : 0) || b.seen - a.seen || (a.id < b.id ? -1 : 1); });
     D.queue = q.map(function (c) { return c.id; }); D.i = 0; D.picked = null;
   }
 

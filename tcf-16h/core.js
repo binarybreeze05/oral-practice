@@ -37,7 +37,7 @@
     var W = window.WR.words || [], cats = {};
     W.forEach(function (w) { (cats[w.cat] = cats[w.cat] || []).push(w); });
     var known = store.get('words.known', {});
-    Object.keys(cats).forEach(function (c) {
+    ['negation', 'attitude', 'connector'].concat(Object.keys(cats)).filter(function (c, i, a) { return cats[c] && a.indexOf(c) === i; }).forEach(function (c) {
       r.appendChild(el('h3', 'phase', c + ' (' + cats[c].length + ')'));
       cats[c].forEach(function (w) {
         var row = el('div', 'block' + (known[w.id] ? ' done' : ''));
@@ -77,6 +77,15 @@
     var doneMin = P.blocks.reduce(function (a, b) { return a + (S.done[b.id] ? b.min : 0); }, 0);
     head.innerHTML = '<div class="big">' + Math.floor(doneMin / 60) + ' h ' + (doneMin % 60) + ' min of ' + (T.min / 60).toFixed(1) + ' h done</div>' +
       '<div class="note">' + P.blocks.length + ' blocks · reading ' + (T.by.CE / 60).toFixed(1) + ' h · writing ' + (T.by.EE / 60).toFixed(1) + ' h' + (T.by.both ? ' · mixed ' + (T.by.both / 60).toFixed(1) + ' h' : '') + ' · focused minutes only, breaks are extra</div>';
+    var undone = P.blocks.filter(function (b) { return !S.done[b.id]; });
+    if (undone.length) {
+      var rem = undone.reduce(function (a, b) { return a + b.min; }, 0) + (undone.length - 1) * (P.breakMin || 5);
+      (P.meals || []).forEach(function (m) { if (!S.done[m.after]) rem += m.min; });
+      if (S.active && S.t0 && !S.done[S.active]) rem -= Math.min(Math.floor((Date.now() - S.t0) / 60000), (P.blocks.filter(function (b) { return b.id === S.active; })[0] || { min: 0 }).min);
+      var fin = new Date(Date.now() + rem * 60000);
+      var hh = fin.getHours(), mm = fin.getMinutes();
+      head.appendChild(el('div', 'note', 'At this pace you finish at ' + (hh < 10 ? '0' : '') + hh + ':' + (mm < 10 ? '0' : '') + mm + (fin.getDate() !== new Date().getDate() ? ' tomorrow' : '') + ' (' + (P.breakMin || 5) + '-min breaks between blocks, plus meals).'));
+    }
     var bar = el('div', 'progress'); var fill = el('div', 'fill'); fill.style.width = (100 * doneMin / T.min) + '%'; bar.appendChild(fill); head.appendChild(bar);
     root.appendChild(head);
     if (P.intro) { var i = el('div', 'intro'); i.innerHTML = P.intro; root.appendChild(i); }
@@ -84,6 +93,7 @@
     if (next) root.appendChild(nowCard(next, S, root));
     else root.appendChild(el('div', 'nowcard', 'All blocks done. Read the exam-morning card, then sleep.'));
     var phase = null;
+    var mealAfter = {}; (P.meals || []).forEach(function (m) { mealAfter[m.after] = m; });
     P.blocks.forEach(function (b, k) {
       if (b.phase && b.phase !== phase) { phase = b.phase; root.appendChild(el('h3', 'phase', phase)); }
       var row = el('div', 'block' + (S.done[b.id] ? ' done' : '') + (next && b.id === next.id ? ' cur' : ''));
@@ -96,6 +106,7 @@
       if (b.go) { var g = el('button', 'mini', 'Open ' + (b.goLabel || 'material') + ' ›'); g.onclick = function () { go(b.go[0], b.go[1]); }; body.appendChild(g); }
       row.appendChild(body);
       root.appendChild(row);
+      if (mealAfter[b.id]) root.appendChild(el('div', 'note', '· ' + mealAfter[b.id].label + ', ' + mealAfter[b.id].min + ' min (not counted) ·'));
     });
     if (P.outro) { var o = el('div', 'intro'); o.innerHTML = P.outro; root.appendChild(o); }
   }

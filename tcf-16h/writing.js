@@ -305,7 +305,7 @@
     root.appendChild(el('div', 'prompt small', a.prompt));
     var key = 'cut.' + a.id;
     if (store.get(key, null) == null) store.set(key, a.fr);
-    var b = box(key, a.t === 'EE_T3' ? 120 : T.min, T.max, 'Target: ' + a.target);
+    var b = a.t === 'EE_T3' ? box(key, 80, 120, 'Target: ' + a.target) : box(key, T.min, T.max, 'Target: ' + a.target);
     root.appendChild(timer(12));
     root.appendChild(b);
     var rs = el('button', 'mini', 'Reset to the full answer'); rs.onclick = function () { store.set(key, a.fr); renderCut(root, { id: a.id }); };
