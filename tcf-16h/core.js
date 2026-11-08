@@ -45,6 +45,7 @@
   }
   function go(view, opts) {
     var main = $('#main');
+    if (window.SPEAKING && window.SPEAKING.stopAll) window.SPEAKING.stopAll();
     document.querySelectorAll('nav a').forEach(function (a) { a.classList.toggle('on', a.dataset.v === view); });
     store.set('view', view);
     main.innerHTML = '';

@@ -3,7 +3,7 @@
 (function () {
   'use strict';
   var U = window.CRAM, el = U.el, store = U.store, esc = U.esc, SP = window.SP;
-  var STEP = [15, 60, 240, 480];
+  var STEP = [60, 240, 480, 720];  /* a Good card stays away for the rest of the block */
   var TASKS = {
     EO_T1: { name: 'Tâche 1 · Entretien', secs: 120, prep: 0 },
     EO_T2: { name: 'Tâche 2 · Interaction', secs: 210, prep: 120 },
@@ -50,7 +50,7 @@
     var due = items.filter(function (c) { var s = S[c.id]; return !s || s.due <= now; });
     var solid = items.filter(function (c) { var s = S[c.id]; return s && s.box >= 3; }).length;
     var seen = items.filter(function (c) { return S[c.id]; }).length;
-    root.appendChild(el('div', 'note', due.length + ' due · ' + seen + '/' + items.length + ' seen · ' + solid + ' solid (3 Good in a row). Again = back in 3 min; Good = 15 min, 1 h, 4 h, 8 h.'));
+    root.appendChild(el('div', 'note', due.length + ' due · ' + seen + '/' + items.length + ' seen · ' + solid + ' solid (3 Good in a row). Again = back in 3 min; Good = gone for 1 h, then 4 h, 8 h. The pass is done when nothing is due.'));
     if (!due.length) {
       var soon = items.slice().sort(function (a, b) { return (S[a.id] || {}).due - (S[b.id] || {}).due; })[0];
       var mins = soon ? Math.max(1, Math.round(((S[soon.id] || {}).due - now) / 60000)) : 0;
@@ -77,6 +77,8 @@
 
   /* ---------- recorder + live transcript ---------- */
   var SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  var LIVE = [];
+  function stopAll() { LIVE.slice().forEach(function (r) { try { r.stop(); } catch (e) { } }); LIVE = []; if (window.speechSynthesis) speechSynthesis.cancel(); }
   function recorder(key) {
     var w = el('div', 'rec');
     var row = el('div', 'acts');
@@ -93,6 +95,8 @@
     var ta = el('textarea', 'pad small'); ta.value = store.get('tx.' + key, ''); ta.oninput = function () { store.set('tx.' + key, ta.value); };
     w.appendChild(ta);
     var clr = el('button', 'mini', 'Clear transcript'); clr.onclick = function () { ta.value = ''; store.set('tx.' + key, ''); }; w.appendChild(clr);
+    var prev = el('details', 'model'), ps = el('summary'); ps.textContent = 'Previous take (each new recording starts a fresh transcript)'; prev.appendChild(ps);
+    var prevBody = el('div', 'note', store.get('txprev.' + key, '')); prev.appendChild(prevBody); prev.hidden = !store.get('txprev.' + key, ''); w.appendChild(prev);
     var mr = null, chunks = [], stream = null, rec = null, on = false, interim = el('div', 'note');
     w.insertBefore(interim, ta);
     function startSR() {
@@ -109,7 +113,9 @@
       try { rec.start(); } catch (x) { }
     }
     function start() {
-      on = true; rb.textContent = 'Stop'; rb.classList.add('on');
+      stopAll();
+      if (ta.value.trim()) { store.set('txprev.' + key, ta.value); prev.hidden = false; prevBody.textContent = ta.value; ta.value = ''; store.set('tx.' + key, ''); }
+      on = true; rb.textContent = 'Stop'; rb.classList.add('on'); LIVE.push(w);
       if (navigator.mediaDevices && window.MediaRecorder) {
         navigator.mediaDevices.getUserMedia({ audio: true }).then(function (s) {
           stream = s; chunks = []; mr = new MediaRecorder(s);
@@ -125,6 +131,7 @@
       startSR();
     }
     function stop() {
+      LIVE = LIVE.filter(function (x) { return x !== w; });
       on = false; rb.textContent = 'Record'; rb.classList.remove('on'); interim.textContent = '';
       if (mr && mr.state !== 'inactive') mr.stop();
       if (rec) { try { rec.stop(); } catch (x) { } rec = null; }
@@ -157,6 +164,25 @@
     return w;
   }
 
+  function burst() {
+    var w = el('div', 'acts'), c = el('span', 'clock', ''), iv = null;
+    [60, 90].forEach(function (n) {
+      var b = el('button', 'mini', n + '-s timer');
+      b.onclick = function () {
+        clearInterval(iv); var t0 = Date.now();
+        iv = setInterval(function () {
+          if (!document.body.contains(w)) return clearInterval(iv);
+          var left = n - Math.floor((Date.now() - t0) / 1000);
+          if (left <= 0) { clearInterval(iv); c.textContent = 'Stop.'; c.className = 'clock hot'; return; }
+          c.textContent = U.mmss(left); c.className = 'clock' + (left <= 10 ? ' hot' : '');
+        }, 250);
+      };
+      w.appendChild(b);
+    });
+    w.appendChild(c);
+    return w;
+  }
+
   /* ---------- prompts for Claude ---------- */
   function gradePrompt(task, promptFr, text) {
     var what = task === 'EO_T1' ? 'Task 1 (entretien dirigé, 2 min: personal questions)' : task === 'EO_T2' ? 'Task 2 (exercice en interaction, 3 min 30 of talk: I ask the examiner questions)' : 'Task 3 (expression d\'un point de vue, 4 min 30: I defend an opinion)';
@@ -174,7 +200,7 @@
 
   /* =========================== TASK 1 =========================== */
   function renderT1(root, opts) {
-    root.innerHTML = '';
+    stopAll(); root.innerHTML = '';
     var T = SP.t1, sub = (opts && opts.sub) || store.get('t1.sub', 'opener');
     root.appendChild(el('div', 'note', 'Task 1, 2 minutes, no prep. The examiner says "Présentez-vous", then asks follow-ups on what you said. Your opener plants hooks in your strongest topics. All French below is your own English answers, translated; "guessed fact" marks the facts I filled in.'));
     tabs(root, 't1.sub', [['opener', 'Opener (75 s)'], ['freq', '★ Frequent (' + T.cards.filter(function (c) { return c.freq; }).length + ')'], ['topic', 'By topic'], ['read', 'Read all']], sub, function (s) { renderT1(root, { sub: s }); });
@@ -237,7 +263,7 @@
 
   /* =========================== TASK 2 =========================== */
   function renderT2(root, opts) {
-    root.innerHTML = '';
+    stopAll(); root.innerHTML = '';
     var T = SP.t2, sub = (opts && opts.sub) || store.get('t2.sub', 'kit');
     root.appendChild(el('div', 'note', 'Task 2, 5 min 30: 2 min prep, then 3 min 30 asking the examiner questions. Aim for 12–15 questions, the card\'s points first, and react to each answer. Register: tu for a friend or colleague; vous for staff, neighbours and strangers. Each card below shows its register.'));
     tabs(root, 't2.sub', [['kit', 'Question kit (' + T.chunks.length + ')'], ['drill', 'Kit drill'], ['fams', 'Top ' + T.fams.length + ' cards'], ['models', 'Your ' + T.models.length + ' answers']], sub, function (s) { renderT2(root, { sub: s }); });
@@ -246,17 +272,17 @@
     if (sub === 'models') return models(root, T.models);
     famList(root, T.fams, 'EO_T2', function (f, d, hide) {
       d.appendChild(el('div', 'note', 'Register: ' + f.reg));
-      d.appendChild(line(f.opener_fr, null, { hide: hide }));
+      d.appendChild(line(f.opener_fr, hide ? 'opener: hello + why you are asking' : null, { hide: hide }));
       var ol = el('ol', 'bdo');
       f.questions.forEach(function (q) { var li = el('li'); li.appendChild(line(q.fr, q.en, { hide: hide, gen: q.gen })); ol.appendChild(li); });
       d.appendChild(ol);
-      d.appendChild(line(f.closer_fr, null, { hide: hide }));
+      d.appendChild(line(f.closer_fr, hide ? 'closer: no more questions + thanks' : null, { hide: hide }));
       if (f.from && f.from.length) d.appendChild(el('div', 'bout', 'Built from your ' + f.from.join(', ')));
     });
   }
   /* =========================== TASK 3 =========================== */
   function renderT3(root, opts) {
-    root.innerHTML = '';
+    stopAll(); root.innerHTML = '';
     var T = SP.t3, sub = (opts && opts.sub) || store.get('t3.sub', 'skel');
     root.appendChild(el('div', 'note', 'Task 3, 4 min 30, no prep: take a side in the first 20 seconds, two arguments each with an example from your life, one concession, a conclusion. When the examiner pushes back, agree in part and come back to your side.'));
     tabs(root, 't3.sub', [['skel', 'Skeleton'], ['kit', 'Phrases (' + T.chunks.length + ')'], ['drill', 'Phrase drill'], ['themes', 'Your arguments'], ['fams', 'Top ' + T.fams.length + ' topics'], ['models', 'Your ' + T.models.length + ' answers']], sub, function (s) { renderT3(root, { sub: s }); });
@@ -276,7 +302,7 @@
       return;
     }
     famList(root, T.fams, 'EO_T3', function (f, d, hide) {
-      d.appendChild(line(f.position_fr, null, { hide: hide }));
+      d.appendChild(line(f.position_fr, hide ? 'your side, in one sentence' : null, { hide: hide }));
       f.plan.forEach(function (p) { var w = el('div', ''); w.appendChild(el('span', 'reg', p.part)); w.appendChild(line(p.fr, p.en, { hide: hide, gen: p.gen })); d.appendChild(w); });
       if (f.borrow && f.borrow.length) d.appendChild(el('div', 'bout', 'Borrowed from your ' + f.borrow.join(', ')));
     });
@@ -303,6 +329,8 @@
     var b = el('button', 'chip' + (hide ? ' on' : ''), hide ? 'Recall mode on (tap a line to see it)' : 'Recall mode off');
     b.onclick = function () { store.set('fam.hide.' + task, !hide); (task === 'EO_T2' ? renderT2 : renderT3)(root, { sub: 'fams' }); };
     root.appendChild(b);
+    root.appendChild(el('div', 'note', task === 'EO_T2' ? 'Question bursts: open a card, start the 60-s timer, say as many questions as you can, then check against the list.' : 'Oral plan sprints: open a topic, start the 90-s timer, say your side, two arguments and one example, then check against the plan.'));
+    root.appendChild(burst());
     var tot = SP[task === 'EO_T2' ? 't2' : 't3'].totalListings;
     fams.forEach(function (f, i) {
       var d = el('details', 'model'); var s = el('summary'); s.textContent = (i + 1) + '. ' + f.prompt_fr; d.appendChild(s);
@@ -331,7 +359,7 @@
     return SP[t === 'EO_T2' ? 't2' : 't3'].prompts;
   }
   function renderPad(root, opts) {
-    root.innerHTML = '';
+    stopAll(); root.innerHTML = '';
     var P = store.get('spad', { t: 'EO_T3', idx: 0, list: null });
     if (opts && opts.t) { P.t = opts.t; P.idx = 0; P.list = opts.list || null; }
     var L = promptList(P.t);
@@ -372,15 +400,17 @@
       root.appendChild(clock(TK.prep, TK.secs, { talk: function () { if (!rec.isOn()) rec.start(); }, end: function () { if (rec.isOn()) rec.stop(); } }));
     }
     root.appendChild(rec);
+    if (P.t === 'EO_T3') { root.appendChild(el('div', 'note', 'Oral plan sprint (90 s, not recorded): side, two arguments, one example.')); root.appendChild(burst()); }
     var acts = el('div', 'acts');
     acts.appendChild(copyBtn('Copy for grading', function () { return gradePrompt(P.t, P.t === 'EO_T1' ? 'Présentez-vous (then personal follow-up questions)' : p.fr, rec.text()); }));
     acts.appendChild(copyBtn('Copy examiner prompt (Claude voice mode)', function () { return examinerPrompt(P.t, p.fr); }));
+    root.appendChild(el('div', 'note', 'Voice mode runs on your phone: open this page on the phone and tap Copy there (or use Universal Clipboard), paste into a new Claude chat, then switch to voice.'));
     if (P.list && P.list.length) {
       var k2 = P.list.indexOf(p.n);
       if (k2 >= 0 && k2 < P.list.length - 1) { var nx = el('button', 'btn primary', 'Next sprint ›'); nx.onclick = function () { renderPad(root, { t: P.t, n: P.list[k2 + 1], list: P.list }); }; acts.appendChild(nx); }
     }
     root.appendChild(acts);
-    root.appendChild(el('div', 'note', 'Listen back once with this check: Did I start within 3 s? Any silence over 5 s? ' + (P.t === 'EO_T2' ? 'How many questions? Did I react to answers?' : P.t === 'EO_T3' ? 'Side clear in 20 s? Two examples? A concession?' : 'Details and hooks, not bare facts?') + ' Then paste the grading prompt to Claude.'));
+    root.appendChild(el('div', 'note', 'Press Start only: the clock starts the recording when the talk begins and stops it at the end. Listen back once with this check: Did I start within 3 s? Any silence over 5 s? ' + (P.t === 'EO_T2' ? 'How many questions? Did I react to answers?' : P.t === 'EO_T3' ? 'Side clear in 20 s? Two examples? A concession?' : 'Details and hooks, not bare facts?') + ' Then paste the grading prompt to Claude.'));
   }
   /* keep list across Next */
   var _rp = renderPad;
@@ -389,7 +419,7 @@
   /* =========================== SPEAKING MOCK =========================== */
   function pickWeighted(L) { var tot = L.reduce(function (a, p) { return a + (p.ff || 1); }, 0), r = Math.random() * tot; for (var i = 0; i < L.length; i++) { r -= (L[i].ff || 1); if (r <= 0) return L[i]; } return L[0]; }
   function renderMock(root) {
-    root.innerHTML = '';
+    stopAll(); root.innerHTML = '';
     var M = store.get('smock', null);
     root.appendChild(el('div', 'note', 'Full Expression orale in exam order: Task 1 (2:00), Task 2 (2:00 prep + 3:30), Task 3 (4:30). Cards drawn by how often they were reported. Best done with Claude voice mode playing the examiner (copy the prompt below); otherwise solo here: the page asks the Task 1 questions aloud and records each part.'));
     var nw = el('button', 'btn primary', M ? 'New mock (new cards)' : 'Draw a mock');
@@ -410,7 +440,8 @@
     var recs = [];
     parts.forEach(function (x, i) {
       var sec = el('div', 'wtask'); sec.appendChild(el('h3', '', TASKS[x[0]].name));
-      var pb = el('div', 'prompt'); pb.appendChild(el('p', '', x[1])); if (x[2]) pb.appendChild(hideEn(x[2])); sec.appendChild(pb);
+      var pb = el('div', 'prompt'); pb.appendChild(el('p', '', (x[0] === 'EO_T2' ? '#' + p2.n + ' · ' : x[0] === 'EO_T3' ? '#' + p3.n + ' · ' : '') + x[1])); if (x[2]) pb.appendChild(hideEn(x[2])); sec.appendChild(pb);
+      var rd = el('button', 'mini', 'Redo this card on the Speaking pad ›'); (function (t, n) { rd.onclick = function () { U.go('spad', n ? { t: t, n: n } : { t: t }); }; })(x[0], x[0] === 'EO_T2' ? p2.n : x[0] === 'EO_T3' ? p3.n : null); sec.appendChild(rd);
       var rec = recorder('mock.' + M.at + '.' + x[0]); recs.push([x, rec]);
       if (x[0] === 'EO_T1') {
         var Q = el('div', 'cue', ''), asked = [];
@@ -435,5 +466,5 @@
     root.appendChild(ac);
   }
 
-  window.SPEAKING = { t1: renderT1, t2: renderT2, t3: renderT3, pad: renderPad, mock: renderMock };
+  window.SPEAKING = { t1: renderT1, t2: renderT2, t3: renderT3, pad: renderPad, mock: renderMock, stopAll: stopAll };
 })();
