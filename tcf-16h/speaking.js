@@ -45,13 +45,19 @@
   }
 
   /* ---------- spaced deck (same steps as the writing chunks) ---------- */
-  function deck(root, key, items, render, onAgain) {
+  function deck(root, key, items, render, onAgain, rerender) {
     var S = store.get(key, {}), now = Date.now();
     var due = items.filter(function (c) { var s = S[c.id]; return !s || s.due <= now; });
     var solid = items.filter(function (c) { var s = S[c.id]; return s && s.box >= 3; }).length;
     var seen = items.filter(function (c) { return S[c.id]; }).length;
     root.appendChild(el('div', 'note', due.length + ' due · ' + seen + '/' + items.length + ' seen · ' + solid + ' solid (3 Good in a row). Again = back in 3 min; Good = 15 min, 1 h, 4 h, 8 h.'));
-    if (!due.length) { root.appendChild(el('p', 'note', 'Nothing due in this set. Pick another set or come back later.')); return; }
+    if (!due.length) {
+      var soon = items.slice().sort(function (a, b) { return (S[a.id] || {}).due - (S[b.id] || {}).due; })[0];
+      var mins = soon ? Math.max(1, Math.round(((S[soon.id] || {}).due - now) / 60000)) : 0;
+      root.appendChild(el('p', 'note', 'Nothing due in this set. Next card due in ' + mins + ' min. Pick another set, or review early.'));
+      if (soon && rerender) { var re = el('button', 'btn', 'Review early'); re.onclick = function () { S = store.get(key, {}); S[soon.id].due = Date.now() - 1; store.set(key, S); rerender(); }; root.appendChild(re); }
+      return;
+    }
     due.sort(function (a, b) { var x = (S[a.id] || {}).due || 0, y = (S[b.id] || {}).due || 0; return x - y || items.indexOf(a) - items.indexOf(b); });
     var c = due[0], card = el('div', 'qcard chunk');
     var parts = render(c, card);
@@ -171,7 +177,7 @@
     root.innerHTML = '';
     var T = SP.t1, sub = (opts && opts.sub) || store.get('t1.sub', 'opener');
     root.appendChild(el('div', 'note', 'Task 1, 2 minutes, no prep. The examiner says "Présentez-vous", then asks follow-ups on what you said. Your opener plants hooks in your strongest topics. All French below is your own English answers, translated; "guessed fact" marks the facts I filled in.'));
-    tabs(root, 't1.sub', [['opener', 'Opener (60 s)'], ['freq', '★ Frequent (' + T.cards.filter(function (c) { return c.freq; }).length + ')'], ['topic', 'By topic'], ['read', 'Read all']], sub, function (s) { renderT1(root, { sub: s }); });
+    tabs(root, 't1.sub', [['opener', 'Opener (75 s)'], ['freq', '★ Frequent (' + T.cards.filter(function (c) { return c.freq; }).length + ')'], ['topic', 'By topic'], ['read', 'Read all']], sub, function (s) { renderT1(root, { sub: s }); });
     if (sub === 'opener') return opener(root);
     if (sub === 'read') return readAll(root);
     var pool = T.cards;
@@ -181,34 +187,39 @@
       tabs(root, 't1.topic', T.topics.map(function (t) { return [t, t + ' (' + T.cards.filter(function (c) { return c.topic === t && !c.freq; }).length + ')']; }), tp, function (t) { renderT1(root, { sub: 'topic', topic: t }); });
       pool = pool.filter(function (c) { return c.topic === tp && !c.freq; });
     }
-    root.appendChild(el('div', 'note', 'Read the question (tap Hear it to train your ear), answer OUT LOUD in French for 20–40 s, then Reveal and compare. Good if you got the key facts and most of the French; the wording can differ.'));
+    var ear = store.get('t1.ear', false);
+    var eb = el('button', 'chip' + (ear ? ' on' : ''), ear ? 'Ear mode on: the question plays, text hidden (tap to show)' : 'Ear mode off');
+    eb.onclick = function () { store.set('t1.ear', !ear); renderT1(root, { sub: sub, topic: opts && opts.topic }); };
+    root.appendChild(eb);
+    root.appendChild(el('div', 'note', 'In the exam you only hear the questions. Answer OUT LOUD in French for 20–40 s, then Reveal and compare. Good if you got the key facts and most of the French; the wording can differ.'));
     deck(root, 't1.deck', pool, function (c, card) {
-      card.appendChild(el('div', 'qmeta', (c.freq ? '★ frequent · ' : '') + c.topic + ' · Q' + c.bank));
-      var q = el('div', 'cue'); q.innerHTML = '<span class="fr" style="font-family:var(--fr)">' + esc(c.qfr) + '</span>'; card.appendChild(q);
+      card.appendChild(el('div', 'qmeta', (c.hook ? '★ opener hook (built from your ' + (c.from || []).join(', ') + ') · ' : c.freq ? '★ frequent · ' : '') + c.topic + (c.hook ? '' : ' · Q' + c.bank)));
+      var q = el('div', 'cue' + (ear ? ' ms hide' : '')); q.innerHTML = '<span class="fr" style="font-family:var(--fr)">' + esc(c.qfr) + '</span>'; card.appendChild(q);
+      if (ear) { q.onclick = function () { q.classList.remove('hide'); }; setTimeout(function () { say(c.qfr); }, 150); }
       var qe = hideEn(c.q); card.appendChild(qe); card.appendChild(listenBtn(c.qfr));
       var ans = el('div', ''); ans.hidden = true;
       c.lines.forEach(function (l) { ans.appendChild(line(l.fr, l.en, { guess: l.guess })); });
       ans.appendChild(listenBtn(c.lines.map(function (l) { return l.fr; }).join(' ')));
       if (c.hook) ans.appendChild(el('div', 'bout', 'Likely follow-up: ' + c.hook));
       card.appendChild(ans);
-      return { reveal: function () { ans.hidden = false; }, next: function () { renderT1(root, { sub: sub, topic: opts && opts.topic }); } };
-    });
+      return { reveal: function () { ans.hidden = false; q.classList.remove('hide'); }, next: function () { renderT1(root, { sub: sub, topic: opts && opts.topic }); } };
+    }, null, function () { renderT1(root, { sub: sub, topic: opts && opts.topic }); });
   }
   function opener(root) {
     var O = SP.t1.opener, mode = store.get('t1.omode', 'read');
     tabs(root, 't1.omode', [['read', 'Read + shadow'], ['recall', 'Recall (French hidden)']], mode, function () { renderT1(root, { sub: 'opener' }); });
     var box = el('div', 'qcard');
     O.chunks.forEach(function (ch, i) {
-      box.appendChild(el('div', 'wlabel', (i + 1) + ' · ' + ch.name));
+      box.appendChild(el('div', 'wlabel', (i + 1) + ' · ' + ch.name + (i === 2 ? ' (optional: drop it if a take runs past 75 s; question 42 asks it anyway)' : '')));
       ch.lines.forEach(function (l) { box.appendChild(line(l.fr, l.en, { hide: mode === 'recall', guess: l.guess })); });
       box.appendChild(listenBtn(ch.lines.map(function (l) { return l.fr; }).join(' ')));
       box.appendChild(el('div', 'gap'));
     });
-    box.appendChild(el('div', 'note', O.words + ' French words. Stop after the last line, no summary. If the examiner cuts in, answer and drop the rest.'));
+    box.appendChild(el('div', 'note', O.words + ' French words: about 75 s at a calm pace, 60–65 s without chunk 3. Stop after the Barcelona line, no summary. If the examiner cuts in, answer and drop the rest.'));
     root.appendChild(box);
-    var r = el('div', 'qcard'); r.appendChild(el('div', 'wlabel', 'Say it in 60 s, recorded'));
+    var r = el('div', 'qcard'); r.appendChild(el('div', 'wlabel', 'Say it, recorded (75-s clock; aim to finish by 75 s)'));
     var rec = recorder('t1.opener');
-    r.appendChild(clock(0, 60, { talk: function () { if (!rec.isOn()) rec.start(); }, end: function () { if (rec.isOn()) rec.stop(); } }));
+    r.appendChild(clock(0, 75, { talk: function () { if (!rec.isOn()) rec.start(); }, end: function () { if (rec.isOn()) rec.stop(); } }));
     r.appendChild(rec);
     root.appendChild(r);
   }
@@ -285,7 +296,7 @@
       card.appendChild(el('div', 'cue', c.en));
       var a = el('div', 'ans', c.fr); a.hidden = true; card.appendChild(a);
       return { reveal: function () { a.hidden = false; card.appendChild(listenBtn(c.fr)); }, next: again };
-    });
+    }, null, again);
   }
   function famList(root, fams, task, body) {
     var hide = store.get('fam.hide.' + task, false);
@@ -353,9 +364,9 @@
       var asked = [];
       var qs = SP.t1.cards.filter(function (c) { return c.freq; }).concat(SP.t1.cards.filter(function (c) { return !c.freq; }));
       var hooks = { talk: function () { asked = []; T1Q.textContent = 'Présentez-vous.'; say('Bonjour. Présentez-vous, s\'il vous plaît.'); if (!rec.isOn()) rec.start(); },
-        tick: function (s) { var slot = s < 55 ? 0 : 1 + Math.floor((s - 55) / 22); if (slot > asked.length) { var pick = qs.filter(function (c) { return asked.indexOf(c) < 0; }); var c = pick[Math.floor(Math.random() * Math.min(pick.length, 25))]; asked.push(c); T1Q.textContent = c.qfr; say(c.qfr); } },
+        tick: function (s) { var slot = s < 72 ? 0 : 1 + Math.floor((s - 72) / 16); if (slot > asked.length) { var pick = qs.filter(function (c) { return asked.indexOf(c) < 0; }); var c = pick[Math.floor(Math.random() * Math.min(pick.length, 25))]; asked.push(c); T1Q.textContent = c.qfr; say(c.qfr); } },
         end: function () { if (rec.isOn()) rec.stop(); } };
-      root.appendChild(el('div', 'note', 'The page plays the examiner: it asks "Présentez-vous", then a follow-up about every 22 s after the first minute (frequent questions first).'));
+      root.appendChild(el('div', 'note', 'The page plays the examiner: it asks "Présentez-vous", then a follow-up at 72 s and every 16 s after (frequent questions first). In the exam the examiner cuts in when they like; stop your opener and answer.'));
       root.appendChild(clock(0, TK.secs, hooks)); root.appendChild(T1Q);
     } else {
       root.appendChild(clock(TK.prep, TK.secs, { talk: function () { if (!rec.isOn()) rec.start(); }, end: function () { if (rec.isOn()) rec.stop(); } }));
@@ -405,7 +416,7 @@
         var Q = el('div', 'cue', ''), asked = [];
         var qs = SP.t1.cards.filter(function (c) { return c.freq; }).concat(SP.t1.cards.filter(function (c) { return !c.freq; }));
         sec.appendChild(clock(0, 120, { talk: function () { asked = []; Q.textContent = 'Présentez-vous.'; say('Bonjour. Présentez-vous, s\'il vous plaît.'); rec.start(); },
-          tick: function (s) { var slot = s < 55 ? 0 : 1 + Math.floor((s - 55) / 22); if (slot > asked.length) { var pick = qs.filter(function (c) { return asked.indexOf(c) < 0; }); var c = pick[Math.floor(Math.random() * Math.min(pick.length, 30))]; asked.push(c); Q.textContent = c.qfr; say(c.qfr); } },
+          tick: function (s) { var slot = s < 72 ? 0 : 1 + Math.floor((s - 72) / 16); if (slot > asked.length) { var pick = qs.filter(function (c) { return asked.indexOf(c) < 0; }); var c = pick[Math.floor(Math.random() * Math.min(pick.length, 30))]; asked.push(c); Q.textContent = c.qfr; say(c.qfr); } },
           end: function () { if (rec.isOn()) rec.stop(); } }));
         sec.appendChild(Q);
       } else {
