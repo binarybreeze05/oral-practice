@@ -54,7 +54,12 @@
     if (!due.length) {
       var soon = items.slice().sort(function (a, b) { return (S[a.id] || {}).due - (S[b.id] || {}).due; })[0];
       var mins = soon ? Math.max(1, Math.round(((S[soon.id] || {}).due - now) / 60000)) : 0;
-      root.appendChild(el('p', 'note', 'Nothing due in this set. Next card due in ' + mins + ' min. Pick another set, or review early.'));
+      var waitAgain = soon && ((S[soon.id] || {}).box === 0) && ((S[soon.id] || {}).due - now) < 4 * 60000;
+      if (waitAgain) {
+        var note = el('p', 'note', 'Your Again cards come back in ' + Math.max(1, Math.round(((S[soon.id] || {}).due - now) / 1000)) + ' s. Stay here: the next one opens by itself.');
+        root.appendChild(note);
+        if (rerender) setTimeout(function () { if (document.body.contains(note)) rerender(); }, Math.max(500, (S[soon.id] || {}).due - now + 300));
+      } else root.appendChild(el('p', 'note', 'Nothing due in this set: this pass is done. Next card due in ' + mins + ' min. Pick another set, or review early.'));
       if (soon && rerender) { var re = el('button', 'btn', 'Review early'); re.onclick = function () { S = store.get(key, {}); S[soon.id].due = Date.now() - 1; store.set(key, S); rerender(); }; root.appendChild(re); }
       return;
     }
@@ -78,7 +83,8 @@
   /* ---------- recorder + live transcript ---------- */
   var SR = window.SpeechRecognition || window.webkitSpeechRecognition;
   var LIVE = [];
-  function stopAll() { LIVE.slice().forEach(function (r) { try { r.stop(); } catch (e) { } }); LIVE = []; if (window.speechSynthesis) speechSynthesis.cancel(); }
+  function stopRecs() { LIVE.slice().forEach(function (r) { try { r.stop(); } catch (e) { } }); LIVE = []; }
+  function stopAll() { stopRecs(); if (window.speechSynthesis) speechSynthesis.cancel(); }
   function recorder(key) {
     var w = el('div', 'rec');
     var row = el('div', 'acts');
@@ -113,7 +119,7 @@
       try { rec.start(); } catch (x) { }
     }
     function start() {
-      stopAll();
+      stopRecs();
       if (ta.value.trim()) { store.set('txprev.' + key, ta.value); prev.hidden = false; prevBody.textContent = ta.value; ta.value = ''; store.set('tx.' + key, ''); }
       on = true; rb.textContent = 'Stop'; rb.classList.add('on'); LIVE.push(w);
       if (navigator.mediaDevices && window.MediaRecorder) {
@@ -226,7 +232,6 @@
       var ans = el('div', ''); ans.hidden = true;
       c.lines.forEach(function (l) { ans.appendChild(line(l.fr, l.en, { guess: l.guess })); });
       ans.appendChild(listenBtn(c.lines.map(function (l) { return l.fr; }).join(' ')));
-      if (c.hook) ans.appendChild(el('div', 'bout', 'Likely follow-up: ' + c.hook));
       card.appendChild(ans);
       return { reveal: function () { ans.hidden = false; q.classList.remove('hide'); }, next: function () { renderT1(root, { sub: sub, topic: opts && opts.topic }); } };
     }, null, function () { renderT1(root, { sub: sub, topic: opts && opts.topic }); });
