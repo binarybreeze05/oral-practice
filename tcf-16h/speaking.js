@@ -228,7 +228,7 @@
   function renderT2(root, opts) {
     root.innerHTML = '';
     var T = SP.t2, sub = (opts && opts.sub) || store.get('t2.sub', 'kit');
-    root.appendChild(el('div', 'note', 'Task 2, 5 min 30: 2 min prep, then 3 min 30 asking the examiner questions. Aim for 12–15 questions, the card\'s points first, and react to each answer. Register: tu for a friend, colleague or friendly neighbour; vous for staff and strangers.'));
+    root.appendChild(el('div', 'note', 'Task 2, 5 min 30: 2 min prep, then 3 min 30 asking the examiner questions. Aim for 12–15 questions, the card\'s points first, and react to each answer. Register: tu for a friend or colleague; vous for staff, neighbours and strangers. Each card below shows its register.'));
     tabs(root, 't2.sub', [['kit', 'Question kit (' + T.chunks.length + ')'], ['drill', 'Kit drill'], ['fams', 'Top ' + T.fams.length + ' cards'], ['models', 'Your ' + T.models.length + ' answers']], sub, function (s) { renderT2(root, { sub: s }); });
     if (sub === 'kit') return kitSheet(root, T.chunks, ['open', 'ask', 'react', 'close', 'rescue']);
     if (sub === 'drill') return chunkDrill(root, 't2.deck', T.chunks, function () { renderT2(root, { sub: 'drill' }); });
