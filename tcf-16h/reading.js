@@ -48,8 +48,12 @@
     PAPERS.forEach(function (p, i) {
       var r = res[p.test];
       var b = el('button', 'paper' + (r ? ' done' : ''));
+      b.title = r ? 'Open the review' : 'Start this paper';
       b.innerHTML = '<b>' + (i < 3 ? 'Mock ' + (i + 1) + ' · ' : i < 5 ? 'Spare · ' : '') + p.test.replace('test', 'Test ') + '</b>' + (r ? '<span>' + r.score + ' · NCLC ' + nclc(r.score) + '</span>' : '<span>not done</span>');
-      b.onclick = function () { startMock(p, root); };
+      b.onclick = function () {
+        if (r && r.ans) { review(root, { items: p.items, ans: r.ans, test: p.test }, score({ items: p.items, ans: r.ans })); return; }
+        startMock(p, root);
+      };
       grid.appendChild(b);
     });
     root.appendChild(grid);
@@ -134,7 +138,7 @@
     clearInterval(tick);
     mock.done = true; mock.end = Date.now();
     var r = score(mock), res = results();
-    res[mock.test] = { score: r.score, raw: r.raw, by: r.by, min: Math.round((mock.end - mock.start) / 60000), at: new Date().toISOString() };
+    res[mock.test] = { score: r.score, raw: r.raw, by: r.by, min: Math.round((mock.end - mock.start) / 60000), at: new Date().toISOString(), ans: mock.ans };
     store.set('mock.results', res);
     var misses = store.get('drill.miss', {});
     mock.items.forEach(function (id, k) { var c = C[id]; if (!c.o.some(function (o) { return o[3] && o[0] === mock.ans[k]; })) misses[id] = 1; });
@@ -150,7 +154,10 @@
       ['A1', 'A2', 'B1', 'B2', 'C1', 'C2'].map(function (l) { return r.by[l] ? l + ' ' + r.by[l][0] + '/' + r.by[l][1] : ''; }).filter(Boolean).join(' · ') +
       '</div><div class="note">NCLC 7 needs 453. Misses went into Drill → "My misses". Review every miss below: say in English why the right answer is right before you move on.</div>';
     var back = el('button', 'btn', '‹ All papers'); back.onclick = function () { mock = null; renderMockList(root); };
-    h.appendChild(back);
+    var again = el('button', 'mini', 'Retake this paper (clears this result)');
+    again.onclick = function () { if (!confirm('Retake ' + m.test + '? Your saved answers for it will be replaced.')) return; var res = results(); delete res[m.test]; store.set('mock.results', res); store.set('mock.live', null); mock = null; renderMockList(root); };
+    h.appendChild(back); h.appendChild(again);
+    h.appendChild(el('div', 'note', 'This review stays here: Reading mocks → click the paper again to reopen it.'));
     root.appendChild(h);
     m.items.forEach(function (id, k) {
       var c = C[id], mine = m.ans[k], right = c.o.filter(function (o) { return o[3]; })[0];
