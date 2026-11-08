@@ -1,4 +1,4 @@
-/* Shell: helpers, tabs, the 16-hour schedule with a live "now" block. Data: window.PLAN, window.SHEETS. */
+/* Shell: helpers, tabs, the 16-hour schedule (writing + speaking) with a live "now" block. Data: window.PLAN, window.SHEETS. */
 (function () {
   'use strict';
   var NS = 'tcf16::';
@@ -22,17 +22,19 @@
   /* ---------- routing ---------- */
   var VIEWS = {
     plan: function (r) { renderPlan(r); },
-    mock: function (r) { window.READING.mocks(r); },
-    drill: function (r, o) { window.READING.drill(r, o); },
+    t1: function (r, o) { window.SPEAKING.t1(r, o); },
+    t2: function (r, o) { window.SPEAKING.t2(r, o); },
+    t3: function (r, o) { window.SPEAKING.t3(r, o); },
+    spad: function (r, o) { window.SPEAKING.pad(r, o); },
+    smock: function (r) { window.SPEAKING.mock(r); },
     pad: function (r, o) { window.WRITING.pad(r, o); },
     wmock: function (r) { window.WRITING.mock(r); },
     models: function (r, o) { window.WRITING.models(r, o); },
     chunks: function (r, o) { window.WRITING.chunks(r, o); },
     cut: function (r, o) { window.WRITING.cut(r, o); },
     rules: function (r) { var s = el('div', 'sheet'); s.innerHTML = window.SHEETS.rules; r.appendChild(s); window.WRITING.errlog(r); },
-    words: function (r) { renderWords(r); },
     templates: function (r) { sheetWithScratch(r, 'templates', 'Type the slot list from memory here, then compare with the sheet above.'); },
-    card: function (r) { sheetWithScratch(r, 'card', 'Type the T1, T2, T3 skeletons and the T3 summary frame from memory here.'); }
+    card: function (r) { sheetWithScratch(r, 'card', 'Type the writing T1, T2, T3 skeletons and the T3 summary frame from memory here.'); }
   };
   function sheetWithScratch(r, name, label) {
     var s = el('div', 'sheet'); s.innerHTML = window.SHEETS[name]; r.appendChild(s);
@@ -41,30 +43,14 @@
     var clr = el('button', 'mini', 'Clear'); clr.onclick = function () { ta.value = ''; store.set('scratch.' + name, ''); };
     w.appendChild(ta); w.appendChild(clr); r.appendChild(w);
   }
-  function renderWords(r) {
-    var s = el('div', 'sheet'); s.innerHTML = window.SHEETS.wordsIntro || ''; r.appendChild(s);
-    var W = window.WR.words || [], cats = {};
-    W.forEach(function (w) { (cats[w.cat] = cats[w.cat] || []).push(w); });
-    var known = store.get('words.known', {});
-    ['negation', 'attitude', 'connector'].concat(Object.keys(cats)).filter(function (c, i, a) { return cats[c] && a.indexOf(c) === i; }).forEach(function (c) {
-      r.appendChild(el('h3', 'phase', c + ' (' + cats[c].length + ')'));
-      cats[c].forEach(function (w) {
-        var row = el('div', 'block' + (known[w.id] ? ' done' : ''));
-        var cb = el('input'); cb.type = 'checkbox'; cb.checked = !!known[w.id]; cb.title = 'I know this';
-        cb.onchange = function () { var k = store.get('words.known', {}); if (cb.checked) k[w.id] = 1; else delete k[w.id]; store.set('words.known', k); row.classList.toggle('done', cb.checked); };
-        var b = el('div', 'bbody');
-        b.innerHTML = '<div class="btitle"><span class="fr">' + U.esc(w.fr) + '</span> <span class="bmin hid">' + U.esc(w.en) + '</span><span class="bmin">' + (w.n ? ' · ' + w.n + '× in B2-C2' : '') + '</span></div>' +
-          (w.ex ? '<div class="bdo fr" style="font-family:var(--fr)">' + U.esc(w.ex) + '</div>' : '') + (w.trap ? '<div class="bout">Trap: ' + U.esc(w.trap) + '</div>' : '') + (w.mine ? '<div class="bout">You used it: ' + U.esc(w.mine) + '</div>' : '');
-        var en = b.querySelector('.hid'); if (en) en.onclick = function () { en.classList.toggle('show'); };
-        row.appendChild(cb); row.appendChild(b); r.appendChild(row);
-      });
-    });
-  }
   function go(view, opts) {
     var main = $('#main');
     document.querySelectorAll('nav a').forEach(function (a) { a.classList.toggle('on', a.dataset.v === view); });
     store.set('view', view);
     main.innerHTML = '';
+    if (!VIEWS[view] && !window.SHEETS[view]) view = 'plan';
+    document.querySelectorAll('nav a').forEach(function (a) { a.classList.toggle('on', a.dataset.v === view); });
+    store.set('view', view);
     if (VIEWS[view]) VIEWS[view](main, opts);
     else if (window.SHEETS[view]) { var s = el('div', 'sheet'); s.innerHTML = window.SHEETS[view]; main.appendChild(s); }
     window.scrollTo(0, 0);
@@ -75,7 +61,7 @@
   function planState() { return store.get('plan', { done: {}, start: null, active: null, t0: null }); }
   function savePlan(s) { store.set('plan', s); }
   function totals() {
-    var P = window.PLAN, m = 0, by = { CE: 0, EE: 0, both: 0 };
+    var P = window.PLAN, m = 0, by = { EO: 0, EE: 0, both: 0 };
     P.blocks.forEach(function (b) { m += b.min; by[b.skill] = (by[b.skill] || 0) + b.min; });
     return { min: m, by: by };
   }
@@ -86,7 +72,7 @@
     var head = el('div', 'planhead');
     var doneMin = P.blocks.reduce(function (a, b) { return a + (S.done[b.id] ? b.min : 0); }, 0);
     head.innerHTML = '<div class="big">' + Math.floor(doneMin / 60) + ' h ' + (doneMin % 60) + ' min of ' + (T.min / 60).toFixed(1) + ' h done</div>' +
-      '<div class="note">' + P.blocks.length + ' blocks · reading ' + (T.by.CE / 60).toFixed(1) + ' h · writing ' + (T.by.EE / 60).toFixed(1) + ' h' + (T.by.both ? ' · mixed ' + (T.by.both / 60).toFixed(1) + ' h' : '') + ' · focused minutes only, breaks are extra</div>';
+      '<div class="note">' + P.blocks.length + ' blocks · writing ' + (T.by.EE / 60).toFixed(1) + ' h · speaking ' + (T.by.EO / 60).toFixed(1) + ' h' + (T.by.both ? ' · mixed ' + (T.by.both / 60).toFixed(1) + ' h' : '') + ' · focused minutes only, breaks are extra</div>';
     var undone = P.blocks.filter(function (b) { return !S.done[b.id]; });
     if (undone.length) {
       var rem = undone.reduce(function (a, b) { return a + b.min; }, 0) + (undone.length - 1) * (P.breakMin || 5);
@@ -111,7 +97,7 @@
       cb.onchange = function () { var s = planState(); if (cb.checked) s.done[b.id] = Date.now(); else delete s.done[b.id]; if (s.active === b.id) { s.active = null; s.t0 = null; } savePlan(s); renderPlan(root); };
       row.appendChild(cb);
       var body = el('div', 'bbody');
-      body.innerHTML = '<div class="btitle"><span class="bn">' + (k + 1) + '</span> ' + U.esc(b.title) + ' <span class="bmin">' + b.min + ' min · ' + b.skill + '</span></div>' +
+      body.innerHTML = '<div class="btitle"><span class="bn">' + (k + 1) + '</span> ' + U.esc(b.title) + ' <span class="bmin">' + b.min + ' min · ' + ({ EE: 'writing', EO: 'speaking', both: 'both' }[b.skill] || b.skill) + '</span></div>' +
         '<div class="bdo">' + b.do + '</div>' + (b.out ? '<div class="bout">Output: ' + b.out + '</div>' : '');
       if (b.go) { var g = el('button', 'mini', 'Open ' + (b.goLabel || 'material') + ' ›'); g.onclick = function () { go(b.go[0], b.go[1]); }; body.appendChild(g); }
       row.appendChild(body);
