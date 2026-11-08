@@ -268,11 +268,11 @@
     if (!due.length) { root.appendChild(el('p', 'note', 'Nothing due in this set. Come back at the next review block.')); return; }
     due.sort(function (a, b) { return ((S[a.id] || {}).due || 0) - ((S[b.id] || {}).due || 0); });
     var c = due[0], card = el('div', 'qcard chunk');
-    card.appendChild(el('div', 'qmeta', c.cat + (c.src ? ' · from your ' + c.src : '')));
+    card.appendChild(el('div', 'qmeta', c.cat + (c.gen ? ' · generic (not from your answers)' : c.src ? ' · from your ' + c.src : '') + (c.use ? ' · ' + c.use : '')));
     card.appendChild(el('div', 'cue', c.en));
     var inp = el('textarea', 'pad small'); inp.placeholder = 'Type the French (optional), then Reveal'; card.appendChild(inp);
     var ans = el('div', 'ans'); ans.hidden = true; ans.textContent = c.fr; card.appendChild(ans);
-    if (c.use) { var u = el('div', 'why'); u.hidden = true; u.textContent = c.use; card.appendChild(u); }
+    var u = null;
     var acts = el('div', 'acts');
     var rv = el('button', 'btn primary', 'Reveal');
     rv.onclick = function () {
