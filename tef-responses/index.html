@@ -114,10 +114,11 @@ body[data-cover="en"] .cell.en .s:not(.shown), body[data-cover="fr"] .cell.fr .s
 }
 @media (prefers-reduced-motion: reduce) { .s { transition: none } }
 
-/* --- Cover (2026-11-14): a covered sentence uncovers while you hover it (a click plays the audio from there) --- */
-body[data-cover="en"] main .cell.en .s, body[data-cover="fr"] main .cell.fr .s { transition: filter .12s ease-out; padding-block: .12em }   /* (no gap between its lines, so it stays uncovered across them) */
-body[data-cover="en"] main .cell.en .s:hover, body[data-cover="fr"] main .cell.fr .s:hover { filter: none }
-body[data-cover] main .resp:not(:has(.aud)) .cell .s { cursor: default }
+/* --- Cover (2026-11-14): the English, the French or both (data-cover "en", "fr", "en fr"); a covered sentence uncovers
+   while you hover it (a click plays the audio from there) --- */
+body[data-cover~="en"] main .cell.en .s, body[data-cover~="fr"] main .cell.fr .s { filter: blur(5px); transition: filter .12s ease-out; padding-block: .12em }   /* (no gap between its lines, so it stays uncovered across them) */
+body[data-cover~="en"] main .cell.en .s:hover, body[data-cover~="fr"] main .cell.fr .s:hover { filter: none }
+body:not([data-cover="none"]) main .resp:not(:has(.aud)) .cell .s { cursor: default }
 /* --- TEF responses: three English versions, deck actions in each header, family line --- */
 body:not([data-en="mine"]) .mine, body[data-en="mine"] .lit { display: none }
 body .nat { display: none }
@@ -268,7 +269,7 @@ body[data-en="nat"] .tr .lit { display: block }
       </div></span>
       <span class="opt"><span class="lbl" id="cover-l">Cover</span>
       <div class="seg" role="group" aria-labelledby="cover-l">
-        <button type="button" data-cover="none" aria-pressed="true">None</button><button type="button" data-cover="en" aria-pressed="false">English</button><button type="button" data-cover="fr" aria-pressed="false">French</button>
+        <button type="button" data-cover="none" aria-pressed="true" title="Nothing covered">None</button><button type="button" data-cover="en" aria-pressed="false" title="Blur the English (click again to show it); can be on with French">English</button><button type="button" data-cover="fr" aria-pressed="false" title="Blur the French (click again to show it); can be on with English">French</button>
       </div></span>
       <span class="opt"><span class="lbl" id="sort-l">Order</span>
       <div class="seg" role="group" aria-labelledby="sort-l">
@@ -289,7 +290,7 @@ body[data-en="nat"] .tr .lit { display: block }
 cluster decks, unchanged. French and both English lines from the French come from the cluster decks' data (final French of
 5 October 2026); Your words is your recording's English, unchanged. Each answer's deck has one card per sentence entry, in the
 order you said it: front = the literal English, then your English; back = the French and the cluster decks that hold it.
-Hover a sentence to see its pair (the French shows its cluster decks); with Cover on, hover a blurred sentence to uncover it.
+Hover a sentence to see its pair (the French shows its cluster decks); Cover blurs the English, the French or both (click each to turn it on or off); hover a blurred sentence to uncover it.
 Spoken time assumes 140 words a minute. Frequency is an estimate: TEF publishes no frequency data, so each prompt is ranked
 among its section's ads on tefcanada.ca's list (A 78, B 81) by how many near-identical ads call for the same answer (the
 answer boxes of tef-prompts), then by the size of its family, then by its practice-order number; the prompt link opens it on
@@ -384,6 +385,7 @@ if (want && BY[want[1]]) {
 function deckOf(r) { return r.dataset.deck || r.id; }
 var st = {sec: "all", fam: "", cover: "none", prompts: true, sort: "mine", en: "lit", hide: false, view: "full", unans: true};
 var saved = getJ(VIEW_KEY, {}); for (var k in saved) if (k in st) st[k] = saved[k];
+var COVERS = ["none", "en", "fr", "en fr"]; if (COVERS.indexOf(st.cover) < 0) st.cover = "none";
 function save() { setJ(VIEW_KEY, st); }
 var resps = Array.prototype.slice.call(document.querySelectorAll(".resp"));
 // the prompts with no answer yet: listed in the Lean view only (Prompts with no answer), after the answers in Yours order
@@ -499,7 +501,9 @@ function apply() {
       (un ? " prompts · " + a + " answered" : (of === 1 ? " answer" : " answers")); });
   document.body.classList.toggle("lean", st.view === "lean"); document.body.classList.toggle("flat", isFlat()); barH();
   document.querySelectorAll(".chip").forEach(function (c) { c.setAttribute("aria-pressed", String(c.dataset.sec === st.sec)); });
-  ["cover", "sort", "en", "view"].forEach(function (k) { document.querySelectorAll(".seg button[data-" + k + "]").forEach(function (b) { b.setAttribute("aria-pressed", String(b.dataset[k] === st[k])); }); });
+  var cv = covers(); document.querySelectorAll(".seg button[data-cover]").forEach(function (b) {
+    b.setAttribute("aria-pressed", String(b.dataset.cover === "none" ? !cv.length : cv.indexOf(b.dataset.cover) >= 0)); });
+  ["sort", "en", "view"].forEach(function (k) { document.querySelectorAll(".seg button[data-" + k + "]").forEach(function (b) { b.setAttribute("aria-pressed", String(b.dataset[k] === st[k])); }); });
   document.body.dataset.en = st.en; document.body.dataset.cover = st.cover;
   document.body.classList.toggle("no-prompts", !st.prompts);
   document.getElementById("prompts").checked = st.prompts;
@@ -509,7 +513,13 @@ function apply() {
 }
 document.querySelectorAll(".chip").forEach(function (c) { c.addEventListener("click", function () { st.sec = c.dataset.sec; save(); apply(); }); });
 famSel.addEventListener("change", function () { st.fam = famSel.value; save(); apply(); });
-document.querySelectorAll(".seg button[data-cover]").forEach(function (b) { b.addEventListener("click", function () { st.cover = b.dataset.cover; save(); apply(); }); });
+// Cover: English and French turn on and off on their own (both on: both covered); None turns both off
+function covers() { return st.cover === "none" ? [] : st.cover.split(" "); }
+document.querySelectorAll(".seg button[data-cover]").forEach(function (b) { b.addEventListener("click", function () {
+  var c = b.dataset.cover, on = covers();
+  if (c !== "none") { if (on.indexOf(c) >= 0) on = on.filter(function (x) { return x !== c; }); else on.push(c); }
+  on = c === "none" ? [] : ["en", "fr"].filter(function (x) { return on.indexOf(x) >= 0; });
+  st.cover = on.length ? on.join(" ") : "none"; save(); apply(); }); });
 document.querySelectorAll(".seg button[data-sort]").forEach(function (b) { b.addEventListener("click", function () { st.sort = b.dataset.sort; save(); apply(); }); });
 document.querySelectorAll(".seg button[data-en]").forEach(function (b) { b.addEventListener("click", function () { st.en = b.dataset.en; save(); apply(); }); });
 document.querySelectorAll(".seg button[data-view]").forEach(function (b) { b.addEventListener("click", function () { st.view = b.dataset.view; save(); apply(); }); });
