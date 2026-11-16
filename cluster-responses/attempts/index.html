@@ -303,6 +303,7 @@ body.lean .cols { display: grid }
 .row.card[data-w="3"] > .cell.en { box-shadow: inset 3px 0 0 var(--g3) }
 .row.card[data-w="2"] > .cell.en { box-shadow: inset 3px 0 0 var(--g2) }
 .row.card[data-w="1"] > .cell.en { box-shadow: inset 3px 0 0 var(--g1) }
+.row.card.skip > .cell > p { opacity: .45 }   /* a card Min skipped on purpose: not graded */
 .row.card[hidden] { display: none }
 .row.card { scroll-margin-top: var(--barh, 10rem) }
 body.lean .rbody { padding-bottom: 0 }
