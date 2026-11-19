@@ -187,7 +187,10 @@ html.play .hdr { cursor: auto }
 .pick .nm { font-weight: 600 }
 .pick .mt { margin-left: auto; color: #777; font-size: 11.5px }
 .pick .mt b { color: #9fc49a; font-weight: 500 }
-.pick .cl.all { margin-top: 6px; border-bottom-color: #3a3a3a }
+.pick .cl.all { margin-top: 6px; border-bottom: none }
+.pick .from { display: flex; align-items: center; gap: 8px; white-space: nowrap; padding: 2px 4px 10px; border-bottom: 1px solid #3a3a3a; color: #777; font-size: 11.5px }
+.pick .from select { background: #222; color: #d6d6d6; border: 1px solid #3a3a3a; border-radius: 4px; font: inherit; font-size: 12.5px; padding: 3px 4px; flex: 0 1 auto; min-width: 0; max-width: 340px }
+@media (pointer: coarse) { .pick .from select { font-size: 16px } }
 .pick .cl.all .rid { color: #9fb4c8 }
 </style>
 </head>
@@ -219,8 +222,14 @@ function list(msg) {
   var h = msg ? '<div class="fin">' + msg + "</div>" : "", bk = "", n = 0;
   D.clusters.forEach(function (c) { n += c.items.length; });
   var amid = localStorage.getItem(KEY + "::all") ? "half played" : "", afin = finished.all;
-  h += '<a class="cl all" href="#all"><span class="rid">all</span><span class="nm">Everything</span>' +
-    '<span class="mt">' + n + " cards · " + dur(D.all_m) + (amid ? " · " + amid : "") + (afin ? ' · <b>done ' + day(afin) + "</b>" : "") + "</span></a>";
+  var fd = fromDid(), opts = "", ob = "";
+  D.clusters.forEach(function (c) {
+    if (c.bk !== ob) { opts += (ob ? "</optgroup>" : "") + '<optgroup label="' + esc(c.sec + " · " + c.bk) + '">'; ob = c.bk; }
+    opts += '<option value="' + esc(c.did) + '"' + (c.did === fd ? " selected" : "") + ">#" + c.p + " " + esc(c.n) + "</option>";
+  });
+  h += '<a class="cl all" id="alllink" href="#all/' + esc(fd) + '"><span class="rid">all</span><span class="nm">Everything</span>' +
+    '<span class="mt">' + n + " cards · " + dur(D.all_m) + (amid ? " · " + amid : "") + (afin ? ' · <b>done ' + day(afin) + "</b>" : "") + "</span></a>" +
+    '<label class="from">Start from <select id="from">' + opts + "</optgroup></select></label>";
   D.clusters.forEach(function (c) {
     if (c.bk !== bk) { bk = c.bk; h += '<div class="bkh">' + esc(c.sec) + " · " + esc(bk) + "</div>"; }
     var mid = localStorage.getItem(KEY + "::" + c.did) ? "half played" : "", fin = finished[c.did];
@@ -228,12 +237,26 @@ function list(msg) {
       '<span class="mt">' + c.items.length + " cards · " + dur(c.m) + (mid ? " · " + mid : "") + (fin ? ' · <b>done ' + day(fin) + "</b>" : "") + "</span></a>";
   });
   app.innerHTML = '<div class="pick">' + h + "</div>";
+  var sel = document.getElementById("from");
+  sel.addEventListener("change", function () {
+    try { localStorage.setItem(FROM, sel.value); } catch (e) {}
+    document.getElementById("alllink").setAttribute("href", "#all/" + sel.value);
+  });
 }
 
-var ALL = {did: "all", items: []};   // Everything: every cluster's cards as one run, in list order
-D.clusters.forEach(function (c) { c.items.forEach(function (it) { ALL.items.push({id: it.id, f: it.f, b: it.b, t: it.t, c: c}); }); });
+var FROM = KEY + "::all::from";
+function fromDid() { var f = null; try { f = localStorage.getItem(FROM); } catch (e) {} return BY[f] ? f : D.clusters[0].did; }
 function label(c) { return c.did === "all" ? "Everything" : "#" + c.p + " " + c.n; }
-var C = hash() === "all" ? ALL : BY[hash()];
+var am = /^all(?:\/(.*))?$/.exec(hash()), C = BY[hash()];
+if (am) {   // Everything: every cluster's cards as one run, from the chosen cluster to the end of the list, then from #1 up to it
+  var fd = BY[am[1]] ? am[1] : fromDid(), k0 = 0;
+  try { localStorage.setItem(FROM, fd); } catch (e) {}
+  D.clusters.forEach(function (c, k) { if (c.did === fd) k0 = k; });
+  C = {did: "all", items: []};
+  D.clusters.slice(k0).concat(D.clusters.slice(0, k0)).forEach(function (c) {
+    c.items.forEach(function (it) { C.items.push({id: it.id, f: it.f, b: it.b, t: it.t, c: c}); });
+  });
+}
 if (!C) { list(""); return; }
 
 // ------------------------------------------------------------------ one cluster, played by itself
