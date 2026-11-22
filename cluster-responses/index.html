@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="robots" content="noindex,nofollow"><meta name="referrer" content="no-referrer">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; media-src 'self'; connect-src 'none'; base-uri 'none'; form-action 'none';">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; media-src 'self'; connect-src http://127.0.0.1:8778; base-uri 'none'; form-action 'none';">
 <title>Cluster Responses</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500&family=Literata:opsz,wght@7..72,400;7..72,600&family=Schibsted+Grotesk:wght@400;500;600;700&display=swap">
@@ -345,13 +345,13 @@ var SEC = {A: "Section A", B: "Section B"};
 // as Cluster Decks shows them (front and back unchanged), in the deck's own order, with the tier filter
 // the "mistakes" scope (2026-11-17): the cards with a colour left in one attempt at this cluster (the one opened from
 // Attempts, #deck/<key>/<attempt>, else the latest), the differences cleared on Attempts left out
-var OFF_KEY = "study::tef::clusters::off";
+var OFF_KEY = "study::tef::clusters::off", MARKS_URL = "http://127.0.0.1:8778/marks", DISK = {};   // DISK: marks.json as the marks server has it now
 function mistakes(d, want) {
   var list = DATA.atts[d.key] || [], at = null;
   list.forEach(function (x) { if (x.k === want) at = x; });
   if (!at) at = list[list.length - 1];
   if (!at) return null;
-  var off = Object.assign({}, DATA.off, getJ(OFF_KEY, {})), mx = {}, n = 0;
+  var off = Object.assign({}, DATA.off, DISK, getJ(OFF_KEY, {})), mx = {}, n = 0;
   Object.keys(at.m).forEach(function (id) { if (at.m[id].some(function (x) { return off[x] !== true; })) { mx[id] = true; n++; } });
   return {at: at, i: list.indexOf(at) + 1, of: list.length, mx: mx, n: n};
 }
@@ -526,15 +526,22 @@ document.addEventListener("mouseover", function (e) {
   if (s) lit = Array.prototype.slice.call(document.querySelectorAll('.s[data-sid="' + s.dataset.sid + '"]'));
   lit.forEach(function (x) { x.classList.add("hl"); });
 });
-addEventListener("pageshow", function () { drawProgress(); });
-addEventListener("storage", function () { drawProgress(); });
+// a colour cleared on Attempts (2026-11-22, Min) leaves Mistakes only at once: this browser's clears (storage, also from
+// another tab) and the disk copy from the marks server, read again whenever the page comes back into view
+function loadDisk() {
+  try { fetch(MARKS_URL).then(function (res) { return res.ok ? res.json() : null; })
+    .then(function (d) { if (d) { DISK = d; if (st.mx) apply(); } }).catch(function () {}); } catch (e) {}
+}
+addEventListener("pageshow", function (e) { if (e.persisted) { apply(); loadDisk(); } else drawProgress(); });
+addEventListener("storage", function (e) { if (e.key === OFF_KEY) apply(); else drawProgress(); });
+document.addEventListener("visibilitychange", function () { if (!document.hidden) { if (st.mx) apply(); loadDisk(); } });
 // a link to a cluster (#p2-BC5): show it even if a filter hides it (opened, in the Lean view), and scroll to it
 function goTo(t) { if (t.hidden) { st.sec = "all"; st.bk = ""; st.hide = false; st.mx = false; q.value = ""; save(); apply(); } if (st.view === "lean") setOpen(t, true); t.scrollIntoView(); }
 function isTarget(t) { return t && t.classList.contains("resp"); }
 function mxTarget() { var pk = mxPick(); if (!pk) return null; st.mx = true; save(); return document.getElementById(pk[1]); }
 addEventListener("hashchange", function () { var t = mxTarget(); if (t) apply(); else t = document.getElementById(hash()); if (isTarget(t)) goTo(t); });
 var target = mxTarget() || document.getElementById(hash());
-apply();
+apply(); loadDisk();
 if (isTarget(target)) {
   try { history.scrollRestoration = "manual"; } catch (e) {}
   goTo(target); var y0 = scrollY;
