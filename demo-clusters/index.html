@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="robots" content="noindex,nofollow"><meta name="referrer" content="no-referrer">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; media-src 'self'; connect-src http://127.0.0.1:8779; base-uri 'none'; form-action 'none';">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; media-src 'self'; connect-src http://127.0.0.1:8782; base-uri 'none'; form-action 'none';">
 <title>Demo Clusters</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500&family=Literata:opsz,wght@7..72,400;7..72,600&family=Schibsted+Grotesk:wght@400;500;600;700&display=swap">
@@ -346,7 +346,7 @@ var SEC = {A: "Section A", B: "Section B"};
 // as Cluster Decks shows them (front and back unchanged), in the deck's own order, with the tier filter
 // the "mistakes" scope (2026-11-17): the cards with a colour left in one attempt at this cluster (the one opened from
 // Attempts, #deck/<key>/<attempt>, else the latest), the differences cleared on Attempts left out
-var OFF_KEY = "study::tef::democlusters::off", MARKS_URL = "http://127.0.0.1:8779/marks", DISK = {};   // DISK: marks.json as the marks server has it now
+var OFF_KEY = "study::tef::democlusters::off", MARKS_URL = "http://127.0.0.1:8782/marks", DISK = {};   // DISK: marks.json as the marks server has it now
 function mistakes(d, want) {
   var list = DATA.atts[d.key] || [], at = null;
   list.forEach(function (x) { if (x.k === want) at = x; });
