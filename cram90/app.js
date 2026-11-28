@@ -10,7 +10,7 @@ document.querySelectorAll('.ln').forEach(function(li){
     put('got',got)});
   li.querySelector('.fr').addEventListener('click',function(){li.classList.toggle('shown')});
 });
-function tog(btn,cls,key,def){var on=get(key,def);function ap(){b.classList.toggle(cls,on);btn.classList.toggle('on',on)}
+function tog(btn,cls,key,def){var on=get(key,def);function ap(){b.classList.toggle(cls,on);if(cls==='hide'){btn.textContent=on?'Reveal all':'Hide all'}else{btn.classList.toggle('on',on)}}
   ap();btn.addEventListener('click',function(){on=!on;put(key,on);ap();
     if(cls==='hide')document.querySelectorAll('.ln.shown').forEach(function(l){l.classList.remove('shown')})})}
 tog(document.getElementById('b-hide'),'hide','hide',true);

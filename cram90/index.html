@@ -19,6 +19,8 @@ header { position:sticky; top:0; z-index:5; background:var(--panel); border-bott
 .top nav { display:flex; gap:4px; flex-wrap:wrap }
 .top nav a { padding:4px 9px; border-radius:6px; color:var(--accent); text-decoration:none; font-size:14px; background:var(--accent-soft) }
 button { font:inherit; cursor:pointer; color:var(--ink); background:var(--panel); border:1px solid var(--rule); border-radius:7px; padding:5px 10px; font-size:14px }
+button.master { background:var(--accent); border-color:var(--accent); color:#fff; font-weight:700 }
+@media (prefers-color-scheme: dark) { button.master { color:#0f1115 } }
 button.on { background:var(--accent-soft); border-color:var(--accent); color:var(--accent); font-weight:600 }
 #clock { font-variant-numeric:tabular-nums; font-weight:700 }
 main { max-width:860px; margin:0 auto; padding:12px 14px 80px }
@@ -53,7 +55,7 @@ body.todo .ln.got { display:none }
 <header><div class="top">
 <h1>TEF cram · writing hour</h1>
 <button id="start">Start 60:00</button><span id="clock"></span>
-<button id="b-hide" class="on">French hidden</button>
+<button id="b-hide" class="master">Reveal all</button>
 <button id="b-must">Must only</button>
 <button id="b-todo">Hide ticked</button>
 <nav><a href="#wb">Write B</a><a href="#wb2">B reasons</a><a href="#vb">B words</a><a href="#wa">Write A</a><a href="#wa2">A frames</a><a href="#va">A words</a><a href="#drill">Drills</a><a href="#sb">Speak B</a><a href="#sa">Speak A</a></nav>
