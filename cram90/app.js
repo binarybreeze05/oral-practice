@@ -16,15 +16,15 @@ function tog(btn,cls,key,def){var on=get(key,def);function ap(){b.classList.togg
 tog(document.getElementById('b-hide'),'hide','hide',true);
 tog(document.getElementById('b-must'),'mustonly','must',false);
 tog(document.getElementById('b-todo'),'todo','todo',false);
-var st=get('start',null), sb=document.getElementById('start'), ck=document.getElementById('clock');
+var st=get('start60',null), sb=document.getElementById('start'), ck=document.getElementById('clock');
 var plan=[].slice.call(document.querySelectorAll('.plan li'));
 function tick(){
-  if(!st){ck.textContent='';sb.textContent='Start 90:00';return}
+  if(!st){ck.textContent='';sb.textContent='Start 60:00';return}
   sb.textContent='Restart';
-  var el=(Date.now()-st)/60000, left=Math.max(0,90-el), m=Math.floor(left), s=Math.floor((left-m)*60);
+  var el=(Date.now()-st)/60000, left=Math.max(0,60-el), m=Math.floor(left), s=Math.floor((left-m)*60);
   ck.textContent=m+':'+(s<10?'0':'')+s+' left';
   plan.forEach(function(li){var r=li.dataset.at.split('–'),a=+r[0],z=+r[1];li.classList.toggle('now',el>=a&&el<z)});
 }
-sb.addEventListener('click',function(){if(st&&!confirm('Restart the 90-minute clock?'))return;st=Date.now();put('start',st);tick()});
+sb.addEventListener('click',function(){if(st&&!confirm('Restart the 60-minute clock?'))return;st=Date.now();put('start60',st);tick()});
 tick();setInterval(tick,1000);
 })();
